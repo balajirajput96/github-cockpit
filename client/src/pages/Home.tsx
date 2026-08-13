@@ -281,12 +281,12 @@ export default function Home() {
                 <tbody>
                   {filteredRepos.map((repo) => (
                     <tr key={repo.name} className={selectedRepo === repo.name ? "is-selected" : ""} onClick={() => setSelectedRepo(repo.name)}>
-                      <td><div className="repo-name"><span className="repo-icon"><Code2 size={15} /></span><div><strong>{repo.name}</strong><span>{repo.owner} · {repo.language}</span></div></div></td>
+                      <td><a className="repo-name repo-name-link" href={`/repos/${encodeURIComponent(repo.name)}`} onClick={(event) => event.stopPropagation()}><span className="repo-icon"><Code2 size={15} /></span><div><strong>{repo.name}</strong><span>{repo.owner} · {repo.language}</span></div></a></td>
                       <td><span className="mono-cell">{repo.pushed}</span></td>
                       <td><span className="visibility-cell">{repo.visibility === "Private" ? <LockKeyhole size={13} /> : <Github size={13} />}{repo.visibility}</span></td>
                       <td><div className="signal-stack"><StatusPill status={repo.status} /><span>{repo.alerts === "—" ? "No alert data" : `${repo.alerts} alerts`}</span></div></td>
                       <td><span className={`score-cell ${repo.status === "Attention" ? "is-risk" : ""}`}>{repo.score}</span></td>
-                      <td><a className="row-link" href={repo.url} target="_blank" rel="noreferrer" aria-label={`Open ${repo.name} on GitHub`} onClick={(event) => event.stopPropagation()}><ArrowUpRight size={16} /></a></td>
+                      <td><a className="row-link" href={`/repos/${encodeURIComponent(repo.name)}`} aria-label={`Open ${repo.name} detail page`} onClick={(event) => event.stopPropagation()}><ArrowUpRight size={16} /></a></td>
                     </tr>
                   ))}
                 </tbody>
