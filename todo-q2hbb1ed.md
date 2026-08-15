@@ -16,3 +16,24 @@
 - [x] Implement and validate the highest-priority safe fixes.
 - [x] Configure recurring progress updates and document constraints.
 - [ ] Verify the first Jules scheduled execution after its next daily run.
+
+## Antigravity and AI-agent application program
+
+- [x] Read the relevant automation, persistent-computing, connector, and model-integration guidance.
+- [x] Verify Google Antigravity and GitHub login state without executing uploaded binaries or archives.
+- [x] Inspect uploaded artifacts for type, integrity, and safe-use suitability.
+- [x] Inventory approved connectors and identify only the services required for the product scope.
+- [x] Define the AI-agent product boundary, ownership rules, model/API strategy, and deployment architecture.
+- [x] Audit directly owned repositories and license-compatible public references for reusable patterns, recording sources, licenses, and reuse boundaries.
+- [x] Implement the clickable free-first cockpit application with secure backend integrations.
+- [ ] Validate production deployment, GitHub synchronization, and approved recurring operations.
+
+### Selected delivery: free-first private cockpit
+
+- [x] Resolve full-stack template conflicts and verify the private backend/auth boundary before completing the upgrade.
+- [x] Install upgraded dependencies and clear full-stack server/type errors.
+- [x] Run type checks, unit tests, production build, and protected-route verification after the upgrade.
+- [x] Build live GitHub portfolio ingestion without exposing GitHub credentials to the browser.
+- [x] Add clickable repository, workflow, issue, and pull-request operations with clear safe-action states.
+- [x] Add provider-connect readiness cards rather than embedding model, image, or video API credentials.
+- [x] Preserve the existing Signal Ledger visual system while evolving it into the cockpit.

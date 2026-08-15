@@ -4,6 +4,9 @@
  * and Signal Lime reserved for healthy/active states.
  */
 
+import { useAuth } from "@/_core/hooks/useAuth";
+import { startLogin } from "@/const";
+import { trpc } from "@/lib/trpc";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import {
@@ -22,7 +25,9 @@ import {
   GitPullRequest,
   Github,
   LayoutDashboard,
+  Loader2,
   LockKeyhole,
+  LogOut,
   Menu,
   MoreHorizontal,
   PanelLeft,
@@ -187,6 +192,18 @@ function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => 
 }
 
 export default function Home() {
+  // The useAuth hook provides authentication state.
+  // To implement login/logout, call logout(), or start login from an event
+  // handler: onClick={() => startLogin()} (imported from "@/const"). Never call
+  // startLogin() during render (no href={startLogin()}) — it mints a one-time
+  // nonce cookie and must run only at the moment of navigation.
+  const { user, loading, isAuthenticated, logout } = useAuth();
+  const portfolioQuery = trpc.cockpit.portfolio.useQuery(undefined, {
+    enabled: isAuthenticated,
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
+
   const [collapsed, setCollapsed] = useState(false);
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("All");
@@ -205,8 +222,9 @@ export default function Home() {
   const selected = snapshotRepos.find((repo) => repo.name === selectedRepo) ?? snapshotRepos[0];
 
   const refresh = () => {
-    setSyncedAt("a few seconds ago");
-    toast.success("Snapshot timestamp refreshed", { description: "This static dashboard preserves the evidence collected for the task." });
+    void portfolioQuery.refetch();
+    setSyncedAt("refresh requested");
+    toast.success("Live register refreshed", { description: "The cockpit refreshed its server-side public GitHub read." });
   };
 
   const focusAttention = () => {
@@ -214,15 +232,42 @@ export default function Home() {
     document.getElementById("repositories")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  if (loading) {
+    return (
+      <main className="access-gate ledger-loading-state">
+        <aside className="loading-rail"><LogoMark /><span>PRIVATE<br />REGISTER</span></aside>
+        <section className="loading-ledger">
+          <p className="eyebrow"><span className="eyebrow-rule" /> SESSION CHECK</p>
+          <h1>Reading your<br /><i>repository signals.</i></h1>
+          <div className="loading-rule"><span /><span /><span /></div>
+          <div className="loading-status"><Loader2 className="animate-spin" size={17} /><span>Verifying private workspace access</span><b>01</b></div>
+        </section>
+      </main>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <main className="access-gate access-gate-card">
+        <div className="brand-lockup"><div className="brand-mark"><span /></div><span className="brand-wordmark"><b>ledger</b><em>//gh</em></span></div>
+        <p className="eyebrow"><span className="eyebrow-rule" /> PRIVATE WORKSPACE</p>
+        <h1>Repository intelligence,<br /><i>kept on your side.</i></h1>
+        <p>This cockpit reads public GitHub data through protected server routes and never places credentials in the browser.</p>
+        <button className="button button-primary" onClick={startLogin}>Sign in to cockpit <ArrowUpRight size={16} /></button>
+      </main>
+    );
+  }
+
   return (
     <div className="app-shell">
       <Sidebar collapsed={collapsed} onToggle={() => setCollapsed((value) => !value)} />
       <main className="main-canvas" id="overview">
         <header className="topbar">
-          <div className="breadcrumbs"><span>Workspace</span><span>/</span><strong>Repository health</strong></div>
+          <div className="breadcrumbs"><span>Private workspace</span><span>/</span><strong>GitHub cockpit</strong></div>
           <div className="topbar-actions">
-            <span className="sync-note"><span className="sync-dot" /> Synced {syncedAt}</span>
+            <span className="sync-note"><span className="sync-dot" /> {portfolioQuery.data ? "Live public register" : "Snapshot fallback"} · {syncedAt}</span>
             <button className="button button-ghost" onClick={refresh}><RefreshCw size={15} />Refresh</button>
+            <button className="icon-button" onClick={() => void logout()} aria-label="Sign out"><LogOut size={16} /></button>
             <button className="icon-button" aria-label="More workspace options"><MoreHorizontal size={18} /></button>
           </div>
         </header>
@@ -254,6 +299,50 @@ export default function Home() {
           <section className="audit-ledger-strip" aria-label="Latest portfolio audit note">
             <div><span className="signal-label"><span className="signal-dot lime" /> VERIFIED AUDIT NOTE</span><strong><code>vscode-copilot-cha</code> Daily Pharma Job Scan recovered successfully after secure credential configuration.</strong></div>
             <span>11 owned projects triaged · 2 explicit blockers remain</span>
+          </section>
+
+          <section className="live-register-section" id="live-register" aria-labelledby="live-register-title">
+            <div className="section-heading repository-heading">
+              <div><p className="panel-kicker">Free-first live register</p><h2 id="live-register-title">Public GitHub evidence, server-side</h2></div>
+              <span className={`live-state ${portfolioQuery.data ? "is-live" : ""}`}>{portfolioQuery.isFetching ? "Refreshing" : portfolioQuery.data ? "Live" : "Snapshot"}</span>
+            </div>
+            <p className="live-register-intro">This register reads the owner’s public repository metadata through the server. It opens GitHub for every consequential action; it does not write, merge, retry, or store a GitHub credential.</p>
+
+            {portfolioQuery.isLoading ? <div className="live-loading"><Loader2 className="animate-spin" size={18} /> Reading public GitHub portfolio…</div> : null}
+            {portfolioQuery.error ? <div className="live-error"><TriangleAlert size={18} /><div><strong>Live register is temporarily unavailable.</strong><span>{portfolioQuery.error.message}</span></div></div> : null}
+            {portfolioQuery.data ? (
+              <>
+                <div className="live-summary-grid">
+                  <div><span>Public repositories</span><strong>{portfolioQuery.data.summary.repositories}</strong></div>
+                  <div><span>Active in 30 days</span><strong>{portfolioQuery.data.summary.activeLast30Days}</strong></div>
+                  <div><span>Open signals</span><strong>{portfolioQuery.data.summary.openSignals}</strong></div>
+                  <div><span>Archived</span><strong>{portfolioQuery.data.summary.archived}</strong></div>
+                </div>
+                <div className="live-ledger-grid">
+                  {portfolioQuery.data.repositories.slice(0, 8).map((repo) => (
+                    <article className="live-repo-card" key={repo.fullName}>
+                      <div><span className={`health-dot ${repo.health}`} /><code>{repo.fullName}</code></div>
+                      <strong>{repo.description || "No repository description"}</strong>
+                      <span>{repo.language} · {repo.openSignals} open signals · {repo.archived ? "archived" : "active"}</span>
+                      <div className="live-quicklinks" aria-label={`${repo.fullName} quick links`}>
+                        <a href={repo.htmlUrl} target="_blank" rel="noreferrer">Repo <ArrowUpRight size={12} /></a>
+                        <a href={`${repo.htmlUrl}/issues`} target="_blank" rel="noreferrer">Issues</a>
+                        <a href={`${repo.htmlUrl}/pulls`} target="_blank" rel="noreferrer">PRs</a>
+                        <a href={`${repo.htmlUrl}/actions`} target="_blank" rel="noreferrer">Runs</a>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+                <div className="action-desk">
+                  <div className="action-desk-heading"><div><p className="panel-kicker">Action desk</p><h3>Safe next moves</h3></div><span>Review before write</span></div>
+                  <div className="action-card-grid">
+                    {portfolioQuery.data.actionCards.length > 0 ? portfolioQuery.data.actionCards.map((card) => (
+                      <a key={card.id} href={card.href} target="_blank" rel="noreferrer" className={`action-card ${card.tone}`}><span>{card.tone === "attention" ? "Needs review" : card.tone === "dormant" ? "Dormant" : "Observe"}</span><strong>{card.title}</strong><p>{card.detail}</p><em>Open in GitHub <ArrowUpRight size={13} /></em></a>
+                    )) : <div className="action-card observed"><span>Clear</span><strong>No deterministic review card is currently required.</strong><p>The public register has no open issue/PR signal for the listed repositories.</p></div>}
+                  </div>
+                </div>
+              </>
+            ) : null}
           </section>
 
           <section className="overview-grid">
@@ -309,7 +398,16 @@ export default function Home() {
             <div className="table-footnote"><span><CircleDashed size={13} /> Snapshot fields with an em dash were not fetched.</span><span>{filteredRepos.length} of {snapshotRepos.length} shown</span></div>
           </section>
 
-          <footer className="page-footer"><span>ledger//gh · repository health, without the noise</span><span>Portfolio audit refresh · 15 Aug 2026 · static evidence snapshot</span></footer>
+          <section className="provider-studio" id="settings" aria-labelledby="provider-studio-title">
+            <div><p className="panel-kicker">Provider studio</p><h2 id="provider-studio-title">Connect later, never pretend now.</h2><p>Free-first mode keeps third-party model, image, and video credentials out of this application. The controls below are deliberate readiness states, not inactive promises.</p></div>
+            <div className="provider-grid">
+              <div><Sparkles size={18} /><strong>AI composition</strong><span>Requires a server-side model connection before chat or code generation is enabled.</span></div>
+              <div><ServerCog size={18} /><strong>Image & video work</strong><span>Requires a separately approved generation provider; no key is stored in the client.</span></div>
+              <div><ShieldCheck size={18} /><strong>Repository writes</strong><span>Remain GitHub-reviewable until a dedicated owner token and approval policy are added.</span></div>
+            </div>
+          </section>
+
+          <footer className="page-footer"><span>ledger//gh · repository health, without the noise</span><span>{user?.email || "Private owner session"} · public GitHub reads + preserved audit evidence</span></footer>
         </div>
       </main>
     </div>
