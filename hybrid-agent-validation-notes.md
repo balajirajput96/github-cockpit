@@ -19,7 +19,6 @@ The Jules browser session is authenticated as `br0318889@gmail.com`. Its workspa
 After explicit user confirmation, the Sentinel security agent was configured for `balajirajput96/vscode-copilot-cha` with a daily 22:30 UTC schedule. The repository selector displays the intended repository and the primary action changed from **Schedule task** to **Configure scheduled task**, which is the Jules UI's persisted configuration state. Sentinel is instructed to keep changes small, validate them, and use pull requests for presentation.
 
 The Jules navigation currently exposes only recent sessions and codebases; its separate `/u/1/scheduled` route redirected to an empty workspace surface. Therefore the stronger external-list verification remains a documented follow-up, while the immediately visible saved-state evidence is retained above.
-
 ## Connector and MCP Check
 
 The n8n connector remains unavailable through its current MCP endpoint: connection initialization fails with an HTTP 4xx response identified as a legacy SSE transport. No workflow mutation was attempted.
