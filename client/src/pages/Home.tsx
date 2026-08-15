@@ -120,11 +120,19 @@ const snapshotRepos = [
 ];
 
 const activityItems = [
-  { time: "09:42", label: "Pull request opened", detail: "mcp · #6 · Add startup log to Template.Mcp.Server", tone: "lime" },
-  { time: "09:10", label: "Branch pushed", detail: "mcp · feature/add-log · fbb49577", tone: "ink" },
-  { time: "Yesterday", label: "Private repository created", detail: "infra-tools · scripts and audit reports consolidated", tone: "sage" },
-  { time: "11 Aug", label: "Security signal recorded", detail: "mcp · 63 vulnerabilities reported by the remote push check", tone: "rust" },
+  { time: "15 Aug", label: "CI repair opened", detail: "github-mcp-server- · PR #42 · checks passed", tone: "lime" },
+  { time: "15 Aug", label: "Portfolio inventory completed", detail: "194 accessible repositories · 11 directly owned", tone: "ink" },
+  { time: "15 Aug", label: "External secret blocker recorded", detail: "vscode-copilot-cha · OPENROUTER_API_KEY is not configured", tone: "rust" },
+  { time: "15 Aug", label: "Deployment scope held", detail: "B · Azure target and deploy credential are not configured", tone: "sage" },
 ];
+
+const portfolioAudit = {
+  totalRepos: "194",
+  directlyOwned: "11",
+  observedForks: "183",
+  remediationPr: "#42",
+  blockers: "03",
+};
 
 function LogoMark() {
   return (
@@ -222,32 +230,37 @@ export default function Home() {
         <div className="page-content">
           <section className="hero-block" aria-labelledby="page-title">
             <div className="hero-copy">
-              <p className="eyebrow"><span className="eyebrow-rule" /> 12 AUG 2026 · WEDNESDAY</p>
-              <h1 id="page-title">Your codebase is moving.<br /><i>Here is where it needs attention.</i></h1>
-              <p className="hero-description">A calm, evidence-led view of the GitHub signals collected during this workspace session. Start with the one repo currently asking for a closer look.</p>
+              <p className="eyebrow"><span className="eyebrow-rule" /> PORTFOLIO AUDIT · 15 AUG 2026</p>
+              <h1 id="page-title">Your portfolio is mapped.<br /><i>One repair is ready for review.</i></h1>
+              <p className="hero-description">A verified register of the accessible GitHub portfolio: 194 repositories audited, 11 directly owned projects triaged, and one CI repair now ready for review.</p>
               <div className="hero-actions">
-                <button className="button button-primary" onClick={focusAttention}>Review attention signal <ArrowUpRight size={16} /></button>
-                <a className="text-link" href="https://github.com/balajirajput96/mcp" target="_blank" rel="noreferrer">Open GitHub <ExternalLink size={14} /></a>
+                <a className="button button-primary" href="https://github.com/balajirajput96/github-mcp-server-/pull/42" target="_blank" rel="noreferrer">Review remediation PR <ArrowUpRight size={16} /></a>
+                <button className="text-link" onClick={focusAttention}>Inspect earlier detail sample <ArrowUpRight size={14} /></button>
               </div>
             </div>
             <div className="hero-art" aria-label="Abstract repository pulse illustration">
               <img src="/manus-storage/repository-pulse-art_58518160.png" alt="Abstract branching repository signal illustration" />
-              <div className="hero-art-caption"><span>Pulse / 01</span><strong>One signal asks for a review</strong></div>
+              <div className="hero-art-caption"><span>Audit / 15</span><strong>One repair is ready for review</strong></div>
             </div>
           </section>
 
           <section className="metric-strip" aria-label="Repository health summary">
-            <div className="metric-cell"><span className="metric-label">Repositories in view</span><strong>06</strong><span className="metric-foot"><Github size={13} /> from account snapshot</span></div>
-            <div className="metric-cell metric-highlight"><span className="metric-label">Known attention signals</span><strong>01</strong><span className="metric-foot"><TriangleAlert size={13} /> mcp needs review</span></div>
-            <div className="metric-cell"><span className="metric-label">Open pull requests</span><strong>02</strong><span className="metric-foot"><GitPullRequest size={13} /> in mcp</span></div>
-            <div className="metric-cell"><span className="metric-label">Last activity</span><strong>11<span> AUG</span></strong><span className="metric-foot"><Clock3 size={13} /> 16:41 UTC</span></div>
+            <div className="metric-cell"><span className="metric-label">Repositories audited</span><strong>{portfolioAudit.totalRepos}</strong><span className="metric-foot"><Github size={13} /> {portfolioAudit.directlyOwned} directly owned</span></div>
+            <div className="metric-cell metric-highlight"><span className="metric-label">Validated repairs</span><strong>01</strong><span className="metric-foot"><Check size={13} /> PR {portfolioAudit.remediationPr} checks passed</span></div>
+            <div className="metric-cell"><span className="metric-label">Observed upstream forks</span><strong>{portfolioAudit.observedForks}</strong><span className="metric-foot"><GitBranch size={13} /> tracked, not auto-modified</span></div>
+            <div className="metric-cell"><span className="metric-label">Setup blockers</span><strong>{portfolioAudit.blockers}</strong><span className="metric-foot"><TriangleAlert size={13} /> secret, Azure, draft review</span></div>
+          </section>
+
+          <section className="audit-ledger-strip" aria-label="Latest portfolio audit note">
+            <div><span className="signal-label"><span className="signal-dot lime" /> VERIFIED AUDIT NOTE</span><strong>PR #42 repairs a Docker build failure and a retired workflow action in <code>github-mcp-server-</code>.</strong></div>
+            <span>11 owned projects triaged · 3 blockers preserved for explicit setup</span>
           </section>
 
           <section className="overview-grid">
             <article className="panel pulse-panel">
               <div className="panel-heading"><div><p className="panel-kicker">Repository pulse</p><h2>Signal movement</h2></div><span className="index-stamp">01</span></div>
               <div className="pulse-visual">
-                <div className="pulse-copy"><span className="signal-label"><span className="signal-dot lime" /> ACTIVE SIGNAL</span><strong>mcp</strong><p>63 security alerts were reported alongside an active PR queue.</p><button className="button button-small" onClick={() => toast("Workflow inspection is available from the GitHub repository.")}>Inspect workflow <ArrowUpRight size={14} /></button></div>
+              <div className="pulse-copy"><span className="signal-label"><span className="signal-dot lime" /> ACTIVE REPAIR</span><strong>PR #42</strong><p>Docker now compiles before pruning development dependencies; the updated workflow checks passed on GitHub.</p><a className="button button-small" href="https://github.com/balajirajput96/github-mcp-server-/pull/42" target="_blank" rel="noreferrer">Inspect PR <ArrowUpRight size={14} /></a></div>
                 <img src="/manus-storage/workflow-rhythm-art_833a79bf.png" alt="Abstract workflow rhythm visual" />
               </div>
               <div className="pulse-legend"><span><i className="legend-mark mark-lime" /> Healthy</span><span><i className="legend-mark mark-rust" /> Needs review</span><span><i className="legend-mark mark-stone" /> Not fetched</span></div>
@@ -255,25 +268,25 @@ export default function Home() {
 
             <article className="panel index-panel" id="security">
               <div className="panel-heading"><div><p className="panel-kicker">Health index</p><h2>Attention, not alarm</h2></div><ShieldCheck size={20} className="panel-icon" /></div>
-              <div className="index-number"><span>mcp</span><strong>78</strong><em>/100</em></div>
-              <div className="score-bar"><span style={{ width: "78%" }} /></div>
-              <p className="index-note">The score is a directional snapshot derived from the open PR count and the security signal recorded during this task.</p>
-              <div className="index-actions"><button className="button button-dark" onClick={() => setSelectedRepo("mcp")}>Open index <ArrowUpRight size={14} /></button><span>Updated {syncedAt}</span></div>
+              <div className="index-number"><span>owned portfolio</span><strong>11</strong><em>projects</em></div>
+              <div className="score-bar"><span style={{ width: "73%" }} /></div>
+              <p className="index-note">Eight projects have no issue-backed remediation item in the collected audit. Three remain blocked by missing setup or review context.</p>
+              <div className="index-actions"><a className="button button-dark" href="https://github.com/balajirajput96/github-mcp-server-/pull/42" target="_blank" rel="noreferrer">Open repair <ArrowUpRight size={14} /></a><span>Updated {syncedAt}</span></div>
             </article>
           </section>
 
           <section className="activity-section" id="activity">
-            <div className="section-heading"><div><p className="panel-kicker">Recent ledger entries</p><h2>What changed in the workspace</h2></div><button className="text-link" onClick={() => toast("The activity feed is limited to the collected task snapshot.")}>View all <ArrowUpRight size={14} /></button></div>
+            <div className="section-heading"><div><p className="panel-kicker">Recent ledger entries</p><h2>What changed in the portfolio</h2></div><button className="text-link" onClick={() => toast("The activity feed records verified evidence from the 15 Aug portfolio audit.")}>Audit note <ArrowUpRight size={14} /></button></div>
             <div className="activity-grid">
               <div className="activity-list">
                 {activityItems.map((item) => <div className="activity-row" key={`${item.time}-${item.label}`}><div className={`activity-marker ${item.tone}`}><Check size={13} /></div><div className="activity-detail"><strong>{item.label}</strong><span>{item.detail}</span></div><time>{item.time}</time></div>)}
               </div>
-              <div className="activity-aside"><img src="/manus-storage/workflow-rhythm-art_833a79bf.png" alt="Workflow rhythm texture" /><div><span className="signal-label"><span className="signal-dot rust" /> NEXT MOVE</span><strong>Review PR #6</strong><p>Open the pull request created during the GitHub demonstration and decide whether the startup log belongs in the template server.</p><a className="text-link" href="https://github.com/balajirajput96/mcp/pull/6" target="_blank" rel="noreferrer">Open PR #6 <ExternalLink size={13} /></a></div></div>
+              <div className="activity-aside"><img src="/manus-storage/workflow-rhythm-art_833a79bf.png" alt="Workflow rhythm texture" /><div><span className="signal-label"><span className="signal-dot rust" /> NEXT MOVE</span><strong>Review PR #42</strong><p>Confirm the Docker and deployment-workflow repair, then unblock the remaining projects by configuring required secrets and deployment targets.</p><a className="text-link" href="https://github.com/balajirajput96/github-mcp-server-/pull/42" target="_blank" rel="noreferrer">Open PR #42 <ExternalLink size={13} /></a></div></div>
             </div>
           </section>
 
           <section className="repositories-section" id="repositories">
-            <div className="section-heading repository-heading"><div><p className="panel-kicker">Repository register</p><h2>Selected account snapshot</h2></div><button className="button button-dark" onClick={() => toast("Add repository is a placeholder in this static dashboard.")}><Plus size={15} /> Add repository</button></div>
+            <div className="section-heading repository-heading"><div><p className="panel-kicker">Earlier detail sample</p><h2>Original connector snapshot</h2></div><button className="button button-dark" onClick={() => toast("The full 194-repository audit is documented separately; this static register remains the original drill-down sample.")}><BookOpen size={15} /> Audit scope</button></div>
             <div className="table-toolbar"><div className="search-field"><Search size={16} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search repository, language, visibility" aria-label="Search repositories" />{query && <button onClick={() => setQuery("")} aria-label="Clear search"><X size={14} /></button>}</div><div className="filter-tabs" role="group" aria-label="Repository status filter">{["All", "Attention", "Observed"].map((item) => <button key={item} className={filter === item ? "is-active" : ""} onClick={() => setFilter(item)}>{item}</button>)}</div></div>
             <div className="repo-table-wrap">
               <table className="repo-table">
@@ -296,7 +309,7 @@ export default function Home() {
             <div className="table-footnote"><span><CircleDashed size={13} /> Snapshot fields with an em dash were not fetched.</span><span>{filteredRepos.length} of {snapshotRepos.length} shown</span></div>
           </section>
 
-          <footer className="page-footer"><span>ledger//gh · repository health, without the noise</span><span>Built from the GitHub connector snapshot · 12 Aug 2026</span></footer>
+          <footer className="page-footer"><span>ledger//gh · repository health, without the noise</span><span>Portfolio audit refresh · 15 Aug 2026 · static evidence snapshot</span></footer>
         </div>
       </main>
     </div>

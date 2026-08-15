@@ -322,6 +322,11 @@ h2 { margin: 7px 0 0; font: 400 25px/1.05 "DM Serif Display", serif; letter-spac
 
 /* Repository detail views — same ledger system, denser evidence rhythm. */
 .detail-page-content { padding-top: 34px; }
+.audit-ledger-strip { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin: 18px 0 34px; padding: 17px 20px; background: #e8edda; border: 1px solid #c4d4ae; color: #596752; }
+.audit-ledger-strip > div { display: grid; gap: 7px; }
+.audit-ledger-strip strong { color: var(--ink); font: 600 12px/1.5 "IBM Plex Mono", monospace; }
+.audit-ledger-strip code { padding: 2px 4px; background: rgba(255,255,255,.44); font: inherit; }
+.audit-ledger-strip > span { max-width: 280px; color: #6c7963; font: 10px/1.5 "IBM Plex Mono", monospace; text-align: right; }
 .detail-back-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 32px; }
 .back-link { display: inline-flex; align-items: center; gap: 7px; color: #68745f; font-size: 12px; font-weight: 600; }
 .back-link:hover { color: var(--ink); }
@@ -494,6 +499,8 @@ h2 { margin: 7px 0 0; font: 400 25px/1.05 "DM Serif Display", serif; letter-spac
   .repo-hero-actions { padding-bottom: 0; }
 }
 @media (max-width: 680px) {
+  .audit-ledger-strip { align-items: flex-start; flex-direction: column; gap: 10px; margin-bottom: 25px; }
+  .audit-ledger-strip > span { max-width: none; text-align: left; }
   .detail-page-content { padding-top: 25px; }
   .detail-back-row { align-items: flex-start; flex-direction: column; gap: 8px; margin-bottom: 24px; }
   .repo-title-row { align-items: flex-start; }
