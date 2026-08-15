@@ -29,7 +29,7 @@
 - [x] Verify whether the connected browser is authenticated to Jules and inspect its supported repository or task automation controls.
 - [x] Select a daily, low-frequency automation path that can safely summarize owner-repository status without modifying forked upstream projects.
 - [x] Configure and verify the viable recurring setup, or document an exact platform limitation and a safe fallback.
-- [ ] Create the confirmed daily 21:00 UTC Jules Sentinel Security task for `balajirajput96/vscode-copilot-cha`; attempted via the documented flow but it did not persist in Jules Scheduled view.
+- [ ] Confirm durable Jules scheduled-task list evidence for the user-confirmed Sentinel task on `balajirajput96/vscode-copilot-cha` at 22:30 UTC.
 
 ## Google Antigravity CLI Connection
 - [ ] Check whether the Antigravity CLI is installed and determine its supported authentication flow without exposing credentials.
@@ -46,7 +46,7 @@
 - [ ] Build clickable agent workspace views for repository intelligence, execution queue, prompt/media studio, workflow controls, and connection health.
 - [ ] Integrate and verify only authorized external services, implementing non-destructive actions as draft/PR-based operations by default.
 - [ ] Validate the application and complete authenticated production browser flows; GitHub delivery is complete at private repository `balajirajput96/github-cockpit` on `main`.
-- [ ] Push the updated CI workflow to the private delivery repository and verify an actual GitHub Actions run completes successfully.
+- [x] Push the updated CI workflow to the private delivery repository and verify an actual GitHub Actions run completes successfully; run `31879126335` passed in 40 seconds.
 - [x] Add protected server-side AI planning and image-generation routes with explicit review-only guardrails.
 - [x] Add clickable Agent Studio and Media Workbench interfaces without client-side credentials or unreviewed repository writes.
 - [x] Add Agent Studio and Media Workbench anchors to the persistent sidebar navigation.
