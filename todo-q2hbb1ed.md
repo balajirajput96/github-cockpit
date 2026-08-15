@@ -1,5 +1,5 @@
 - [x] Audit current GitHub remote, project state, and launch readiness.
 - [x] Add GitHub Actions CI for type checks and production builds.
-- [ ] Verify GitHub remote tracking, repository metadata, and published branch.
+- [x] Verify GitHub remote tracking, repository metadata, and published branch.
 - [x] Re-check connector access and document the safe integration boundary.
-- [ ] Revalidate deployed routes, save a production checkpoint, and confirm handoff.
+- [x] Revalidate deployed routes, save a production checkpoint, and confirm handoff.
