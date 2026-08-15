@@ -24,6 +24,7 @@
 - [x] Record managed-preview evidence that the authenticated live register renders portfolio data rather than a fallback.
 - [x] Distinguish a pending live-register query from a true snapshot fallback in the cockpit status indicators.
 - [x] Add automated authenticated-caller coverage for the live portfolio procedure with a successful GitHub public-data response.
+- [x] Sync the current hybrid-agent, live-register, tests, and verification records to the private GitHub repository.
 
 ## Antigravity and AI-agent application program
 
