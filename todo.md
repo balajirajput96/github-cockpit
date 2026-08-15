@@ -14,7 +14,7 @@
 - [x] Review validated PR #42 and safely progress implementation-ready owner-repository changes without auto-merging or bypassing protections.
 - [x] Record unresolved secret, deployment, malformed-path, and ambiguous-feature blockers with exact next actions.
 - [x] Refresh Signal Ledger only from newly verified audit evidence and validate the production build.
-- [ ] Create and verify the 18:00 Asia/Kolkata daily GitHub digest schedule; blocked after three attempts by the scheduler precondition `project not deployed` despite a live published checkpoint.
+- [x] Create and verify the 18:00 Asia/Kolkata daily GitHub digest schedule; active with task UID `5xeBxUH7V6oi5jyzYwD4ij`, read-only GitHub scope, and connected Gmail delivery instruction.
 - [x] Send or verify the latest digest through connected Gmail delivery and provide the remediation handover.
 
 ## OpenRouter Workflow Remediation
@@ -45,10 +45,12 @@
 - [ ] Upgrade the dashboard to a backend-enabled application with database, authentication, and server-side AI operations.
 - [ ] Build clickable agent workspace views for repository intelligence, execution queue, prompt/media studio, workflow controls, and connection health.
 - [ ] Integrate and verify only authorized external services, implementing non-destructive actions as draft/PR-based operations by default.
-- [ ] Validate the application, publish it, and prepare the owner-account GitHub delivery path.
+- [ ] Validate the application and complete authenticated production browser flows; GitHub delivery is complete at private repository `balajirajput96/github-cockpit` on `main`.
+- [ ] Push the updated CI workflow to the private delivery repository and verify an actual GitHub Actions run completes successfully.
 - [x] Add protected server-side AI planning and image-generation routes with explicit review-only guardrails.
 - [x] Add clickable Agent Studio and Media Workbench interfaces without client-side credentials or unreviewed repository writes.
 - [x] Add Agent Studio and Media Workbench anchors to the persistent sidebar navigation.
 - [x] Run authorization tests, TypeScript validation, and a production build for the hybrid agent workspace.
+- [x] Add deterministic authenticated route tests for structured AI plans and server-generated image URLs.
 - [ ] Validate authenticated Agent Studio planning and image flows through the browser interface.
 - [x] Save and publish a checkpoint that includes the hybrid AI-agent workspace changes.
