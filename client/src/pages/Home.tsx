@@ -129,6 +129,9 @@ const snapshotRepos = [
 ];
 
 const activityItems = [
+  { time: "15 Aug", label: "Hybrid agent workspace published", detail: "Agent Studio · protected plans · server-side image generation", tone: "lime" },
+  { time: "15 Aug", label: "Private delivery CI verified", detail: "github-cockpit · Signal Ledger CI · test and build passed in 39s", tone: "lime" },
+  { time: "15 Aug", label: "Daily digest armed", detail: "Owner repositories · 18:00 Asia/Kolkata · read-only GitHub summary", tone: "sage" },
   { time: "15 Aug", label: "Daily workflow recovered", detail: "vscode-copilot-cha · Daily Pharma Job Scan · success in 32s", tone: "lime" },
   { time: "15 Aug", label: "CI repair merged", detail: "github-mcp-server- · PR #42 · Docker and workflow fix", tone: "lime" },
   { time: "15 Aug", label: "Dependency remediation merged", detail: "github-mcp-server- · PR #41 · body-parser 2.2.1", tone: "lime" },
@@ -177,7 +180,7 @@ function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => 
         <p className="nav-label">Workspace</p>
         <a className="nav-item is-active" href="#overview"><LayoutDashboard size={17} /><span>Overview</span><b>01</b></a>
         <a className="nav-item" href="#repositories"><Github size={17} /><span>Repositories</span><b>06</b></a>
-        <a className="nav-item" href="#activity"><Activity size={17} /><span>Activity</span><b>04</b></a>
+        <a className="nav-item" href="#activity"><Activity size={17} /><span>Activity</span><b>07</b></a>
         <p className="nav-label nav-label-spaced">Signals</p>
         <a className="nav-item" href="#security"><ShieldCheck size={17} /><span>Security</span><b className="nav-risk">63</b></a>
         <a className="nav-item" href="#workflows"><Workflow size={17} /><span>Workflows</span><b>—</b></a>
@@ -308,8 +311,8 @@ export default function Home() {
           <section className="hero-block" aria-labelledby="page-title">
             <div className="hero-copy">
               <p className="eyebrow"><span className="eyebrow-rule" /> PORTFOLIO AUDIT · 15 AUG 2026</p>
-              <h1 id="page-title">Your portfolio is mapped.<br /><i>Three merges and one recovered workflow.</i></h1>
-              <p className="hero-description">A verified register of the accessible GitHub portfolio: 194 repositories audited, 11 directly owned projects triaged, three validated changes merged, and the blocked daily workflow recovered.</p>
+              <h1 id="page-title">Your portfolio is mapped.<br /><i>Three merges, one recovery, and a safer agent desk.</i></h1>
+              <p className="hero-description">A verified register of the accessible GitHub portfolio: 194 repositories audited, 11 directly owned projects triaged, three validated changes merged, a blocked daily workflow recovered, and a reviewable hybrid agent workspace now deployed.</p>
               <div className="hero-actions">
                 <a className="button button-primary" href="https://github.com/balajirajput96/github-mcp-server-/pull/42" target="_blank" rel="noreferrer">Open merged repair <ArrowUpRight size={16} /></a>
                 <button className="text-link" onClick={focusAttention}>Inspect earlier detail sample <ArrowUpRight size={14} /></button>

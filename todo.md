@@ -54,3 +54,4 @@
 - [x] Add deterministic authenticated route tests for structured AI plans and server-generated image URLs.
 - [ ] Validate authenticated Agent Studio planning and image flows through the browser interface.
 - [x] Save and publish a checkpoint that includes the hybrid AI-agent workspace changes.
+- [x] Refresh the static Signal Ledger activity snapshot with the published hybrid-agent workspace, active daily digest, and private GitHub CI evidence.
