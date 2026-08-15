@@ -120,6 +120,7 @@ const snapshotRepos = [
 ];
 
 const activityItems = [
+  { time: "15 Aug", label: "Daily workflow recovered", detail: "vscode-copilot-cha · Daily Pharma Job Scan · success in 32s", tone: "lime" },
   { time: "15 Aug", label: "CI repair merged", detail: "github-mcp-server- · PR #42 · Docker and workflow fix", tone: "lime" },
   { time: "15 Aug", label: "Dependency remediation merged", detail: "github-mcp-server- · PR #41 · body-parser 2.2.1", tone: "lime" },
   { time: "15 Aug", label: "Dependency validation merged", detail: "vscode-copilot-cha · PR #2 · client build passed", tone: "lime" },
@@ -130,7 +131,7 @@ const portfolioAudit = {
   directlyOwned: "11",
   observedForks: "183",
   remediationPr: "03",
-  blockers: "03",
+  blockers: "02",
 };
 
 function LogoMark() {
@@ -230,8 +231,8 @@ export default function Home() {
           <section className="hero-block" aria-labelledby="page-title">
             <div className="hero-copy">
               <p className="eyebrow"><span className="eyebrow-rule" /> PORTFOLIO AUDIT · 15 AUG 2026</p>
-              <h1 id="page-title">Your portfolio is mapped.<br /><i>Three verified changes are now merged.</i></h1>
-              <p className="hero-description">A verified register of the accessible GitHub portfolio: 194 repositories audited, 11 directly owned projects triaged, and three validated owner-repository changes now applied.</p>
+              <h1 id="page-title">Your portfolio is mapped.<br /><i>Three merges and one recovered workflow.</i></h1>
+              <p className="hero-description">A verified register of the accessible GitHub portfolio: 194 repositories audited, 11 directly owned projects triaged, three validated changes merged, and the blocked daily workflow recovered.</p>
               <div className="hero-actions">
                 <a className="button button-primary" href="https://github.com/balajirajput96/github-mcp-server-/pull/42" target="_blank" rel="noreferrer">Open merged repair <ArrowUpRight size={16} /></a>
                 <button className="text-link" onClick={focusAttention}>Inspect earlier detail sample <ArrowUpRight size={14} /></button>
@@ -239,7 +240,7 @@ export default function Home() {
             </div>
             <div className="hero-art" aria-label="Abstract repository pulse illustration">
               <img src="/manus-storage/repository-pulse-art_58518160.png" alt="Abstract branching repository signal illustration" />
-              <div className="hero-art-caption"><span>Audit / 15</span><strong>Three verified changes applied</strong></div>
+              <div className="hero-art-caption"><span>Audit / 15</span><strong>Workflow recovery confirmed</strong></div>
             </div>
           </section>
 
@@ -247,19 +248,19 @@ export default function Home() {
             <div className="metric-cell"><span className="metric-label">Repositories audited</span><strong>{portfolioAudit.totalRepos}</strong><span className="metric-foot"><Github size={13} /> {portfolioAudit.directlyOwned} directly owned</span></div>
             <div className="metric-cell metric-highlight"><span className="metric-label">Validated repairs</span><strong>{portfolioAudit.remediationPr}</strong><span className="metric-foot"><Check size={13} /> PRs #42, #41, #2 merged</span></div>
             <div className="metric-cell"><span className="metric-label">Observed upstream forks</span><strong>{portfolioAudit.observedForks}</strong><span className="metric-foot"><GitBranch size={13} /> tracked, not auto-modified</span></div>
-            <div className="metric-cell"><span className="metric-label">Setup blockers</span><strong>{portfolioAudit.blockers}</strong><span className="metric-foot"><TriangleAlert size={13} /> secret, Azure, draft review</span></div>
+            <div className="metric-cell"><span className="metric-label">Setup blockers</span><strong>{portfolioAudit.blockers}</strong><span className="metric-foot"><TriangleAlert size={13} /> Azure setup and draft review</span></div>
           </section>
 
           <section className="audit-ledger-strip" aria-label="Latest portfolio audit note">
-            <div><span className="signal-label"><span className="signal-dot lime" /> VERIFIED AUDIT NOTE</span><strong>PRs #42 and #41 repaired <code>github-mcp-server-</code>; PR #2 passed a client production build before merge.</strong></div>
-            <span>11 owned projects triaged · 3 blockers preserved for explicit setup</span>
+            <div><span className="signal-label"><span className="signal-dot lime" /> VERIFIED AUDIT NOTE</span><strong><code>vscode-copilot-cha</code> Daily Pharma Job Scan recovered successfully after secure credential configuration.</strong></div>
+            <span>11 owned projects triaged · 2 explicit blockers remain</span>
           </section>
 
           <section className="overview-grid">
             <article className="panel pulse-panel">
               <div className="panel-heading"><div><p className="panel-kicker">Repository pulse</p><h2>Signal movement</h2></div><span className="index-stamp">01</span></div>
               <div className="pulse-visual">
-              <div className="pulse-copy"><span className="signal-label"><span className="signal-dot lime" /> MERGED REPAIRS</span><strong>03</strong><p>CI, Docker, and dependency work has been validated across two directly owned projects and then merged.</p><a className="button button-small" href="https://github.com/balajirajput96/github-mcp-server-/pull/42" target="_blank" rel="noreferrer">Inspect repair trail <ArrowUpRight size={14} /></a></div>
+              <div className="pulse-copy"><span className="signal-label"><span className="signal-dot lime" /> WORKFLOW RECOVERED</span><strong>32<span>s</span></strong><p>Daily Pharma Job Scan completed successfully after the repository credential was configured through encrypted Actions secrets.</p><a className="button button-small" href="https://github.com/balajirajput96/vscode-copilot-cha/actions/runs/31874690138" target="_blank" rel="noreferrer">Inspect successful run <ArrowUpRight size={14} /></a></div>
                 <img src="/manus-storage/workflow-rhythm-art_833a79bf.png" alt="Abstract workflow rhythm visual" />
               </div>
               <div className="pulse-legend"><span><i className="legend-mark mark-lime" /> Healthy</span><span><i className="legend-mark mark-rust" /> Needs review</span><span><i className="legend-mark mark-stone" /> Not fetched</span></div>
@@ -269,7 +270,7 @@ export default function Home() {
               <div className="panel-heading"><div><p className="panel-kicker">Health index</p><h2>Attention, not alarm</h2></div><ShieldCheck size={20} className="panel-icon" /></div>
               <div className="index-number"><span>owned portfolio</span><strong>11</strong><em>projects</em></div>
               <div className="score-bar"><span style={{ width: "73%" }} /></div>
-              <p className="index-note">Eight projects have no issue-backed remediation item in the collected audit. Three remain blocked by missing setup or review context.</p>
+              <p className="index-note">Eight projects have no issue-backed remediation item in the collected audit. Two remain blocked by Azure setup or focused draft review; the scheduled job workflow is now healthy.</p>
               <div className="index-actions"><a className="button button-dark" href="https://github.com/balajirajput96/github-mcp-server-/pull/42" target="_blank" rel="noreferrer">Open repair <ArrowUpRight size={14} /></a><span>Updated {syncedAt}</span></div>
             </article>
           </section>
@@ -280,7 +281,7 @@ export default function Home() {
               <div className="activity-list">
                 {activityItems.map((item) => <div className="activity-row" key={`${item.time}-${item.label}`}><div className={`activity-marker ${item.tone}`}><Check size={13} /></div><div className="activity-detail"><strong>{item.label}</strong><span>{item.detail}</span></div><time>{item.time}</time></div>)}
               </div>
-              <div className="activity-aside"><img src="/manus-storage/workflow-rhythm-art_833a79bf.png" alt="Workflow rhythm texture" /><div><span className="signal-label"><span className="signal-dot rust" /> NEXT MOVE</span><strong>Clear external setup blockers</strong><p>Remaining work depends on an OpenRouter secret, an Azure deployment target, and focused review of larger draft pull requests.</p><a className="text-link" href="https://github.com/balajirajput96/vscode-copilot-cha/actions" target="_blank" rel="noreferrer">Open workflow status <ExternalLink size={13} /></a></div></div>
+              <div className="activity-aside"><img src="/manus-storage/workflow-rhythm-art_833a79bf.png" alt="Workflow rhythm texture" /><div><span className="signal-label"><span className="signal-dot rust" /> NEXT MOVE</span><strong>Clear remaining setup blockers</strong><p>The workflow credential blocker is resolved. Remaining work depends on an Azure deployment decision and focused review of larger draft pull requests.</p><a className="text-link" href="https://github.com/balajirajput96/vscode-copilot-cha/actions/runs/31874690138" target="_blank" rel="noreferrer">Open successful workflow <ExternalLink size={13} /></a></div></div>
             </div>
           </section>
 

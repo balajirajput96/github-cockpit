@@ -15,3 +15,7 @@ The repository overview route `/repos/mcp` rendered correctly with the repositor
 ## 15 Aug 2026 — Portfolio remediation refresh
 
 The home route rendered the verified portfolio snapshot correctly after the owner-repository remediation pass. The hero, metric strip, audit note, activity ledger, and next-move panel showed 194 audited repositories, 11 directly owned projects, 183 observed forks, three merged repairs (PRs #42, #41, and #2), and the three explicit setup/review blockers. The production build and TypeScript check completed successfully before this browser verification.
+
+## 15 Aug 2026 — Daily workflow recovery
+
+The configured browser session confirmed that the repository Actions secret was added without exposing its value. Daily Pharma Job Scan run `31874690138` then completed successfully on `main`: dependency installation, scan execution, result commit, and cleanup all passed in 32 seconds. The dashboard recovery update subsequently passed its production build and TypeScript validation.
