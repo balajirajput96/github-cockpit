@@ -7,6 +7,7 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { startLogin } from "@/const";
 import { trpc } from "@/lib/trpc";
+import { getPortfolioPresentation } from "@/lib/portfolioPresentation";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import {
@@ -218,6 +219,11 @@ export default function Home() {
   const [agentIntent, setAgentIntent] = useState<"repository" | "automation" | "media">("repository");
   const [agentPrompt, setAgentPrompt] = useState("Review the currently open pull requests and propose the smallest safe next action for each.");
   const [imagePrompt, setImagePrompt] = useState("An editorial software-agent control room with a calm paper ledger, branching code signals, and lime operational markers.");
+  const portfolioPresentation = getPortfolioPresentation({
+    isLoading: portfolioQuery.isLoading,
+    isFetching: portfolioQuery.isFetching,
+    hasData: Boolean(portfolioQuery.data),
+  });
 
   const planner = trpc.agent.plan.useMutation({
     onSuccess: () => toast.success("Reviewable agent plan ready", { description: "No external action was performed." }),
@@ -291,7 +297,7 @@ export default function Home() {
         <header className="topbar">
           <div className="breadcrumbs"><span>Private workspace</span><span>/</span><strong>GitHub cockpit</strong></div>
           <div className="topbar-actions">
-            <span className="sync-note"><span className="sync-dot" /> {portfolioQuery.data ? "Live public register" : "Snapshot fallback"} · {syncedAt}</span>
+            <span className="sync-note"><span className="sync-dot" /> {portfolioPresentation.topbarLabel} · {syncedAt}</span>
             <button className="button button-ghost" onClick={refresh}><RefreshCw size={15} />Refresh</button>
             <button className="icon-button" onClick={() => void logout()} aria-label="Sign out"><LogOut size={16} /></button>
             <button className="icon-button" aria-label="More workspace options"><MoreHorizontal size={18} /></button>
@@ -330,7 +336,7 @@ export default function Home() {
           <section className="live-register-section" id="live-register" aria-labelledby="live-register-title">
             <div className="section-heading repository-heading">
               <div><p className="panel-kicker">Free-first live register</p><h2 id="live-register-title">Public GitHub evidence, server-side</h2></div>
-              <span className={`live-state ${portfolioQuery.data ? "is-live" : ""}`}>{portfolioQuery.isFetching ? "Refreshing" : portfolioQuery.data ? "Live" : "Snapshot"}</span>
+              <span className={`live-state ${portfolioPresentation.isLive ? "is-live" : ""}`}>{portfolioPresentation.badgeLabel}</span>
             </div>
             <p className="live-register-intro">This register reads the owner’s public repository metadata through the server. It opens GitHub for every consequential action; it does not write, merge, retry, or store a GitHub credential.</p>
 
