@@ -120,17 +120,16 @@ const snapshotRepos = [
 ];
 
 const activityItems = [
-  { time: "15 Aug", label: "CI repair opened", detail: "github-mcp-server- · PR #42 · checks passed", tone: "lime" },
-  { time: "15 Aug", label: "Portfolio inventory completed", detail: "194 accessible repositories · 11 directly owned", tone: "ink" },
-  { time: "15 Aug", label: "External secret blocker recorded", detail: "vscode-copilot-cha · OPENROUTER_API_KEY is not configured", tone: "rust" },
-  { time: "15 Aug", label: "Deployment scope held", detail: "B · Azure target and deploy credential are not configured", tone: "sage" },
+  { time: "15 Aug", label: "CI repair merged", detail: "github-mcp-server- · PR #42 · Docker and workflow fix", tone: "lime" },
+  { time: "15 Aug", label: "Dependency remediation merged", detail: "github-mcp-server- · PR #41 · body-parser 2.2.1", tone: "lime" },
+  { time: "15 Aug", label: "Dependency validation merged", detail: "vscode-copilot-cha · PR #2 · client build passed", tone: "lime" },
 ];
 
 const portfolioAudit = {
   totalRepos: "194",
   directlyOwned: "11",
   observedForks: "183",
-  remediationPr: "#42",
+  remediationPr: "03",
   blockers: "03",
 };
 
@@ -231,28 +230,28 @@ export default function Home() {
           <section className="hero-block" aria-labelledby="page-title">
             <div className="hero-copy">
               <p className="eyebrow"><span className="eyebrow-rule" /> PORTFOLIO AUDIT · 15 AUG 2026</p>
-              <h1 id="page-title">Your portfolio is mapped.<br /><i>One repair is ready for review.</i></h1>
-              <p className="hero-description">A verified register of the accessible GitHub portfolio: 194 repositories audited, 11 directly owned projects triaged, and one CI repair now ready for review.</p>
+              <h1 id="page-title">Your portfolio is mapped.<br /><i>Three verified changes are now merged.</i></h1>
+              <p className="hero-description">A verified register of the accessible GitHub portfolio: 194 repositories audited, 11 directly owned projects triaged, and three validated owner-repository changes now applied.</p>
               <div className="hero-actions">
-                <a className="button button-primary" href="https://github.com/balajirajput96/github-mcp-server-/pull/42" target="_blank" rel="noreferrer">Review remediation PR <ArrowUpRight size={16} /></a>
+                <a className="button button-primary" href="https://github.com/balajirajput96/github-mcp-server-/pull/42" target="_blank" rel="noreferrer">Open merged repair <ArrowUpRight size={16} /></a>
                 <button className="text-link" onClick={focusAttention}>Inspect earlier detail sample <ArrowUpRight size={14} /></button>
               </div>
             </div>
             <div className="hero-art" aria-label="Abstract repository pulse illustration">
               <img src="/manus-storage/repository-pulse-art_58518160.png" alt="Abstract branching repository signal illustration" />
-              <div className="hero-art-caption"><span>Audit / 15</span><strong>One repair is ready for review</strong></div>
+              <div className="hero-art-caption"><span>Audit / 15</span><strong>Three verified changes applied</strong></div>
             </div>
           </section>
 
           <section className="metric-strip" aria-label="Repository health summary">
             <div className="metric-cell"><span className="metric-label">Repositories audited</span><strong>{portfolioAudit.totalRepos}</strong><span className="metric-foot"><Github size={13} /> {portfolioAudit.directlyOwned} directly owned</span></div>
-            <div className="metric-cell metric-highlight"><span className="metric-label">Validated repairs</span><strong>01</strong><span className="metric-foot"><Check size={13} /> PR {portfolioAudit.remediationPr} checks passed</span></div>
+            <div className="metric-cell metric-highlight"><span className="metric-label">Validated repairs</span><strong>{portfolioAudit.remediationPr}</strong><span className="metric-foot"><Check size={13} /> PRs #42, #41, #2 merged</span></div>
             <div className="metric-cell"><span className="metric-label">Observed upstream forks</span><strong>{portfolioAudit.observedForks}</strong><span className="metric-foot"><GitBranch size={13} /> tracked, not auto-modified</span></div>
             <div className="metric-cell"><span className="metric-label">Setup blockers</span><strong>{portfolioAudit.blockers}</strong><span className="metric-foot"><TriangleAlert size={13} /> secret, Azure, draft review</span></div>
           </section>
 
           <section className="audit-ledger-strip" aria-label="Latest portfolio audit note">
-            <div><span className="signal-label"><span className="signal-dot lime" /> VERIFIED AUDIT NOTE</span><strong>PR #42 repairs a Docker build failure and a retired workflow action in <code>github-mcp-server-</code>.</strong></div>
+            <div><span className="signal-label"><span className="signal-dot lime" /> VERIFIED AUDIT NOTE</span><strong>PRs #42 and #41 repaired <code>github-mcp-server-</code>; PR #2 passed a client production build before merge.</strong></div>
             <span>11 owned projects triaged · 3 blockers preserved for explicit setup</span>
           </section>
 
@@ -260,7 +259,7 @@ export default function Home() {
             <article className="panel pulse-panel">
               <div className="panel-heading"><div><p className="panel-kicker">Repository pulse</p><h2>Signal movement</h2></div><span className="index-stamp">01</span></div>
               <div className="pulse-visual">
-              <div className="pulse-copy"><span className="signal-label"><span className="signal-dot lime" /> ACTIVE REPAIR</span><strong>PR #42</strong><p>Docker now compiles before pruning development dependencies; the updated workflow checks passed on GitHub.</p><a className="button button-small" href="https://github.com/balajirajput96/github-mcp-server-/pull/42" target="_blank" rel="noreferrer">Inspect PR <ArrowUpRight size={14} /></a></div>
+              <div className="pulse-copy"><span className="signal-label"><span className="signal-dot lime" /> MERGED REPAIRS</span><strong>03</strong><p>CI, Docker, and dependency work has been validated across two directly owned projects and then merged.</p><a className="button button-small" href="https://github.com/balajirajput96/github-mcp-server-/pull/42" target="_blank" rel="noreferrer">Inspect repair trail <ArrowUpRight size={14} /></a></div>
                 <img src="/manus-storage/workflow-rhythm-art_833a79bf.png" alt="Abstract workflow rhythm visual" />
               </div>
               <div className="pulse-legend"><span><i className="legend-mark mark-lime" /> Healthy</span><span><i className="legend-mark mark-rust" /> Needs review</span><span><i className="legend-mark mark-stone" /> Not fetched</span></div>
@@ -281,7 +280,7 @@ export default function Home() {
               <div className="activity-list">
                 {activityItems.map((item) => <div className="activity-row" key={`${item.time}-${item.label}`}><div className={`activity-marker ${item.tone}`}><Check size={13} /></div><div className="activity-detail"><strong>{item.label}</strong><span>{item.detail}</span></div><time>{item.time}</time></div>)}
               </div>
-              <div className="activity-aside"><img src="/manus-storage/workflow-rhythm-art_833a79bf.png" alt="Workflow rhythm texture" /><div><span className="signal-label"><span className="signal-dot rust" /> NEXT MOVE</span><strong>Review PR #42</strong><p>Confirm the Docker and deployment-workflow repair, then unblock the remaining projects by configuring required secrets and deployment targets.</p><a className="text-link" href="https://github.com/balajirajput96/github-mcp-server-/pull/42" target="_blank" rel="noreferrer">Open PR #42 <ExternalLink size={13} /></a></div></div>
+              <div className="activity-aside"><img src="/manus-storage/workflow-rhythm-art_833a79bf.png" alt="Workflow rhythm texture" /><div><span className="signal-label"><span className="signal-dot rust" /> NEXT MOVE</span><strong>Clear external setup blockers</strong><p>Remaining work depends on an OpenRouter secret, an Azure deployment target, and focused review of larger draft pull requests.</p><a className="text-link" href="https://github.com/balajirajput96/vscode-copilot-cha/actions" target="_blank" rel="noreferrer">Open workflow status <ExternalLink size={13} /></a></div></div>
             </div>
           </section>
 
