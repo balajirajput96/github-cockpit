@@ -1,5 +1,4 @@
 # Repository Detail Pages — Implementation Checklist
-
 - [ ] Review current routing and dashboard components for reusable patterns.
 - [ ] Define repository detail information architecture for overview, workflows, pull requests, and security.
 - [ ] Add repository detail route and selected-repository navigation.
