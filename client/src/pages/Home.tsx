@@ -5,6 +5,7 @@
  */
 
 import { useAuth } from "@/_core/hooks/useAuth";
+import { JulesExecutionTimeline } from "@/components/JulesExecutionTimeline";
 import { startLogin } from "@/const";
 import { trpc } from "@/lib/trpc";
 import { getPortfolioPresentation } from "@/lib/portfolioPresentation";
@@ -184,6 +185,7 @@ function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => 
         <p className="nav-label nav-label-spaced">Signals</p>
         <a className="nav-item" href="#security"><ShieldCheck size={17} /><span>Security</span><b className="nav-risk">63</b></a>
         <a className="nav-item" href="#workflows"><Workflow size={17} /><span>Workflows</span><b>—</b></a>
+        <a className="nav-item" href="#jules-run"><Clock3 size={17} /><span>Jules run</span><b>01</b></a>
         <p className="nav-label nav-label-spaced">Create</p>
         <a className="nav-item" href="#agent-studio"><Sparkles size={17} /><span>Agent Studio</span><b>AI</b></a>
         <a className="nav-item" href="#media-workbench"><ImageIcon size={17} /><span>Media</span><b>01</b></a>
@@ -335,6 +337,8 @@ export default function Home() {
             <div><span className="signal-label"><span className="signal-dot lime" /> VERIFIED AUDIT NOTE</span><strong><code>vscode-copilot-cha</code> Daily Pharma Job Scan recovered successfully after secure credential configuration.</strong></div>
             <span>11 owned projects triaged · 2 explicit blockers remain</span>
           </section>
+
+          <JulesExecutionTimeline />
 
           <section className="live-register-section" id="live-register" aria-labelledby="live-register-title">
             <div className="section-heading repository-heading">

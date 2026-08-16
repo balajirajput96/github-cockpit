@@ -53,3 +53,4 @@
 - [x] Add clickable repository, workflow, issue, and pull-request operations with clear safe-action states.
 - [x] Add provider-connect readiness cards rather than embedding model, image, or video API credentials.
 - [x] Preserve the existing Signal Ledger visual system while evolving it into the cockpit.
+- [x] Add a protected native Jules execution timeline card that presents the verified scheduled run, task linkage, PR #46 state, timestamps, and human-review boundary.
