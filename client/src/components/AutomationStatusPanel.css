@@ -1,0 +1,24 @@
+.automation-status-section { margin: 0 0 62px; scroll-margin-top: 100px; }
+.automation-status-heading { align-items: end; }
+.automation-status-heading h2 i { color: #5f6e58; }
+.automation-status-totals { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+.automation-status-totals span { display: inline-flex; align-items: center; gap: 5px; padding: 7px 9px; border: 1px solid var(--border); color: #77756b; background: rgba(250,248,243,.68); font: 600 10px "IBM Plex Mono", monospace; text-transform: uppercase; letter-spacing: .05em; }
+.automation-status-totals .is-healthy { color: #5b6c54; border-color: #bfd3a0; background: #eef6df; }
+.automation-status-totals .is-attention { color: #7a684a; border-color: #d6c6a3; background: #f5eedf; }
+.automation-status-totals .is-blocked { color: #944b32; border-color: #e2b29f; background: #f4e6de; }
+.automation-status-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--border); background: rgba(250,248,243,.7); }
+.automation-status-card { display: flex; min-height: 214px; flex-direction: column; padding: 21px 19px; border-right: 1px solid var(--border); }
+.automation-status-card:last-child { border-right: 0; }
+.automation-card-top { display: flex; align-items: center; gap: 8px; color: #817e74; font: 600 9px "IBM Plex Mono", monospace; text-transform: uppercase; letter-spacing: .06em; }
+.automation-status-icon { display: grid; width: 23px; height: 23px; place-items: center; border: 1px solid #cbd2dc; border-radius: 50%; color: #60726b; background: #edf2ec; }
+.automation-status-card.is-attention .automation-status-icon { border-color: #d6c6a3; color: #7d6846; background: #f5eedf; }
+.automation-status-card.is-blocked .automation-status-icon { border-color: #e2b29f; color: #944b32; background: #f4e6de; }
+.automation-status-card > strong { margin: 18px 0 8px; font: 400 22px/1.08 "DM Serif Display", serif; letter-spacing: -.025em; }
+.automation-status-card > p { margin: 0; color: #77756c; font-size: 11px; line-height: 1.6; }
+.automation-status-card > a, .automation-status-boundary { display: inline-flex; align-items: center; gap: 5px; margin-top: auto; padding-top: 18px; color: #61705b; font: 600 10px "IBM Plex Mono", monospace; text-transform: uppercase; letter-spacing: .04em; }
+.automation-status-card > a { width: fit-content; border-bottom: 1px solid #b1c09e; transition: color 160ms ease, border-color 160ms ease; }
+.automation-status-card > a:hover { color: var(--ink); border-color: var(--ink); }
+.automation-status-boundary { color: #88847a; }
+@media (max-width: 1080px) { .automation-status-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .automation-status-card:nth-child(3) { border-right: 0; } .automation-status-card:nth-child(-n+3) { border-bottom: 1px solid var(--border); } }
+@media (max-width: 720px) { .automation-status-heading { align-items: flex-start; flex-direction: column; } .automation-status-totals { justify-content: flex-start; } .automation-status-grid { grid-template-columns: 1fr 1fr; } .automation-status-card { min-height: 190px; } .automation-status-card:nth-child(3) { border-right: 1px solid var(--border); } .automation-status-card:nth-child(2), .automation-status-card:nth-child(4) { border-right: 0; } .automation-status-card:nth-child(4) { border-bottom: 1px solid var(--border); } }
+@media (max-width: 480px) { .automation-status-grid { grid-template-columns: 1fr; } .automation-status-card, .automation-status-card:nth-child(3) { min-height: auto; border-right: 0; border-bottom: 1px solid var(--border); } .automation-status-card:last-child { border-bottom: 0; } }

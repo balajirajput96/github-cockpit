@@ -55,3 +55,10 @@
 - [ ] Validate authenticated Agent Studio planning and image flows through the browser interface.
 - [x] Save and publish a checkpoint that includes the hybrid AI-agent workspace changes.
 - [x] Refresh the static Signal Ledger activity snapshot with the published hybrid-agent workspace, active daily digest, and private GitHub CI evidence.
+
+## Connector Automation Expansion — 16 August 2026
+- [x] Audit enabled connector availability, account scope, and existing schedule state without exposing credentials; recurring digest is active and now scoped to GitHub plus authorized Gmail delivery only.
+- [x] Audit directly owned GitHub repository signals for open PRs, failed workflows, security alerts, and PR-based remediation opportunities; documented current remediation boundaries and external permission limits.
+- [x] Prepare a reviewable PR that makes the Daily Pharma Job Scan commit step concurrency-safe without automatically merging it; draft PR [#6](https://github.com/balajirajput96/vscode-copilot-cha/pull/6) is open against `main`.
+- [x] Add selected low-risk connector automation controls and transparent operational status to the cockpit; status panel exposes digest scope, PR review gate, and verified blockers without write controls.
+- [x] Validate automation additions with TypeScript, 15 tests across 9 files, production build, preview health, and draft PR check; publish and synchronize the private GitHub delivery repository in this checkpoint.
