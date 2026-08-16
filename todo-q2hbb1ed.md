@@ -15,8 +15,8 @@
 - [x] Produce a risk-ranked repair backlog with repository-specific scope.
 - [x] Implement and validate the highest-priority safe fixes.
 - [x] Configure recurring progress updates and document constraints.
-- [ ] Directly verify in Jules that the retained 09:00 AM IST scheduled task recorded an execution entry, then capture its exact status, timestamp, and session linkage.
-- [ ] Capture durable Jules-side evidence tying task 12857103147949613432 and PR #46 to the retained scheduled run before closing native-run verification.
+- [x] Directly verify in Jules that the retained 09:00 AM IST scheduled task recorded an execution entry, then capture its exact status, timestamp, and session linkage.
+- [x] Capture durable Jules-side evidence tying task 12857103147949613432 and PR #46 to the retained scheduled run before closing native-run verification.
 - [x] Record and deliver the 16 Aug 2026 daily GitHub/Jules review with scope limits, findings, blockers, and next safe action.
 - [x] Launch and verify the separately authorized one-off Jules maintenance attempt without changing the retained daily schedule.
 - [x] Close unexpected zero-change Jules draft PR #45 while preserving its empty branch and the retained daily schedule.

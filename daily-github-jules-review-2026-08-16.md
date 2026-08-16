@@ -4,7 +4,7 @@
 
 ## Executive status
 
-The companion **Daily GitHub owner-repo and Jules update** schedule remains **active** in `Asia/Kolkata`, with a daily 09:30 report cadence. Public GitHub evidence shows that Jules opened draft PR **#46** at 03:37 UTC on 16 August, after the retained 09:00 IST maintenance window, and that its associated CI and free-tier deployment-validation workflows both completed successfully. This is strong evidence that an automated Jules task executed; direct proof from the Jules scheduler-history UI remains outstanding because the currently available browser session is signed out.
+The companion **Daily GitHub owner-repo and Jules update** schedule remains **active** in `Asia/Kolkata`, with a daily 09:30 report cadence. Authenticated first-party Jules evidence now confirms that the retained GitHub-only daily task executed at **03:30 UTC (09:00 IST)** on 16 August and links directly to task `12857103147949613432`. That completed task produced draft PR **#46** at 03:37 UTC, while its associated CI and free-tier deployment-validation workflows both completed successfully.[pr46][ci][deploy]
 
 | Area | Current finding | Status |
 |---|---|---|
@@ -12,7 +12,7 @@ The companion **Daily GitHub owner-repo and Jules update** schedule remains **ac
 | Jules output | Draft PR #46 proposes an npm lockfile security update. | Awaiting review |
 | CI/CD validation | CI workflow succeeded in 24 seconds. | Passing with warnings |
 | Free-tier validation | Health, deployment configuration, free-tier setup, and summary all succeeded in 38 seconds. | Passing with warnings |
-| Direct scheduler attribution | Jules task-history/scheduled-entry screen is inaccessible in the current signed-out browser. | Blocked |
+| Direct scheduler attribution | Native Jules scheduled card is Active, records 16 Aug 03:30 UTC, and links to completed task `12857103147949613432` / PR #46. | Verified |
 
 ## Native Jules output: PR #46
 
@@ -32,11 +32,11 @@ The `github-mcp-server-` repository has three open issues, all from October 2025
 
 The visible `B` repository has **18 open issues**, largely dated from March 2024, but **no open pull requests**. Its next safe action is backlog classification and closure/label review, not an automated code change.[b-issues][b-pulls]
 
-## Blockers and next safe action
+## Native scheduler verification and next safe action
 
-> **Primary blocker:** The first-party Jules scheduler history cannot be opened in the current browser because Jules presents a Google sign-in page. Therefore, the report does not claim direct scheduler attribution, even though the timing and Jules-authored PR are consistent with the retained task.
+Authenticated Jules repository history now shows the retained **Daily GitHub-only maintenance** schedule as **Active**, with cadence **Daily at 03:30 AM UTC**. Expanding its native card exposes the execution timestamp **8/16/2026, 3:30:00 AM** and **View task → `12857103147949613432`**. The same native overview places that task in **Complete** status. Its task page records a four-step completed plan, a 7-minute run, `package-lock.json` as the only changed file, and **Ready for review**; its View PR control opens PR #46.[jules-task][pr46]
 
-The next safe action is to authenticate into the Jules account that owns the scheduled task and inspect its Scheduled/history entry. Capture the exact execution timestamp, session/task identifier, and linkage to Jules task `12857103147949613432` / PR #46. Separately, a human reviewer should inspect PR #46’s lockfile diff and dependency compatibility; if approved, conversion from draft and merge must be an explicit user decision.
+The direct attribution is consequently closed: the schedule card, completed Jules task, task-specific branch `fix-vulnerabilities-12857103147949613432`, and PR description all point to the same work item. The next safe action is solely a human review of PR #46’s lockfile diff and dependency compatibility. Converting it from draft or merging it remains an explicit user decision and was not performed.
 
 ## Connector-enabled reconciliation
 
@@ -53,3 +53,4 @@ The directly owned repository inventory also shows recent activity in `.github`,
 [pulls]: https://github.com/balajirajput96/github-mcp-server-/pulls?q=is%3Apr "Pull requests — github-mcp-server-"
 [b-issues]: https://github.com/balajirajput96/B/issues?q=is%3Aissue%20is%3Aopen "Open issues — B"
 [b-pulls]: https://github.com/balajirajput96/B/pulls?q=is%3Apr+is%3Aopen "Open pull requests — B"
+[jules-task]: https://jules.google.com/task/12857103147949613432 "Authenticated Jules task 12857103147949613432"
