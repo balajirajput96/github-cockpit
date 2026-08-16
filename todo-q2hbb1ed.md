@@ -27,6 +27,11 @@
 - [x] Distinguish a pending live-register query from a true snapshot fallback in the cockpit status indicators.
 - [x] Add automated authenticated-caller coverage for the live portfolio procedure with a successful GitHub public-data response.
 - [x] Sync the current hybrid-agent, live-register, tests, and verification records to the private GitHub repository.
+- [x] Review the requested all-connector expansion and retain only integrations demonstrably required for the GitHub/Jules cockpit and daily evidence workflow.
+- [x] Audit all currently enabled Manus connectors against the GitHub/Jules cockpit and daily evidence workflow, recording required versus out-of-scope status.
+- [x] Preserve or narrow enabled connector configuration with a concrete least-privilege justification for each non-required capability.
+- [x] Re-verify that GitHub/Jules schedules and cockpit workflows retain their documented boundaries after connector-scope review.
+- [x] Re-run and record post-connector-review cockpit boundary verification for the protected auth gate, live GitHub register, and server-side-only integration model.
 
 ## Antigravity and AI-agent application program
 
