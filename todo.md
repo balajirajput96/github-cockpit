@@ -67,9 +67,10 @@
 
 ## GitHub Cockpit Dependency Security Follow-up
 - [x] Classify the local `pnpm audit` findings and isolate direct, compatible dependency updates from transitive-only advisories; Vite, Vitest, pnpm, PostCSS, and Tailwind tooling reduce findings from 56 to 3, with zero high or critical remaining.
-- [x] Prepare a dedicated reviewable dependency-security pull request for compatible direct updates; [PR #1](https://github.com/balajirajput96/github-cockpit/pull/1) is open and unmerged.
+- [x] Prepare a dedicated reviewable dependency-security pull request for compatible direct updates; [PR #1](https://github.com/balajirajput96/github-cockpit/pull/1) was merged on 17 August 2026 after its checks passed.
 - [x] Validate the security-update branch with TypeScript, tests, build, and GitHub CI; local validation passed and GitHub CI run `32024694996` passed in 41 seconds.
 - [x] Add the open dependency-security PR #1 and its verified audit reduction to the cockpit automation status panel without exposing a merge control.
+- [x] Refresh the cockpit dependency-security status from open review to the verified merged PR #1 outcome.
 - [x] Correct the cockpit’s stale PR #46/Node 20 status text to reflect the verified merged package-lock vulnerability remediation without overstating workflow-runtime changes.
 
 ## Referenced Workflow Continuation

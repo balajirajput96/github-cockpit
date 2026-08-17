@@ -53,11 +53,11 @@ export const AUTOMATION_STATUS_ITEMS: AutomationStatusItem[] = [
   {
     id: "dependency-security-pr",
     eyebrow: "Dependency security",
-    title: "Open PR #1 · audit reduced 56 → 3",
-    detail: "Compatible Vite, Vitest, pnpm, PostCSS, and Tailwind tooling updates remove all local critical and high findings. GitHub CI passed; owner review is still required before merge.",
-    tone: "attention",
+    title: "Merged PR #1 · audit reduced 56 → 3",
+    detail: "Compatible Vite, Vitest, pnpm, PostCSS, and Tailwind tooling updates remove all local critical and high findings. GitHub CI passed and the reviewed change is now on main.",
+    tone: "healthy",
     href: "https://github.com/balajirajput96/github-cockpit/pull/1",
-    hrefLabel: "Review security PR",
+    hrefLabel: "Open merged PR",
   },
   {
     id: "mcp-lockfile-remediation",
