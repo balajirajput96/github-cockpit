@@ -25,4 +25,12 @@ describe("agent operation feedback", () => {
     expect(homeSource).toContain("planner.data.guardrails.map");
     expect(homeSource).toContain("agent-plan-result");
   });
+
+  it("communicates bounded image lifecycle states and a safe retry path", () => {
+    expect(homeSource).toContain("const imageLifecycle");
+    expect(homeSource).toContain("getImageLifecycle");
+    expect(homeSource).toContain("imageLifecycle.actionLabel");
+    expect(homeSource).toContain("media-request-status");
+    expect(homeSource).toContain('role="status"');
+  });
 });

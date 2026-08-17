@@ -86,3 +86,10 @@
 - [x] Audit the owner-controlled biotech job workflow for current run status, output, and configuration blockers without exposing credentials or changing outreach behavior; the repository has no Actions workflow and its coordination script is confirmed dry-run/fail-closed.
 - [x] Apply only evidence-backed, reviewable workflow changes and reflect the resulting state in the cockpit; no outreach workflow change was justified without candidate materials, and the verified fail-closed status is now visible.
 - [x] Validate, deploy, and synchronize referenced-workflow continuation changes with TypeScript, 15 tests, production build, deployment checkpoint, and private GitHub CI run `32021071010` passing in 43 seconds.
+
+## Continuation — 17 August 2026
+- [x] Add Media Workbench provider lifecycle feedback, including a clear bounded-wait status and a safe retry path that does not expose credentials; the UI now shows ready, generating, retryable-error, and stored-result states.
+- [x] Add focused regression coverage for Media Workbench lifecycle feedback and retry behavior; 28 tests pass.
+- [x] Extract and test Media Workbench lifecycle state selection in a Vite 8-compatible pure helper; idle, pending, error/retry, and stored-result states are covered in the 29-test suite.
+- [x] Inspect the current reviewable GitHub follow-up state without merging, changing settings, or exposing secrets; draft PR #51 checks passed, and the evidence-backed next action remains explicit owner review before any GitHub decision.
+- [x] Validate, checkpoint, and publish this continuation with TypeScript, 29 tests, Vite 8 production build, and a zero-advisory dependency audit.

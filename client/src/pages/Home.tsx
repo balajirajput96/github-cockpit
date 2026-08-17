@@ -8,6 +8,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { AutomationStatusPanel } from "@/components/AutomationStatusPanel";
 import { JulesExecutionTimeline } from "@/components/JulesExecutionTimeline";
 import { startLogin } from "@/const";
+import { getImageLifecycle } from "@/lib/imageLifecycle";
 import { trpc } from "@/lib/trpc";
 import { getPortfolioPresentation } from "@/lib/portfolioPresentation";
 import { useMemo, useState } from "react";
@@ -280,6 +281,12 @@ export default function Home() {
     }
   };
 
+  const imageLifecycle = getImageLifecycle({
+    hasError: Boolean(imageMaker.error),
+    imageUrl: imageMaker.data?.url,
+    isPending: imageMaker.isPending,
+  });
+
   if (loading) {
     return (
       <main className="access-gate ledger-loading-state">
@@ -420,7 +427,8 @@ export default function Home() {
             <div className="media-tools">
               <div className="media-tool-card">
                 <ImageIcon size={19} /><div><strong>Original image</strong><span>Generate a workspace visual without putting a key in the browser.</span></div>
-                <label className="sr-only" htmlFor="image-prompt">Image request</label><input id="image-prompt" value={imagePrompt} onChange={(event) => setImagePrompt(event.target.value)} maxLength={700} /><button type="button" className="button button-dark" disabled={imageMaker.isPending || imagePrompt.trim().length < 12} onClick={createImage}>{imageMaker.isPending ? <Loader2 className="animate-spin" size={15} /> : <Sparkles size={15} />}{imageMaker.isPending ? "Creating" : "Create image"}</button>
+                <label className="sr-only" htmlFor="image-prompt">Image request</label><input id="image-prompt" value={imagePrompt} onChange={(event) => setImagePrompt(event.target.value)} maxLength={700} /><button type="button" className="button button-dark" disabled={imageMaker.isPending || imagePrompt.trim().length < 12} onClick={createImage}>{imageMaker.isPending ? <Loader2 className="animate-spin" size={15} /> : <Sparkles size={15} />}{imageLifecycle.actionLabel}</button>
+                <div className={`media-request-status ${imageLifecycle.tone}`} role="status" aria-live="polite"><span>{imageLifecycle.label}</span></div>
                 {imageMaker.error ? <div className="live-error" role="alert"><TriangleAlert size={18} /><div><strong>Image generation error</strong><span>{imageMaker.error.message}</span></div></div> : null}
                 {imageMaker.data?.url ? <a className="media-image-result" href={imageMaker.data.url} target="_blank" rel="noreferrer"><img src={imageMaker.data.url} alt="Generated agent workspace visual" /><span>Open generated image <ArrowUpRight size={13} /></span></a> : null}
               </div>
