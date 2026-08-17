@@ -1,5 +1,5 @@
-import { ArrowUpRight, Check, Clock3, GitPullRequest, ShieldCheck, TimerReset } from "lucide-react";
-import { JULES_EXECUTION_EVENTS, JULES_EXECUTION_RUN, type JulesTimelineEvent } from "@/lib/julesTimeline";
+import { ArrowUpRight, Check, CircleCheck, ClipboardCheck, Clock3, GitPullRequest, ShieldCheck, TimerReset } from "lucide-react";
+import { JULES_EXECUTION_EVENTS, JULES_EXECUTION_RUN, PR46_REVIEW_CHECKLIST, type JulesTimelineEvent } from "@/lib/julesTimeline";
 import "./JulesExecutionTimeline.css";
 
 function EventIcon({ event }: { event: JulesTimelineEvent }) {
@@ -17,7 +17,10 @@ export function JulesExecutionTimeline() {
           <p className="panel-kicker">Native Jules evidence</p>
           <h2 id="jules-run-title">A scheduled run, <i>kept reviewable.</i></h2>
         </div>
-        <span className="jules-verified-badge"><span /> verified in Jules</span>
+        <div className="jules-heading-badges">
+          <span className="jules-verified-badge"><span /> verified in Jules</span>
+          <span className="jules-report-badge"><ClipboardCheck size={13} /><b>Daily report</b> {JULES_EXECUTION_RUN.dailyReport.displayTime}</span>
+        </div>
       </div>
 
       <article className="jules-timeline-card">
@@ -48,7 +51,14 @@ export function JulesExecutionTimeline() {
           <span className="panel-kicker">Review gate</span>
           <div className="jules-pr-number">#{JULES_EXECUTION_RUN.pullRequest.number}</div>
           <strong>{JULES_EXECUTION_RUN.pullRequest.status}</strong>
-          <p>One lockfile-only proposal. It remains human-reviewed before any repository write is accepted.</p>
+          <p>One lockfile-only proposal. Check evidence before any owner decision.</p>
+          <ol className="jules-review-checklist" aria-label="PR 46 human review checklist">
+            {PR46_REVIEW_CHECKLIST.map((item) => (
+              <li key={item.id} className={item.state === "Passed" ? "is-passed" : ""}>
+                <CircleCheck size={14} /><div><strong>{item.label}</strong><span>{item.detail}</span><a href={item.href} target="_blank" rel="noreferrer">{item.hrefLabel} <ArrowUpRight size={11} /></a></div><em>{item.state}</em>
+              </li>
+            ))}
+          </ol>
           <a className="button button-dark" href={JULES_EXECUTION_RUN.pullRequest.href} target="_blank" rel="noreferrer">Open PR #{JULES_EXECUTION_RUN.pullRequest.number} <ArrowUpRight size={14} /></a>
         </aside>
       </article>
