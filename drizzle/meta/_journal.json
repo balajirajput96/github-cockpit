@@ -8,6 +8,13 @@
       "when": 1786785889511,
       "tag": "0000_short_expediter",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1786965499418,
+      "tag": "0001_legal_fat_cobra",
+      "breakpoints": true
     }
   ]
 }

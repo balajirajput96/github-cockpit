@@ -4,7 +4,8 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { generateImage } from "./_core/imageGeneration";
 import { invokeLLM } from "./_core/llm";
 import { systemRouter } from "./_core/systemRouter";
-import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
+import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_core/trpc";
+import { createPr46Review, getDailyEvidence, getLatestPr46Review } from "./db";
 import { getPublicPortfolio } from "./githubPublic";
 
 const agentIntentSchema = z.enum(["repository", "automation", "media"]);
@@ -67,6 +68,12 @@ export const appRouter = router({
     portfolio: protectedProcedure
       .input(z.object({ forceRefresh: z.boolean().optional() }).optional())
       .query(({ input }) => getPublicPortfolio("balajirajput96", input?.forceRefresh ?? false)),
+    evidence: protectedProcedure.query(() => getDailyEvidence()),
+    latestReview: protectedProcedure.query(() => getLatestPr46Review()),
+    recordPr46Review: adminProcedure.input(z.object({
+      decision: z.literal("reviewed-hold-draft"),
+      note: z.string().trim().min(8).max(700),
+    })).mutation(({ ctx, input }) => createPr46Review(ctx.user.openId, input.decision, input.note)),
   }),
   agent: router({
     plan: protectedProcedure

@@ -51,6 +51,15 @@ export const AUTOMATION_STATUS_ITEMS: AutomationStatusItem[] = [
     tone: "blocked",
   },
   {
+    id: "node-20",
+    eyebrow: "Workflow runtime",
+    title: "Node 20 deprecation needs review",
+    detail: "PR #46 validation passed with warnings. Upgrade workflow declarations in a separately reviewed change; this cockpit does not modify Actions files automatically.",
+    tone: "attention",
+    href: "https://github.com/balajirajput96/github-mcp-server-/actions/runs/31924696688",
+    hrefLabel: "Inspect CI warning",
+  },
+  {
     id: "biotech-outreach",
     eyebrow: "Biotech outreach",
     title: "Dry-run only · candidate inputs pending",

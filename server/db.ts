@@ -1,6 +1,6 @@
-import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { desc, eq } from "drizzle-orm";
+import { cockpitEvidence, cockpitReviewRecords, InsertUser, users } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -87,6 +87,63 @@ export async function getUserByOpenId(openId: string) {
   const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
 
   return result.length > 0 ? result[0] : undefined;
+}
+
+export const DAILY_EVIDENCE_KEY = "daily-github-jules-evidence";
+export const PR46_REVIEW_KEY = "github-mcp-server-pr-46";
+
+export async function getDailyEvidence() {
+  const db = await getDb();
+  if (!db) return null;
+  const [record] = await db.select().from(cockpitEvidence)
+    .where(eq(cockpitEvidence.evidenceKey, DAILY_EVIDENCE_KEY)).limit(1);
+  return record ?? null;
+}
+
+export async function createDailyEvidenceScheduleRecord(taskUid: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is unavailable for evidence schedule registration");
+  await db.insert(cockpitEvidence).values({
+    evidenceKey: DAILY_EVIDENCE_KEY,
+    scheduleCronTaskUid: taskUid,
+    status: "scheduled",
+    source: "project-heartbeat",
+  }).onDuplicateKeyUpdate({
+    set: { scheduleCronTaskUid: taskUid, status: "scheduled", source: "project-heartbeat" },
+  });
+  return getDailyEvidence();
+}
+
+export async function recordDailyEvidenceCallback(taskUid: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is unavailable for evidence callback");
+  const [record] = await db.select().from(cockpitEvidence)
+    .where(eq(cockpitEvidence.scheduleCronTaskUid, taskUid)).limit(1);
+  if (!record) return null;
+  await db.update(cockpitEvidence).set({ status: "recorded", lastRecordedAt: new Date() })
+    .where(eq(cockpitEvidence.id, record.id));
+  return getDailyEvidence();
+}
+
+export async function getLatestPr46Review() {
+  const db = await getDb();
+  if (!db) return null;
+  const [record] = await db.select().from(cockpitReviewRecords)
+    .where(eq(cockpitReviewRecords.reviewKey, PR46_REVIEW_KEY))
+    .orderBy(desc(cockpitReviewRecords.createdAt)).limit(1);
+  return record ?? null;
+}
+
+export async function createPr46Review(ownerOpenId: string, decision: string, note: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is unavailable for owner review recording");
+  await db.insert(cockpitReviewRecords).values({
+    reviewKey: PR46_REVIEW_KEY,
+    decision,
+    note,
+    ownerOpenId,
+  });
+  return getLatestPr46Review();
 }
 
 // TODO: add feature queries here as your schema grows.

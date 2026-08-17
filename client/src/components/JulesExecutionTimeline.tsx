@@ -1,6 +1,10 @@
-import { ArrowUpRight, Check, CircleCheck, ClipboardCheck, Clock3, GitPullRequest, ShieldCheck, TimerReset } from "lucide-react";
+import { ArrowUpRight, Check, CircleCheck, ClipboardCheck, Clock3, GitPullRequest, Loader2, ShieldCheck, TimerReset } from "lucide-react";
+import { useAuth } from "@/_core/hooks/useAuth";
+import { trpc } from "@/lib/trpc";
 import { JULES_EXECUTION_EVENTS, JULES_EXECUTION_RUN, PR46_REVIEW_CHECKLIST, type JulesTimelineEvent } from "@/lib/julesTimeline";
 import "./JulesExecutionTimeline.css";
+import { useState } from "react";
+import { toast } from "sonner";
 
 function EventIcon({ event }: { event: JulesTimelineEvent }) {
   if (event.id === "scheduled") return <Clock3 size={15} />;
@@ -10,6 +14,23 @@ function EventIcon({ event }: { event: JulesTimelineEvent }) {
 }
 
 export function JulesExecutionTimeline() {
+  const { user } = useAuth();
+  const utils = trpc.useUtils();
+  const [reviewNote, setReviewNote] = useState("Reviewed the available PR #46 evidence. Keeping the pull request in draft pending dependency compatibility confirmation.");
+  const evidenceQuery = trpc.cockpit.evidence.useQuery();
+  const latestReviewQuery = trpc.cockpit.latestReview.useQuery();
+  const recordReview = trpc.cockpit.recordPr46Review.useMutation({
+    onSuccess: async () => {
+      await utils.cockpit.latestReview.invalidate();
+      toast.success("Owner review recorded", { description: "PR #46 remains a draft; no GitHub action was taken." });
+    },
+    onError: (error) => toast.error("Review record could not be saved", { description: error.message }),
+  });
+  const recordedAt = evidenceQuery.data?.lastRecordedAt
+    ? new Intl.DateTimeFormat("en-IN", { dateStyle: "medium", timeStyle: "short", timeZone: "Asia/Kolkata" }).format(new Date(evidenceQuery.data.lastRecordedAt))
+    : "First independent run pending";
+  const canRecordReview = user?.role === "admin";
+
   return (
     <section className="jules-timeline-section" id="jules-run" aria-labelledby="jules-run-title">
       <div className="section-heading jules-timeline-heading">
@@ -19,7 +40,7 @@ export function JulesExecutionTimeline() {
         </div>
         <div className="jules-heading-badges">
           <span className="jules-verified-badge"><span /> verified in Jules</span>
-          <span className="jules-report-badge"><ClipboardCheck size={13} /><b>Daily report</b> {JULES_EXECUTION_RUN.dailyReport.displayTime}</span>
+          <span className={`jules-report-badge ${evidenceQuery.data?.status === "recorded" ? "is-recorded" : ""}`}><ClipboardCheck size={13} /><b>Daily evidence</b> {recordedAt}</span>
         </div>
       </div>
 
@@ -59,6 +80,15 @@ export function JulesExecutionTimeline() {
               </li>
             ))}
           </ol>
+          <div className="jules-owner-record">
+            <span className="panel-kicker">Owner audit record</span>
+            {latestReviewQuery.data ? <p className="jules-recorded-note"><Check size={12} /> Last record: {new Date(latestReviewQuery.data.createdAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })}</p> : <p>No owner decision has been recorded yet.</p>}
+            {canRecordReview ? <>
+              <label className="sr-only" htmlFor="pr46-review-note">PR #46 review note</label>
+              <textarea id="pr46-review-note" value={reviewNote} onChange={(event) => setReviewNote(event.target.value)} maxLength={700} />
+              <button className="jules-record-button" disabled={recordReview.isPending || reviewNote.trim().length < 8} onClick={() => recordReview.mutate({ decision: "reviewed-hold-draft", note: reviewNote })}>{recordReview.isPending ? <Loader2 className="animate-spin" size={13} /> : <ClipboardCheck size={13} />}{recordReview.isPending ? "Recording" : "Record review · keep draft"}</button>
+            </> : <p className="jules-owner-only">Only the authenticated cockpit owner can write this internal record.</p>}
+          </div>
           <a className="button button-dark" href={JULES_EXECUTION_RUN.pullRequest.href} target="_blank" rel="noreferrer">Open PR #{JULES_EXECUTION_RUN.pullRequest.number} <ArrowUpRight size={14} /></a>
         </aside>
       </article>
