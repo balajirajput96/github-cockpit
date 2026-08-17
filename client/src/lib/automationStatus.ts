@@ -60,6 +60,15 @@ export const AUTOMATION_STATUS_ITEMS: AutomationStatusItem[] = [
     hrefLabel: "Open merged PR",
   },
   {
+    id: "toolchain-zero-audit",
+    eyebrow: "Toolchain hardening",
+    title: "Merged PR #2 · audit cleared",
+    detail: "The Vite 8, React plugin 6, Vitest 4, and scoped Drizzle resolution update passed GitHub Actions run 32026343651. Isolated validation completed TypeScript, tests, production build, Drizzle CLI, and pnpm audit with zero advisories.",
+    tone: "healthy",
+    href: "https://github.com/balajirajput96/github-cockpit/pull/2",
+    hrefLabel: "Open merged PR",
+  },
+  {
     id: "mcp-lockfile-remediation",
     eyebrow: "Dependency lockfile",
     title: "Merged PR #46 · vulnerability refresh",

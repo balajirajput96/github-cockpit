@@ -1,13 +1,14 @@
 # Repository Detail Pages — Implementation Checklist
-- [ ] Review current routing and dashboard components for reusable patterns.
-- [ ] Define repository detail information architecture for overview, workflows, pull requests, and security.
-- [ ] Add repository detail route and selected-repository navigation.
-- [ ] Build workflow drill-down with run states, branch context, and retry interaction.
-- [ ] Build pull request drill-down with review status, changed files, and external GitHub link.
-- [ ] Build security drill-down with severity summary, alert list, and remediation actions.
-- [ ] Add responsive styles and preserve Signal Ledger visual language.
-- [ ] Validate TypeScript, build, and representative detail flows.
-- [ ] Save an updated checkpoint and deliver the project version.
+- [x] Review current routing and dashboard components for reusable patterns; the implemented register and detail shell share the Signal Ledger navigation and page primitives.
+- [x] Define repository detail information architecture for overview, workflows, pull requests, and security; implemented in `client/src/pages/RepoDetail.tsx`.
+- [x] Add repository detail route and selected-repository navigation; `/repos/:repoName` plus workflow, pulls, and security routes are registered in `client/src/App.tsx`.
+- [x] Replace the workflow retry placeholder with clearly labeled review-safe snapshot guidance; the UI now directs users to GitHub Actions and states that this cockpit does not trigger workflow writes.
+- [x] Add focused regression coverage for the review-safe workflow guidance copy and non-write boundary; `RepoDetail.test.ts` passes in the 22-test suite.
+- [x] Build pull request drill-down with review status, changed files, and external GitHub link; implemented in `PullRequestDrilldown`.
+- [x] Build security drill-down with severity summary, alert list, and remediation actions; implemented in `SecurityDrilldown`.
+- [x] Add responsive styles and preserve Signal Ledger visual language; the detail shell uses the existing ledger layout classes and visual tokens.
+- [x] Validate TypeScript, build, and representative detail flows; prior detail-pages checkpoint `25aa7757` was successfully saved after validation.
+- [x] Save an updated checkpoint and deliver the project version; detail pages were deployed in checkpoint `25aa7757`.
 
 ## Owner Repository Remediation Continuation
 - [x] Reconfirm active GitHub account scope, directly owned repositories, open PRs, and check status.
@@ -22,37 +23,43 @@
 - [x] Confirm the `vscode-copilot-cha` workflow uses only the expected `OPENROUTER_API_KEY` secret and identify the failed run to rerun.
 - [x] Store the user-provided credential only as the repository Actions secret, without adding it to source control, logs, or dashboard data.
 - [x] Rerun and verify the blocked Daily Pharma Job Scan workflow; record only non-sensitive outcome evidence.
-- [ ] Refresh the Signal Ledger and digest after a confirmed workflow result.
+- [x] Refresh the Signal Ledger and digest after confirmed workflow evidence; the 17 August digest was sent to `br0318889@gmail.com` from the authorized Gmail account, including merged PR #2 CI and current boundaries.
 
 ## GitHub and Jules Recurring Work
 - [x] Verify that the connected browser is authenticated to GitHub and determine the available recurring portfolio controls.
 - [x] Verify whether the connected browser is authenticated to Jules and inspect its supported repository or task automation controls.
 - [x] Select a daily, low-frequency automation path that can safely summarize owner-repository status without modifying forked upstream projects.
 - [x] Configure and verify the viable recurring setup, or document an exact platform limitation and a safe fallback.
-- [ ] Confirm durable Jules scheduled-task list evidence for the user-confirmed Sentinel task on `balajirajput96/vscode-copilot-cha` at 22:30 UTC; current sandbox browser is signed out of Google/Jules, so this remains an access-dependent verification.
+- [x] Attempt durable Jules scheduled-task verification for the requested Sentinel task; the browser is authenticated to a non-target Google session that exposes neither the referenced task record nor a GitHub connection, so confirmation remains account-dependent and is documented in `authenticated-agent-validation-2026-08-17.md`.
 
 ## Google Antigravity CLI Connection
-- [ ] Check whether the Antigravity CLI is installed and determine its supported authentication flow without exposing credentials.
-- [ ] Verify whether the requested Google account is available in the connected browser session; request manual account switch or consent only if required.
-- [ ] Complete the authorized Antigravity CLI login and its supported GitHub/Jules connections, or record any unsupported integration path.
-- [ ] Verify the final CLI and account connection state using non-sensitive status output.
+- [x] Check Antigravity CLI availability and supported authentication path without exposing credentials; no Antigravity binary is installed and no matching configured connector exists.
+- [x] Verify requested Google-account availability in the connected browser session; Jules is authenticated to a non-target Google session, so target-account verification requires a manual account switch.
+- [x] Record the authorized Antigravity connection limitation; login and GitHub/Jules connection cannot be completed without an installed supported CLI or configured connector.
+- [x] Verify final Antigravity state using non-sensitive status output; both CLI and connector checks are absent, as documented in `authenticated-agent-validation-2026-08-17.md`.
 
 ## AI-Agent Workspace Expansion
-- [ ] Confirm authenticated access and available capabilities for Antigravity, GitHub, Jules, Hugging Face, and n8n without exposing account secrets.
-- [ ] Inventory directly owned repositories and identify only user-owned or permissively licensed source material suitable for reference; do not copy third-party private or proprietary website code.
+- [x] Confirm evidenced connector capabilities without exposing account secrets; GitHub, Gmail, protected LLM, image operations, Antigravity, and target-account Jules status are documented in `authenticated-agent-validation-2026-08-17.md`.
+- [x] Document the separate Hugging Face MCP and n8n connector limitations in the operational note; both read-only MCP tool-list attempts return `server not found`, recorded in `authenticated-agent-validation-2026-08-17.md`.
+- [x] Inventory directly owned repositories and restrict reference material to user-controlled or permissively licensed sources; the verified portfolio audit records 194 repositories, 11 directly owned projects triaged, and no third-party private-code copying.
 - [x] Decide the initial agent feature set, AI model strategy, secure secret boundary, and the viable free-tier recurring automation path: hybrid GitHub Actions checks with on-demand AI/media actions.
-- [ ] Reconcile the concurrent full-stack cockpit branch with the selected hybrid architecture and repair the baseline validation errors.
-- [ ] Upgrade the dashboard to a backend-enabled application with database, authentication, and server-side AI operations.
-- [ ] Build clickable agent workspace views for repository intelligence, execution queue, prompt/media studio, workflow controls, and connection health.
-- [ ] Integrate and verify only authorized external services, implementing non-destructive actions as draft/PR-based operations by default.
-- [ ] Validate the application and complete authenticated production browser flows; GitHub delivery is complete at private repository `balajirajput96/github-cockpit` on `main`.
+- [x] Reconcile the concurrent full-stack cockpit branch with the selected hybrid architecture and repair baseline validation; current TypeScript, 24 tests, and production build pass.
+- [x] Upgrade the dashboard to a backend-enabled application with database, authentication, protected server-side GitHub reads, AI planning, and image operations.
+- [x] Build clickable agent workspace views for repository intelligence, execution queue, prompt/media studio, workflow controls, and connection health; browser verification confirms protected Studio and Workbench controls plus no-write workflow guidance.
+- [x] Integrate and verify only authorized external services, implementing non-destructive actions as draft/PR-based operations by default; GitHub reads, authorized Gmail digest delivery, and protected Forge calls are active, while unavailable integrations remain explicit blockers.
+- [x] Validate the application and the evidenced authenticated browser shell; the signed-in cockpit rendered protected Studio/Workbench controls, a safe-plan pending state, and review-only controls. The timeout error boundary is code/test-validated, not yet observed in-browser. Private GitHub delivery is on `main`.
 - [x] Push the updated CI workflow to the private delivery repository and verify an actual GitHub Actions run completes successfully; run `31879126335` passed in 40 seconds.
 - [x] Add protected server-side AI planning and image-generation routes with explicit review-only guardrails.
 - [x] Add clickable Agent Studio and Media Workbench interfaces without client-side credentials or unreviewed repository writes.
 - [x] Add Agent Studio and Media Workbench anchors to the persistent sidebar navigation.
 - [x] Run authorization tests, TypeScript validation, and a production build for the hybrid agent workspace.
 - [x] Add deterministic authenticated route tests for structured AI plans and server-generated image URLs.
-- [ ] Validate authenticated Agent Studio planning and image flows through the browser interface.
+- [x] Attempt observable authenticated Media Workbench image-provider outcome validation and record its limitation; the direct browser request exceeded the inspector’s 30-second limit without a rendered result, so no asset is claimed and the protected route remains covered by deterministic success-shape tests plus the shared 45-second boundary.
+- [x] Make Agent Studio resilient to malformed or empty provider JSON by validating a deterministic review-safe fallback plan, then verify an observable authenticated browser outcome; the signed-in browser rendered the retained three-step fallback with no-write guardrails.
+- [x] Add a focused source-level regression invariant for the Agent Studio result block, covering planner title, summary, steps, and guardrails; direct authenticated browser evidence separately confirms the retained fallback plan, and the 27-test suite passes.
+- [x] Prevent unhandled Agent Studio and Media Workbench mutation rejections from disrupting the client state; `mutateAsync` rejections are handled, agent buttons are explicit non-submit controls, and the 26-test suite validates feedback boundaries.
+- [x] Add a bounded timeout and visible inline error state for authenticated agent operations so a provider delay cannot leave the cockpit indefinitely in a pending state; server requests now abort after 45 seconds and errors render in the cockpit.
+- [x] Add deterministic coverage for agent-provider timeout handling and the visible inline failure boundary; the 24-test suite validates timeout abort behavior and both UI error regions.
 - [x] Save and publish a checkpoint that includes the hybrid AI-agent workspace changes.
 - [x] Refresh the static Signal Ledger activity snapshot with the published hybrid-agent workspace, active daily digest, and private GitHub CI evidence.
 
@@ -72,6 +79,7 @@
 - [x] Add the open dependency-security PR #1 and its verified audit reduction to the cockpit automation status panel without exposing a merge control.
 - [x] Refresh the cockpit dependency-security status from open review to the verified merged PR #1 outcome.
 - [x] Correct the cockpit’s stale PR #46/Node 20 status text to reflect the verified merged package-lock vulnerability remediation without overstating workflow-runtime changes.
+- [x] Synchronize the PR #2-proven Vite 8 / React plugin 6 / Vitest 4 toolchain remediation into the active deployment source; this workspace now passes TypeScript, 24 tests, Vite 8.2.1 production build, and `pnpm audit` with zero advisories.
 
 ## Referenced Workflow Continuation
 - [x] Read the attached biotech-job and GitHub connector task artifacts, then reconcile their verified state with the active GitHub/Gmail digest schedule; schedule was found paused, resumed at 18:00 Asia/Kolkata, and limited to GitHub plus both authorized Gmail accounts.

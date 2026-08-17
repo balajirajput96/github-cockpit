@@ -264,12 +264,20 @@ export default function Home() {
     document.getElementById("repositories")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const createPlan = () => {
-    void planner.mutateAsync({ intent: agentIntent, prompt: agentPrompt });
+  const createPlan = async () => {
+    try {
+      await planner.mutateAsync({ intent: agentIntent, prompt: agentPrompt });
+    } catch {
+      // The mutation's onError callback and inline alert retain safe feedback.
+    }
   };
 
-  const createImage = () => {
-    void imageMaker.mutateAsync({ prompt: imagePrompt });
+  const createImage = async () => {
+    try {
+      await imageMaker.mutateAsync({ prompt: imagePrompt });
+    } catch {
+      // The mutation's onError callback and inline alert retain safe feedback.
+    }
   };
 
   if (loading) {
@@ -397,11 +405,12 @@ export default function Home() {
             </div>
             <div className="agent-workbench">
               <div className="agent-mode-tabs" role="group" aria-label="Agent plan type">
-                {(["repository", "automation", "media"] as const).map((intent) => <button key={intent} className={agentIntent === intent ? "is-active" : ""} onClick={() => setAgentIntent(intent)}>{intent}</button>)}
+                {(["repository", "automation", "media"] as const).map((intent) => <button type="button" key={intent} className={agentIntent === intent ? "is-active" : ""} onClick={() => setAgentIntent(intent)}>{intent}</button>)}
               </div>
               <label className="agent-prompt-label" htmlFor="agent-prompt">What should the agent prepare?</label>
               <textarea id="agent-prompt" value={agentPrompt} onChange={(event) => setAgentPrompt(event.target.value)} maxLength={1500} />
-              <div className="agent-workbench-actions"><span>{agentPrompt.length}/1500</span><button className="button button-primary" disabled={planner.isPending || agentPrompt.trim().length < 12} onClick={createPlan}>{planner.isPending ? <Loader2 className="animate-spin" size={15} /> : <Send size={15} />}{planner.isPending ? "Planning" : "Generate safe plan"}</button></div>
+              <div className="agent-workbench-actions"><span>{agentPrompt.length}/1500</span><button type="button" className="button button-primary" disabled={planner.isPending || agentPrompt.trim().length < 12} onClick={createPlan}>{planner.isPending ? <Loader2 className="animate-spin" size={15} /> : <Send size={15} />}{planner.isPending ? "Planning" : "Generate safe plan"}</button></div>
+              {planner.error ? <div className="live-error" role="alert"><TriangleAlert size={18} /><div><strong>Planner error</strong><span>{planner.error.message}</span></div></div> : null}
               {planner.data ? <article className="agent-plan-result"><div><span className="signal-label"><span className="signal-dot lime" /> plan ready</span><strong>{planner.data.title}</strong><p>{planner.data.summary}</p></div><ol>{planner.data.steps.map((step, index) => <li key={`${step.title}-${index}`}><b>{String(index + 1).padStart(2, "0")}</b><div><span>{step.mode}</span><strong>{step.title}</strong><p>{step.detail}</p></div></li>)}</ol><div className="agent-guardrails"><span>Guardrails</span>{planner.data.guardrails.map((rule) => <em key={rule}>{rule}</em>)}</div></article> : null}
             </div>
           </section>
@@ -411,10 +420,11 @@ export default function Home() {
             <div className="media-tools">
               <div className="media-tool-card">
                 <ImageIcon size={19} /><div><strong>Original image</strong><span>Generate a workspace visual without putting a key in the browser.</span></div>
-                <label className="sr-only" htmlFor="image-prompt">Image request</label><input id="image-prompt" value={imagePrompt} onChange={(event) => setImagePrompt(event.target.value)} maxLength={700} /><button className="button button-dark" disabled={imageMaker.isPending || imagePrompt.trim().length < 12} onClick={createImage}>{imageMaker.isPending ? <Loader2 className="animate-spin" size={15} /> : <Sparkles size={15} />}{imageMaker.isPending ? "Creating" : "Create image"}</button>
+                <label className="sr-only" htmlFor="image-prompt">Image request</label><input id="image-prompt" value={imagePrompt} onChange={(event) => setImagePrompt(event.target.value)} maxLength={700} /><button type="button" className="button button-dark" disabled={imageMaker.isPending || imagePrompt.trim().length < 12} onClick={createImage}>{imageMaker.isPending ? <Loader2 className="animate-spin" size={15} /> : <Sparkles size={15} />}{imageMaker.isPending ? "Creating" : "Create image"}</button>
+                {imageMaker.error ? <div className="live-error" role="alert"><TriangleAlert size={18} /><div><strong>Image generation error</strong><span>{imageMaker.error.message}</span></div></div> : null}
                 {imageMaker.data?.url ? <a className="media-image-result" href={imageMaker.data.url} target="_blank" rel="noreferrer"><img src={imageMaker.data.url} alt="Generated agent workspace visual" /><span>Open generated image <ArrowUpRight size={13} /></span></a> : null}
               </div>
-              <div className="media-tool-card is-muted"><Video size={19} /><div><strong>Video shot plan</strong><span>Turn a video request into a reviewable production brief before a provider is connected.</span></div><button className="button button-ghost" onClick={() => { setAgentIntent("media"); setAgentPrompt("Create a production-ready video shot plan for: "); document.getElementById("agent-studio")?.scrollIntoView({ behavior: "smooth", block: "start" }); }}>Prepare video plan <ArrowUpRight size={15} /></button></div>
+              <div className="media-tool-card is-muted"><Video size={19} /><div><strong>Video shot plan</strong><span>Turn a video request into a reviewable production brief before a provider is connected.</span></div><button type="button" className="button button-ghost" onClick={() => { setAgentIntent("media"); setAgentPrompt("Create a production-ready video shot plan for: "); document.getElementById("agent-studio")?.scrollIntoView({ behavior: "smooth", block: "start" }); }}>Prepare video plan <ArrowUpRight size={15} /></button></div>
             </div>
           </section>
 

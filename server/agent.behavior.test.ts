@@ -68,6 +68,28 @@ describe("hybrid agent protected behavior", () => {
     }));
   });
 
+  it("returns a review-safe fallback when the provider supplies empty structured output", async () => {
+    vi.mocked(invokeLLM).mockResolvedValue({
+      id: "empty-plan-test",
+      created: 0,
+      model: "gpt-5-mini",
+      choices: [{
+        index: 0,
+        finish_reason: "stop",
+        message: { role: "assistant", content: "" },
+      }],
+    });
+
+    const result = await authenticatedCaller().agent.plan({
+      intent: "repository",
+      prompt: "Review the currently open pull requests and prepare the smallest safe next action.",
+    });
+
+    expect(result.title).toBe("Review-safe fallback plan");
+    expect(result.steps).toHaveLength(3);
+    expect(result.guardrails).toContain("Do not merge, push, retry workflows, or modify repository settings automatically.");
+  });
+
   it("returns a server-generated image URL without exposing a provider key", async () => {
     vi.mocked(generateImage).mockResolvedValue({ url: "https://example.test/generated/agent-image.png" });
 

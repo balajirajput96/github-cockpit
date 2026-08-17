@@ -1,4 +1,5 @@
 import { ENV } from "./env";
+import { fetchWithTimeout, type FetchInit } from "./requestTimeout";
 
 export type Role = "system" | "user" | "assistant" | "tool" | "function";
 
@@ -272,8 +273,6 @@ const RETRY_MAX_RETRIES = 4;
 const RETRY_BASE_DELAY_MS = 500;
 const RETRY_MAX_DELAY_MS = 30_000;
 
-type FetchInit = NonNullable<Parameters<typeof fetch>[1]>;
-
 const sleep = (ms: number) =>
   new Promise<void>(resolve => setTimeout(resolve, ms));
 
@@ -307,7 +306,7 @@ const fetchWithBackoff = async (
 
   for (let attempt = 0; attempt <= RETRY_MAX_RETRIES; attempt++) {
     try {
-      const response = await fetch(url, init);
+      const response = await fetchWithTimeout(url, init);
       if (response.ok || attempt === RETRY_MAX_RETRIES) {
         return response;
       }

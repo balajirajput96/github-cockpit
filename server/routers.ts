@@ -52,6 +52,36 @@ const plannerContext: Record<z.infer<typeof agentIntentSchema>, string> = {
   media: "Plan an image or video production task. Images can be created on demand; video output requires a separately configured provider, so provide a bounded shot-plan rather than claiming a rendered video.",
 };
 
+const buildPlannerFallback = (
+  intent: z.infer<typeof agentIntentSchema>,
+  prompt: string,
+) => agentPlanSchema.parse({
+  title: "Review-safe fallback plan",
+  summary: "The planning provider returned unusable structured output, so this deterministic fallback keeps the request bounded, reviewable, and free of external writes.",
+  steps: [
+    {
+      title: "Inspect current evidence",
+      detail: `Review the available ${intent} signals relevant to this request: ${prompt.slice(0, 180)}`,
+      mode: "inspect",
+    },
+    {
+      title: "Draft the smallest next action",
+      detail: "Prepare a concise recommendation or patch proposal without triggering a workflow, merge, comment, or repository setting change.",
+      mode: "draft",
+    },
+    {
+      title: "Keep a human review gate",
+      detail: "Open the relevant GitHub evidence and use a pull request or explicit owner decision for every consequential change.",
+      mode: "review",
+    },
+  ],
+  guardrails: [
+    "Do not merge, push, retry workflows, or modify repository settings automatically.",
+    "Keep credentials and tokens out of prompts, plans, and browser-visible data.",
+    "Use a pull request or explicit owner review for consequential repository changes.",
+  ],
+});
+
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
   system: systemRouter,
@@ -115,11 +145,15 @@ export const appRouter = router({
         });
 
         const content = response.choices[0]?.message.content;
-        if (typeof content !== "string") {
-          throw new Error("The planning model returned no text response");
+        if (typeof content !== "string" || content.trim().length === 0) {
+          return buildPlannerFallback(input.intent, input.prompt);
         }
 
-        return agentPlanSchema.parse(JSON.parse(content));
+        try {
+          return agentPlanSchema.parse(JSON.parse(content));
+        } catch {
+          return buildPlannerFallback(input.intent, input.prompt);
+        }
       }),
     image: protectedProcedure
       .input(z.object({ prompt: z.string().trim().min(12).max(700) }))
