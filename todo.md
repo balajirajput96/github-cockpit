@@ -29,7 +29,7 @@
 - [x] Verify whether the connected browser is authenticated to Jules and inspect its supported repository or task automation controls.
 - [x] Select a daily, low-frequency automation path that can safely summarize owner-repository status without modifying forked upstream projects.
 - [x] Configure and verify the viable recurring setup, or document an exact platform limitation and a safe fallback.
-- [ ] Confirm durable Jules scheduled-task list evidence for the user-confirmed Sentinel task on `balajirajput96/vscode-copilot-cha` at 22:30 UTC.
+- [ ] Confirm durable Jules scheduled-task list evidence for the user-confirmed Sentinel task on `balajirajput96/vscode-copilot-cha` at 22:30 UTC; current sandbox browser is signed out of Google/Jules, so this remains an access-dependent verification.
 
 ## Google Antigravity CLI Connection
 - [ ] Check whether the Antigravity CLI is installed and determine its supported authentication flow without exposing credentials.
@@ -59,7 +59,9 @@
 ## Connector Automation Expansion — 16 August 2026
 - [x] Audit enabled connector availability, account scope, and existing schedule state without exposing credentials; recurring digest is active and now scoped to GitHub plus authorized Gmail delivery only.
 - [x] Audit directly owned GitHub repository signals for open PRs, failed workflows, security alerts, and PR-based remediation opportunities; documented current remediation boundaries and external permission limits.
-- [x] Prepare a reviewable PR that makes the Daily Pharma Job Scan commit step concurrency-safe without automatically merging it; draft PR [#6](https://github.com/balajirajput96/vscode-copilot-cha/pull/6) is open against `main`.
+- [x] Prepare a reviewable PR that makes the Daily Pharma Job Scan commit step concurrency-safe; PR [#6](https://github.com/balajirajput96/vscode-copilot-cha/pull/6) is now merged into `main` after its quality check passed.
+- [x] Refresh the cockpit automation panel and activity ledger to reflect merged Daily Pharma PR #6 evidence.
+- [x] Correct the visible validated-repairs metric so it matches the four merged PR references in the refreshed Signal Ledger snapshot.
 - [x] Add selected low-risk connector automation controls and transparent operational status to the cockpit; status panel exposes digest scope, PR review gate, and verified blockers without write controls.
 - [x] Validate automation additions with TypeScript, 15 tests across 9 files, production build, preview health, and draft PR check; publish and synchronize the private GitHub delivery repository in this checkpoint.
 
@@ -67,4 +69,4 @@
 - [x] Read the attached biotech-job and GitHub connector task artifacts, then reconcile their verified state with the active GitHub/Gmail digest schedule; schedule was found paused, resumed at 18:00 Asia/Kolkata, and limited to GitHub plus both authorized Gmail accounts.
 - [x] Audit the owner-controlled biotech job workflow for current run status, output, and configuration blockers without exposing credentials or changing outreach behavior; the repository has no Actions workflow and its coordination script is confirmed dry-run/fail-closed.
 - [x] Apply only evidence-backed, reviewable workflow changes and reflect the resulting state in the cockpit; no outreach workflow change was justified without candidate materials, and the verified fail-closed status is now visible.
-- [x] Validate, deploy, and synchronize referenced-workflow continuation changes with TypeScript, 15 tests, production build, and deployment checkpoint; private GitHub mirror sync follows this checkpoint.
+- [x] Validate, deploy, and synchronize referenced-workflow continuation changes with TypeScript, 15 tests, production build, deployment checkpoint, and private GitHub CI run `32021071010` passing in 43 seconds.

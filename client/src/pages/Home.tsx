@@ -131,6 +131,7 @@ const snapshotRepos = [
 ];
 
 const activityItems = [
+  { time: "17 Aug", label: "Daily Pharma concurrency guard merged", detail: "vscode-copilot-cha · PR #6 · reviewed quality check passed", tone: "lime" },
   { time: "15 Aug", label: "Hybrid agent workspace published", detail: "Agent Studio · protected plans · server-side image generation", tone: "lime" },
   { time: "15 Aug", label: "Private delivery CI verified", detail: "github-cockpit · Signal Ledger CI · test and build passed in 39s", tone: "lime" },
   { time: "15 Aug", label: "Daily digest armed", detail: "Owner repositories · 18:00 Asia/Kolkata · read-only GitHub summary", tone: "sage" },
@@ -144,7 +145,7 @@ const portfolioAudit = {
   totalRepos: "194",
   directlyOwned: "11",
   observedForks: "183",
-  remediationPr: "03",
+  remediationPr: "04",
   blockers: "02",
 };
 
@@ -182,7 +183,7 @@ function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => 
         <p className="nav-label">Workspace</p>
         <a className="nav-item is-active" href="#overview"><LayoutDashboard size={17} /><span>Overview</span><b>01</b></a>
         <a className="nav-item" href="#repositories"><Github size={17} /><span>Repositories</span><b>06</b></a>
-        <a className="nav-item" href="#activity"><Activity size={17} /><span>Activity</span><b>07</b></a>
+        <a className="nav-item" href="#activity"><Activity size={17} /><span>Activity</span><b>08</b></a>
         <p className="nav-label nav-label-spaced">Signals</p>
         <a className="nav-item" href="#security"><ShieldCheck size={17} /><span>Security</span><b className="nav-risk">63</b></a>
         <a className="nav-item" href="#workflows"><Workflow size={17} /><span>Workflows</span><b>—</b></a>
@@ -315,8 +316,8 @@ export default function Home() {
           <section className="hero-block" aria-labelledby="page-title">
             <div className="hero-copy">
               <p className="eyebrow"><span className="eyebrow-rule" /> PORTFOLIO AUDIT · 15 AUG 2026</p>
-              <h1 id="page-title">Your portfolio is mapped.<br /><i>Three merges, one recovery, and a safer agent desk.</i></h1>
-              <p className="hero-description">A verified register of the accessible GitHub portfolio: 194 repositories audited, 11 directly owned projects triaged, three validated changes merged, a blocked daily workflow recovered, and a reviewable hybrid agent workspace now deployed.</p>
+              <h1 id="page-title">Your portfolio is mapped.<br /><i>Four merges, one recovery, and a safer agent desk.</i></h1>
+              <p className="hero-description">A verified register of the accessible GitHub portfolio: 194 repositories audited, 11 directly owned projects triaged, four validated changes merged, a blocked daily workflow recovered, and a reviewable hybrid agent workspace now deployed.</p>
               <div className="hero-actions">
                 <a className="button button-primary" href="https://github.com/balajirajput96/github-mcp-server-/pull/42" target="_blank" rel="noreferrer">Open merged repair <ArrowUpRight size={16} /></a>
                 <button className="text-link" onClick={focusAttention}>Inspect earlier detail sample <ArrowUpRight size={14} /></button>
@@ -330,7 +331,7 @@ export default function Home() {
 
           <section className="metric-strip" aria-label="Repository health summary">
             <div className="metric-cell"><span className="metric-label">Repositories audited</span><strong>{portfolioAudit.totalRepos}</strong><span className="metric-foot"><Github size={13} /> {portfolioAudit.directlyOwned} directly owned</span></div>
-            <div className="metric-cell metric-highlight"><span className="metric-label">Validated repairs</span><strong>{portfolioAudit.remediationPr}</strong><span className="metric-foot"><Check size={13} /> PRs #42, #41, #2 merged</span></div>
+            <div className="metric-cell metric-highlight"><span className="metric-label">Validated repairs</span><strong>{portfolioAudit.remediationPr}</strong><span className="metric-foot"><Check size={13} /> PRs #42, #41, #2, #6 merged</span></div>
             <div className="metric-cell"><span className="metric-label">Observed upstream forks</span><strong>{portfolioAudit.observedForks}</strong><span className="metric-foot"><GitBranch size={13} /> tracked, not auto-modified</span></div>
             <div className="metric-cell"><span className="metric-label">Setup blockers</span><strong>{portfolioAudit.blockers}</strong><span className="metric-foot"><TriangleAlert size={13} /> Azure setup and draft review</span></div>
           </section>

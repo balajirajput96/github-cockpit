@@ -28,11 +28,11 @@ export const AUTOMATION_STATUS_ITEMS: AutomationStatusItem[] = [
   {
     id: "pharma-pr",
     eyebrow: "Workflow repair",
-    title: "Draft PR #6 awaits review",
-    detail: "A seven-line workflow fix serializes scan runs and rebases generated results before a push. It is not merged automatically.",
-    tone: "attention",
+    title: "Merged PR #6 · concurrency guard live",
+    detail: "The reviewed seven-line workflow fix now serializes scan runs and rebases generated results before a push. Its quality check passed before merge.",
+    tone: "healthy",
     href: "https://github.com/balajirajput96/vscode-copilot-cha/pull/6",
-    hrefLabel: "Open draft PR",
+    hrefLabel: "Open merged PR",
   },
   {
     id: "research-media",

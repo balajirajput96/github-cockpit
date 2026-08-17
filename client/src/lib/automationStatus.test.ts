@@ -13,10 +13,11 @@ describe("automation status presentation", () => {
     ]);
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "digest")?.detail).toContain("never pushes, merges");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "pharma-pr")?.href).toContain("/pull/6");
+    expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "pharma-pr")?.title).toContain("Merged PR #6");
   });
 
   it("summarizes current healthy, attention, and blocked automation items", () => {
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "biotech-outreach")?.detail).toContain("No application, resume attachment, or email is sent");
-    expect(summarizeAutomationStatus()).toEqual({ healthy: 2, attention: 1, blocked: 3 });
+    expect(summarizeAutomationStatus()).toEqual({ healthy: 3, attention: 0, blocked: 3 });
   });
 });
