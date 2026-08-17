@@ -51,6 +51,15 @@ export const AUTOMATION_STATUS_ITEMS: AutomationStatusItem[] = [
     tone: "blocked",
   },
   {
+    id: "dependency-security-pr",
+    eyebrow: "Dependency security",
+    title: "Open PR #1 · audit reduced 56 → 3",
+    detail: "Compatible Vite, Vitest, pnpm, PostCSS, and Tailwind tooling updates remove all local critical and high findings. GitHub CI passed; owner review is still required before merge.",
+    tone: "attention",
+    href: "https://github.com/balajirajput96/github-cockpit/pull/1",
+    hrefLabel: "Review security PR",
+  },
+  {
     id: "node-20",
     eyebrow: "Workflow runtime",
     title: "Node 20 deprecation needs review",

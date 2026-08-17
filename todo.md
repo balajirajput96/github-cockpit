@@ -65,6 +65,12 @@
 - [x] Add selected low-risk connector automation controls and transparent operational status to the cockpit; status panel exposes digest scope, PR review gate, and verified blockers without write controls.
 - [x] Validate automation additions with TypeScript, 15 tests across 9 files, production build, preview health, and draft PR check; publish and synchronize the private GitHub delivery repository in this checkpoint.
 
+## GitHub Cockpit Dependency Security Follow-up
+- [x] Classify the local `pnpm audit` findings and isolate direct, compatible dependency updates from transitive-only advisories; Vite, Vitest, pnpm, PostCSS, and Tailwind tooling reduce findings from 56 to 3, with zero high or critical remaining.
+- [x] Prepare a dedicated reviewable dependency-security pull request for compatible direct updates; [PR #1](https://github.com/balajirajput96/github-cockpit/pull/1) is open and unmerged.
+- [x] Validate the security-update branch with TypeScript, tests, build, and GitHub CI; local validation passed and GitHub CI run `32024694996` passed in 41 seconds.
+- [x] Add the open dependency-security PR #1 and its verified audit reduction to the cockpit automation status panel without exposing a merge control.
+
 ## Referenced Workflow Continuation
 - [x] Read the attached biotech-job and GitHub connector task artifacts, then reconcile their verified state with the active GitHub/Gmail digest schedule; schedule was found paused, resumed at 18:00 Asia/Kolkata, and limited to GitHub plus both authorized Gmail accounts.
 - [x] Audit the owner-controlled biotech job workflow for current run status, output, and configuration blockers without exposing credentials or changing outreach behavior; the repository has no Actions workflow and its coordination script is confirmed dry-run/fail-closed.
