@@ -1,5 +1,5 @@
 export type JulesTimelineEvent = {
-  id: "scheduled" | "task" | "pull-request" | "review";
+  id: "scheduled" | "task" | "pull-request" | "merged" | "review";
   label: string;
   timestamp: string;
   detail: string;
@@ -27,11 +27,13 @@ export const JULES_EXECUTION_RUN = {
   },
   pullRequest: {
     number: 46,
-    status: "Open draft",
+    status: "Merged",
     branch: "fix-vulnerabilities-12857103147949613432",
+    mergedAt: "2026-08-16T13:03:38Z",
+    mergeCommit: "60163362c7ab9f84e03e25c724a644ae42be3833",
     href: "https://github.com/balajirajput96/github-mcp-server-/pull/46",
   },
-  reviewOnly: true,
+  reviewOnly: false,
 } as const;
 
 export const PR46_REVIEW_CHECKLIST = [
@@ -54,18 +56,18 @@ export const PR46_REVIEW_CHECKLIST = [
   {
     id: "deploy",
     label: "Confirm free-tier validation",
-    detail: "Health and deployment validation completed successfully for the draft change.",
+    detail: "Health and deployment validation completed successfully for the merged lockfile change.",
     href: "https://github.com/balajirajput96/github-mcp-server-/actions/runs/31924696701",
     hrefLabel: "Open validation",
     state: "Passed",
   },
   {
     id: "decision",
-    label: "Make an explicit PR decision",
-    detail: "Keep draft, mark ready, or merge only after an owner reviews the dependency compatibility.",
+    label: "Owner decision confirmed",
+    detail: "The owner marked PR #46 ready for review and merged it into main after the available validation evidence.",
     href: JULES_EXECUTION_RUN.pullRequest.href,
-    hrefLabel: "Return to PR #46",
-    state: "Owner decision",
+    hrefLabel: "Inspect merged PR #46",
+    state: "Merged",
   },
 ] as const;
 
@@ -95,10 +97,18 @@ export const JULES_EXECUTION_EVENTS: JulesTimelineEvent[] = [
     hrefLabel: "Open PR #46",
   },
   {
+    id: "merged",
+    label: "Owner merged into main",
+    timestamp: "16 Aug · 13:03 UTC",
+    detail: "GitHub records owner merge commit 6016336 after the PR was marked ready for review.",
+    href: JULES_EXECUTION_RUN.pullRequest.href,
+    hrefLabel: "Inspect merged PR",
+  },
+  {
     id: "review",
-    label: "Human review remains",
-    timestamp: "Review gate",
-    detail: "The PR stays open and draft. This cockpit does not merge, publish, or change repository settings.",
+    label: "Future runtime work remains separate",
+    timestamp: "Review-only follow-up",
+    detail: "The Node 20 warning remains a separate review signal; no Actions runtime change is implied by PR #46.",
     href: JULES_EXECUTION_RUN.pullRequest.href,
     hrefLabel: "Review lockfile diff",
   },
@@ -111,7 +121,7 @@ export function hasVerifiedJulesRun() {
 }
 
 export function hasReviewOnlyBoundary() {
-  return JULES_EXECUTION_RUN.reviewOnly
-    && JULES_EXECUTION_RUN.pullRequest.status === "Open draft"
-    && PR46_REVIEW_CHECKLIST.at(-1)?.state === "Owner decision";
+  return !JULES_EXECUTION_RUN.reviewOnly
+    && JULES_EXECUTION_RUN.pullRequest.status === "Merged"
+    && PR46_REVIEW_CHECKLIST.at(-1)?.state === "Merged";
 }

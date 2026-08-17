@@ -8,7 +8,7 @@ import { toast } from "sonner";
 
 function EventIcon({ event }: { event: JulesTimelineEvent }) {
   if (event.id === "scheduled") return <Clock3 size={15} />;
-  if (event.id === "task") return <Check size={15} />;
+  if (event.id === "task" || event.id === "merged") return <Check size={15} />;
   if (event.id === "pull-request") return <GitPullRequest size={15} />;
   return <ShieldCheck size={15} />;
 }
@@ -72,7 +72,7 @@ export function JulesExecutionTimeline() {
           <span className="panel-kicker">Review gate</span>
           <div className="jules-pr-number">#{JULES_EXECUTION_RUN.pullRequest.number}</div>
           <strong>{JULES_EXECUTION_RUN.pullRequest.status}</strong>
-          <p>One lockfile-only proposal. Check evidence before any owner decision.</p>
+          <p>One lockfile-only remediation, merged by the owner after the available validation evidence.</p>
           <ol className="jules-review-checklist" aria-label="PR 46 human review checklist">
             {PR46_REVIEW_CHECKLIST.map((item) => (
               <li key={item.id} className={item.state === "Passed" ? "is-passed" : ""}>
@@ -83,13 +83,13 @@ export function JulesExecutionTimeline() {
           <div className="jules-owner-record">
             <span className="panel-kicker">Owner audit record</span>
             {latestReviewQuery.data ? <p className="jules-recorded-note"><Check size={12} /> Last record: {new Date(latestReviewQuery.data.createdAt).toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })}</p> : <p>No owner decision has been recorded yet.</p>}
-            {canRecordReview ? <>
+            {JULES_EXECUTION_RUN.pullRequest.status !== "Merged" && canRecordReview ? <>
               <label className="sr-only" htmlFor="pr46-review-note">PR #46 review note</label>
               <textarea id="pr46-review-note" value={reviewNote} onChange={(event) => setReviewNote(event.target.value)} maxLength={700} />
               <button className="jules-record-button" disabled={recordReview.isPending || reviewNote.trim().length < 8} onClick={() => recordReview.mutate({ decision: "reviewed-hold-draft", note: reviewNote })}>{recordReview.isPending ? <Loader2 className="animate-spin" size={13} /> : <ClipboardCheck size={13} />}{recordReview.isPending ? "Recording" : "Record review · keep draft"}</button>
-            </> : <p className="jules-owner-only">Only the authenticated cockpit owner can write this internal record.</p>}
+            </> : JULES_EXECUTION_RUN.pullRequest.status !== "Merged" ? <p className="jules-owner-only">Only the authenticated cockpit owner can write this internal record.</p> : <p className="jules-merged-note"><Check size={12} /> GitHub merge confirmation is reflected here; no further PR action is offered.</p>}
           </div>
-          <a className="button button-dark" href={JULES_EXECUTION_RUN.pullRequest.href} target="_blank" rel="noreferrer">Open PR #{JULES_EXECUTION_RUN.pullRequest.number} <ArrowUpRight size={14} /></a>
+          <a className="button button-dark" href={JULES_EXECUTION_RUN.pullRequest.href} target="_blank" rel="noreferrer">Open merged PR #{JULES_EXECUTION_RUN.pullRequest.number} <ArrowUpRight size={14} /></a>
         </aside>
       </article>
     </section>

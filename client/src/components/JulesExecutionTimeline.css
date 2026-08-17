@@ -48,6 +48,8 @@
 .jules-record-button { width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 30px; margin-top: 8px; color: var(--ink); background: var(--lime); cursor: pointer; font: 600 9px "IBM Plex Mono", monospace; }
 .jules-record-button:disabled { cursor: not-allowed; opacity: .55; }
 .jules-owner-only { color: #8c5c45 !important; }
+.jules-merged-note { display: flex; align-items: flex-start; gap: 5px; color: #5f7259 !important; font: 10px/1.45 "IBM Plex Mono", monospace; }
+.jules-merged-note svg { flex: 0 0 auto; margin-top: 1px; }
 .jules-review-rail .button { margin-top: auto; padding-left: 11px; padding-right: 11px; }
 
 @media (max-width: 980px) {

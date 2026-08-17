@@ -5,7 +5,8 @@ import { generateImage } from "./_core/imageGeneration";
 import { invokeLLM } from "./_core/llm";
 import { systemRouter } from "./_core/systemRouter";
 import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_core/trpc";
-import { createPr46Review, getDailyEvidence, getLatestPr46Review } from "./db";
+import { createDailyEvidenceScheduleRecord, createPr46Review, getDailyEvidence, getLatestPr46Review } from "./db";
+import { createHeartbeatJob } from "./_core/heartbeat";
 import { getPublicPortfolio } from "./githubPublic";
 
 const agentIntentSchema = z.enum(["repository", "automation", "media"]);
@@ -74,6 +75,17 @@ export const appRouter = router({
       decision: z.literal("reviewed-hold-draft"),
       note: z.string().trim().min(8).max(700),
     })).mutation(({ ctx, input }) => createPr46Review(ctx.user.openId, input.decision, input.note)),
+    registerDailyEvidenceSchedule: adminProcedure.mutation(async () => {
+      const existing = await getDailyEvidence();
+      if (existing?.scheduleCronTaskUid) return existing;
+      const job = await createHeartbeatJob({
+        name: "daily-cockpit-evidence",
+        cron: "0 0 4 * * *",
+        path: "/api/scheduled/daily-evidence",
+        description: "Record independent 09:30 IST dashboard evidence freshness only; no GitHub writes or report mutation.",
+      }, "");
+      return createDailyEvidenceScheduleRecord(job.taskUid);
+    }),
   }),
   agent: router({
     plan: protectedProcedure

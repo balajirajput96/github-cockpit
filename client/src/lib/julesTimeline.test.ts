@@ -8,9 +8,10 @@ describe("Jules execution timeline evidence", () => {
     expect(JULES_EXECUTION_RUN.pullRequest.branch).toContain(JULES_EXECUTION_RUN.task.id);
   });
 
-  it("keeps the final action explicitly review-only", () => {
+  it("reconciles the owner-merged state while preserving a separate runtime follow-up", () => {
     expect(hasReviewOnlyBoundary()).toBe(true);
-    expect(JULES_EXECUTION_EVENTS.at(-1)?.label).toBe("Human review remains");
+    expect(JULES_EXECUTION_RUN.pullRequest.mergedAt).toBe("2026-08-16T13:03:38Z");
+    expect(JULES_EXECUTION_EVENTS.at(-1)?.label).toBe("Future runtime work remains separate");
     expect(JULES_EXECUTION_EVENTS.every((event) => event.href?.startsWith("https://"))).toBe(true);
   });
 

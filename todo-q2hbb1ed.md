@@ -56,8 +56,9 @@
 - [x] Add a protected native Jules execution timeline card that presents the verified scheduled run, task linkage, PR #46 state, timestamps, and human-review boundary.
 - [x] Add a daily GitHub/Jules report last-run badge to the protected timeline evidence panel.
 - [x] Add a PR #46 human-review checklist with explicit non-merge boundary and review links.
-- [ ] Add a durable owner-review record for the PR #46 decision without enabling automated merge actions.
-- [ ] Choose and implement a verified daily-report recency update architecture before claiming automatic dashboard refresh.
+- [x] Record the GitHub-confirmed owner PR #46 merge decision in the durable cockpit audit trail without performing a new GitHub action.
+- [x] Choose and implement a verified daily-report recency update architecture before claiming automatic dashboard refresh.
 - [x] Add a Node 20 deprecation review-only remediation card with evidence links and no automated workflow modification.
-- [ ] Add an idempotent project-owned 09:30 IST scheduled callback that records only dashboard evidence freshness and status.
-- [ ] Persist callback and owner-review audit records through protected procedures without any automated GitHub write or merge behavior.
+- [x] Add an idempotent project-owned 09:30 IST scheduled callback that records only dashboard evidence freshness and status.
+- [x] Prove the admin-only application schedule-registration success and idempotency paths with mocked heartbeat persistence, while retaining cron-authenticated callback behavior and no GitHub write/merge action.
+- [x] Reconcile GitHub-confirmed PR #46 merged state and merge timestamp across the Jules timeline, review record, and audit documentation without fabricating any new GitHub action.
