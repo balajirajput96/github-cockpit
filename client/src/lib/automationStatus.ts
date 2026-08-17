@@ -69,6 +69,15 @@ export const AUTOMATION_STATUS_ITEMS: AutomationStatusItem[] = [
     hrefLabel: "Open merged PR",
   },
   {
+    id: "node-runtime-pr",
+    eyebrow: "Workflow runtime",
+    title: "Draft PR #50 · Node 24 migration",
+    detail: "The review-only workflow update moves managed action pins and selected runtime declarations to Node 24-compatible versions. GitHub checks are queued; no merge or repository-setting change is included.",
+    tone: "attention",
+    href: "https://github.com/balajirajput96/github-mcp-server-/pull/50",
+    hrefLabel: "Review draft PR",
+  },
+  {
     id: "biotech-outreach",
     eyebrow: "Biotech outreach",
     title: "Dry-run only · candidate inputs pending",

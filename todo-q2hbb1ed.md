@@ -62,3 +62,6 @@
 - [x] Add an idempotent project-owned 09:30 IST scheduled callback that records only dashboard evidence freshness and status.
 - [x] Prove the admin-only application schedule-registration success and idempotency paths with mocked heartbeat persistence, while retaining cron-authenticated callback behavior and no GitHub write/merge action.
 - [x] Reconcile GitHub-confirmed PR #46 merged state and merge timestamp across the Jules timeline, review record, and audit documentation without fabricating any new GitHub action.
+- [x] Inspect `github-mcp-server-` Node runtime warning sources and define the smallest compatible Node 24 workflow update.
+- [x] Create and locally validate a review-only Node runtime update branch and draft PR without merging or changing repository settings; record GitHub-hosted checks as externally queued.
+- [x] Reconcile the new Node runtime draft PR status into the cockpit automation panel with clear review-only language.
