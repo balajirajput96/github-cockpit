@@ -71,10 +71,19 @@ export const AUTOMATION_STATUS_ITEMS: AutomationStatusItem[] = [
   {
     id: "node-runtime-pr",
     eyebrow: "Workflow runtime",
-    title: "Draft PR #50 · Node 24 migration",
-    detail: "The review-only workflow update moves managed action pins and selected runtime declarations to Node 24-compatible versions. GitHub checks are queued; no merge or repository-setting change is included.",
-    tone: "attention",
+    title: "Merged PR #50 · Node 24 migration",
+    detail: "This PR is merged, not review-only. Its Node 20 and 24 CI matrix passed; a shallow-history Secret Scanning failure was isolated after merge and is remediated separately by passing draft PR #51.",
+    tone: "healthy",
     href: "https://github.com/balajirajput96/github-mcp-server-/pull/50",
+    hrefLabel: "Open merged PR",
+  },
+  {
+    id: "secret-scan-history-fix",
+    eyebrow: "Secret scanning",
+    title: "Draft PR #51 · history-depth repair",
+    detail: "The one-line Gitleaks checkout-depth fix passed all 8 applicable checks. It supersedes post-merge commit b52cc59 as the review path, remains a draft, and has no merge, secret, permission, or repository-setting action.",
+    tone: "attention",
+    href: "https://github.com/balajirajput96/github-mcp-server-/pull/51",
     hrefLabel: "Review draft PR",
   },
   {

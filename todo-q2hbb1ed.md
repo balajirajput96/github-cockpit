@@ -65,3 +65,9 @@
 - [x] Inspect `github-mcp-server-` Node runtime warning sources and define the smallest compatible Node 24 workflow update.
 - [x] Create and locally validate a review-only Node runtime update branch and draft PR without merging or changing repository settings; record GitHub-hosted checks as externally queued.
 - [x] Reconcile the new Node runtime draft PR status into the cockpit automation panel with clear review-only language.
+- [ ] Verify the independent 09:30 IST cockpit evidence callback has completed its first successful scheduled run and persist the observed result.
+- [x] Explicitly record that PR #50 is merged—not review-only—while preserving its final check outcomes and separate PR #51 remediation path.
+- [x] Fix PR #50 Secret Scanning shallow-checkout failure with the smallest review-only checkout-depth update, then revalidate the draft PR checks.
+- [x] Reconcile GitHub-confirmed PR #50 merged state in cockpit evidence and distinguish the later unmerged checkout-depth fix commit from the merged PR.
+- [x] Record an explicit durable disposition for post-merge commit `b52cc59` as superseded by the isolated PR #51 branch, without assuming PR #50 contained it.
+- [x] Reconcile passed draft PR #51 Secret Scanning remediation into the cockpit with explicit review-only and non-merge language.
