@@ -10,7 +10,7 @@ describe("automation status presentation", () => {
       "research-media",
       "dependabot",
       "dependency-security-pr",
-      "node-20",
+      "mcp-lockfile-remediation",
       "biotech-outreach",
     ]);
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "digest")?.detail).toContain("never pushes, merges");
@@ -21,7 +21,7 @@ describe("automation status presentation", () => {
 
   it("summarizes current healthy, attention, and blocked automation items", () => {
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "biotech-outreach")?.detail).toContain("No application, resume attachment, or email is sent");
-    expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "node-20")?.detail).toContain("does not modify Actions files automatically");
-    expect(summarizeAutomationStatus()).toEqual({ healthy: 3, attention: 2, blocked: 3 });
+    expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "mcp-lockfile-remediation")?.detail).toContain("does not claim an Actions runtime upgrade");
+    expect(summarizeAutomationStatus()).toEqual({ healthy: 4, attention: 1, blocked: 3 });
   });
 });

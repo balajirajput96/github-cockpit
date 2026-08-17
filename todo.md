@@ -70,6 +70,7 @@
 - [x] Prepare a dedicated reviewable dependency-security pull request for compatible direct updates; [PR #1](https://github.com/balajirajput96/github-cockpit/pull/1) is open and unmerged.
 - [x] Validate the security-update branch with TypeScript, tests, build, and GitHub CI; local validation passed and GitHub CI run `32024694996` passed in 41 seconds.
 - [x] Add the open dependency-security PR #1 and its verified audit reduction to the cockpit automation status panel without exposing a merge control.
+- [x] Correct the cockpit’s stale PR #46/Node 20 status text to reflect the verified merged package-lock vulnerability remediation without overstating workflow-runtime changes.
 
 ## Referenced Workflow Continuation
 - [x] Read the attached biotech-job and GitHub connector task artifacts, then reconcile their verified state with the active GitHub/Gmail digest schedule; schedule was found paused, resumed at 18:00 Asia/Kolkata, and limited to GitHub plus both authorized Gmail accounts.
