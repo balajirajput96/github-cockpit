@@ -50,6 +50,15 @@ export const AUTOMATION_STATUS_ITEMS: AutomationStatusItem[] = [
     detail: "Dependabot alert reads returned a permission boundary, so the cockpit records no inferred alert count and keeps security triage reviewable.",
     tone: "blocked",
   },
+  {
+    id: "biotech-outreach",
+    eyebrow: "Biotech outreach",
+    title: "Dry-run only · candidate inputs pending",
+    detail: "The owner repository has no scheduled Action, and its coordination helper is fail-closed. No application, resume attachment, or email is sent without a current CV, playbook, and explicit per-send confirmation.",
+    tone: "blocked",
+    href: "https://github.com/balajirajput96/pharma-outreach-automation",
+    hrefLabel: "Inspect coordination helper",
+  },
 ];
 
 export function summarizeAutomationStatus(items = AUTOMATION_STATUS_ITEMS) {

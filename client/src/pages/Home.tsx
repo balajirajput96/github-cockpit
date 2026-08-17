@@ -187,7 +187,7 @@ function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => 
         <a className="nav-item" href="#security"><ShieldCheck size={17} /><span>Security</span><b className="nav-risk">63</b></a>
         <a className="nav-item" href="#workflows"><Workflow size={17} /><span>Workflows</span><b>—</b></a>
         <a className="nav-item" href="#jules-run"><Clock3 size={17} /><span>Jules run</span><b>01</b></a>
-        <a className="nav-item" href="#automation"><Workflow size={17} /><span>Automation</span><b>05</b></a>
+        <a className="nav-item" href="#automation"><Workflow size={17} /><span>Automation</span><b>06</b></a>
         <p className="nav-label nav-label-spaced">Create</p>
         <a className="nav-item" href="#agent-studio"><Sparkles size={17} /><span>Agent Studio</span><b>AI</b></a>
         <a className="nav-item" href="#media-workbench"><ImageIcon size={17} /><span>Media</span><b>01</b></a>

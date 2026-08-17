@@ -62,3 +62,9 @@
 - [x] Prepare a reviewable PR that makes the Daily Pharma Job Scan commit step concurrency-safe without automatically merging it; draft PR [#6](https://github.com/balajirajput96/vscode-copilot-cha/pull/6) is open against `main`.
 - [x] Add selected low-risk connector automation controls and transparent operational status to the cockpit; status panel exposes digest scope, PR review gate, and verified blockers without write controls.
 - [x] Validate automation additions with TypeScript, 15 tests across 9 files, production build, preview health, and draft PR check; publish and synchronize the private GitHub delivery repository in this checkpoint.
+
+## Referenced Workflow Continuation
+- [x] Read the attached biotech-job and GitHub connector task artifacts, then reconcile their verified state with the active GitHub/Gmail digest schedule; schedule was found paused, resumed at 18:00 Asia/Kolkata, and limited to GitHub plus both authorized Gmail accounts.
+- [x] Audit the owner-controlled biotech job workflow for current run status, output, and configuration blockers without exposing credentials or changing outreach behavior; the repository has no Actions workflow and its coordination script is confirmed dry-run/fail-closed.
+- [x] Apply only evidence-backed, reviewable workflow changes and reflect the resulting state in the cockpit; no outreach workflow change was justified without candidate materials, and the verified fail-closed status is now visible.
+- [x] Validate, deploy, and synchronize referenced-workflow continuation changes with TypeScript, 15 tests, production build, and deployment checkpoint; private GitHub mirror sync follows this checkpoint.
