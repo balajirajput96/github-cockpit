@@ -71,11 +71,11 @@ export const AUTOMATION_STATUS_ITEMS: AutomationStatusItem[] = [
   {
     id: "live-provider-credential",
     eyebrow: "Live provider contracts",
-    title: "GitHub credential health needs rotation",
-    detail: "AI Automation’s deterministic quality gate passed, but an explicitly requested live-provider check could not authenticate with its separate GitHub health credential. No secret was read, changed, or replaced.",
-    tone: "blocked",
-    href: "https://github.com/balajirajput96/ai-automation-platform/actions/runs/32091140140",
-    hrefLabel: "Inspect credential boundary",
+    title: "GitHub credential health verified",
+    detail: "The dedicated Actions secret was securely supplied by the owner and the opt-in live-provider job passed alongside typecheck, tests, and build. Its value was not read, logged, or stored by the cockpit.",
+    tone: "healthy",
+    href: "https://github.com/balajirajput96/ai-automation-platform/actions/runs/32095983163",
+    hrefLabel: "Open passing validation",
   },
   {
     id: "jules-readiness",
