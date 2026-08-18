@@ -28,10 +28,11 @@ describe("automation status presentation", () => {
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "dependency-security-pr")?.title).toContain("Merged PR #1");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "toolchain-zero-audit")?.detail).toContain("zero advisories");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "node-runtime-pr")?.title).toContain("Merged PR #50");
-    expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "node-runtime-pr")?.detail).toContain("merged, not review-only");
+    expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "node-runtime-pr")?.detail).toContain("resolved by merged PR #51");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "secret-scan-history-fix")?.href).toContain("/pull/51");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "secret-scan-history-fix")?.title).toContain("Merged PR #51");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "secret-scan-history-fix")?.detail).toContain("supersedes post-merge commit b52cc59");
+    expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "secret-scan-history-fix")?.detail).toContain("fetch depth from 1 to 0");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "workflow-sweep")?.detail).toContain("No workflow was rebased or force-pushed");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "repair-pr-review")?.title).toContain("merged");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "normal-event-validation")?.detail).toContain("successful current-main workflow evidence");
