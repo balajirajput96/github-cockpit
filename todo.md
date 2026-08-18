@@ -135,3 +135,9 @@
 - [x] Create smallest-scope reviewable repair branches for newly actionable failures and validate their corresponding workflow runs; no newly actionable product-code failure was found, so no duplicate repair branch was created.
 - [x] Assess any remaining repair branch for rebase only after passing checks, never force-pushing protected or shared branches; only Health Reels draft PRs #1/#2 conflict, but they alter social automation and health-content policy, so no blind rebase or conflict resolution was performed.
 - [x] Record verified remediation evidence in Signal Ledger, validate, checkpoint, and deliver the updated source/export handover; current application workflows are validated, external Dependabot queues are explicitly separated from code failures, the cockpit passes TypeScript/32 tests/production build, and the credential-free source/audit bundle is ready.
+
+## External Queue and Conflict Follow-up — 18 August 2026
+- [x] Recheck the three queued Dependabot jobs and capture whether they start, pass, fail, or remain externally queued; all three remain externally queued before any job step starts.
+- [x] Recheck Health Reels draft PR #1/#2 merge states without rebasing, pushing, or resolving social-automation policy conflicts blindly; both remain open drafts with conflicting/dirty merge state.
+- [x] Create and validate a focused repair only if a newly completed job exposes a reproducible product-code defect; no newly completed failed code job appeared, so no duplicate repair branch was created.
+- [x] Record any changed evidence and publish a cockpit update only when the source state changes; the safe handover audit records the unchanged external boundaries, while no cockpit source update is claimed.
