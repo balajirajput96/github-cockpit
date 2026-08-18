@@ -7,6 +7,9 @@ describe("automation status presentation", () => {
       "digest",
       "portfolio",
       "pharma-pr",
+      "workflow-sweep",
+      "repair-pr-review",
+      "normal-event-validation",
       "research-media",
       "dependabot",
       "dependency-security-pr",
@@ -25,11 +28,14 @@ describe("automation status presentation", () => {
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "node-runtime-pr")?.detail).toContain("merged, not review-only");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "secret-scan-history-fix")?.href).toContain("/pull/51");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "secret-scan-history-fix")?.detail).toContain("supersedes post-merge commit b52cc59");
+    expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "workflow-sweep")?.detail).toContain("No workflow was rebased or force-pushed");
+    expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "repair-pr-review")?.href).toContain("ai-automation-platform/pull/1");
+    expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "normal-event-validation")?.detail).toContain("no manual trigger");
   });
 
   it("summarizes current healthy, attention, and blocked automation items", () => {
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "biotech-outreach")?.detail).toContain("No application, resume attachment, or email is sent");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "mcp-lockfile-remediation")?.detail).toContain("does not claim an Actions runtime upgrade");
-    expect(summarizeAutomationStatus()).toEqual({ healthy: 7, attention: 1, blocked: 3 });
+    expect(summarizeAutomationStatus()).toEqual({ healthy: 8, attention: 3, blocked: 3 });
   });
 });

@@ -101,3 +101,11 @@
 - [x] Add deterministic pending-to-error/retry and pending-to-success history-sequence coverage, including the no-prompt/no-URL privacy boundary; 31 tests pass.
 - [x] Re-attempt Jules Sentinel schedule verification in the connected browser and document the target-account result without creating or changing tasks; the session is now signed out and shows no target account, GitHub connection, or durable Sentinel record, so user sign-in remains required for a read-only confirmation.
 - [x] Validate, checkpoint, and publish the follow-up work with TypeScript, 31 tests, Vite 8 production build, and a zero-advisory audit.
+
+## Owner Workflow Run Remediation — 18 August 2026
+- [x] Inventory latest GitHub Actions runs across directly owned repositories and classify each failed, cancelled, queued, or stale run as actionable, obsolete, or externally blocked.
+- [x] For each actionable workflow issue, create an isolated review branch and apply the smallest code/configuration fix without exposing secrets or changing unrelated behavior.
+- [x] Re-run local validation and observe the corresponding GitHub Actions check for every repaired workflow; retain evidence for each outcome.
+- [x] Evaluate any required rebase only after the target repair branch has passing checks; no rebase is required because all three repair PRs are mergeable with passing branch runs, and no protected/shared branch was force-pushed.
+- [x] Record remaining external/account/secret blockers and checkpoint the verified remediation work; daily-research-reels-automation remains blocked on verified source media, two repositories await normal trusted CI events, and Jules/Antigravity remain account or connector dependent.
+- [x] Refresh the Signal Ledger automation panel with verified 18 August workflow repair evidence and remaining review-only/external boundaries.

@@ -133,6 +133,7 @@ const snapshotRepos = [
 ];
 
 const activityItems = [
+  { time: "18 Aug", label: "Owner workflow sweep verified", detail: "4 current-main paths passed · 3 focused CI repair PRs are ready for review", tone: "lime" },
   { time: "17 Aug", label: "Daily Pharma concurrency guard merged", detail: "vscode-copilot-cha · PR #6 · reviewed quality check passed", tone: "lime" },
   { time: "15 Aug", label: "Hybrid agent workspace published", detail: "Agent Studio · protected plans · server-side image generation", tone: "lime" },
   { time: "15 Aug", label: "Private delivery CI verified", detail: "github-cockpit · Signal Ledger CI · test and build passed in 39s", tone: "lime" },
@@ -479,7 +480,7 @@ export default function Home() {
           </section>
 
           <section className="activity-section" id="activity">
-            <div className="section-heading"><div><p className="panel-kicker">Recent ledger entries</p><h2>What changed in the portfolio</h2></div><button className="text-link" onClick={() => toast("The activity feed records verified evidence from the 15 Aug portfolio audit.")}>Audit note <ArrowUpRight size={14} /></button></div>
+            <div className="section-heading"><div><p className="panel-kicker">Recent ledger entries</p><h2>What changed in the portfolio</h2></div><button className="text-link" onClick={() => toast("The activity feed records verified evidence through the 18 Aug owner-workflow sweep.")}>Audit note <ArrowUpRight size={14} /></button></div>
             <div className="activity-grid">
               <div className="activity-list">
                 {activityItems.map((item) => <div className="activity-row" key={`${item.time}-${item.label}`}><div className={`activity-marker ${item.tone}`}><Check size={13} /></div><div className="activity-detail"><strong>{item.label}</strong><span>{item.detail}</span></div><time>{item.time}</time></div>)}
