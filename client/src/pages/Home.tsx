@@ -133,7 +133,7 @@ const snapshotRepos = [
 ];
 
 const activityItems = [
-  { time: "18 Aug", label: "Owner workflow sweep verified", detail: "4 current-main paths passed · 3 focused CI repair PRs are ready for review", tone: "lime" },
+  { time: "18 Aug", label: "Three focused CI repairs merged", detail: "ai-automation-platform, career-monitoring-hub, and gmail-resume-mailer · post-merge main CI passed", tone: "lime" },
   { time: "17 Aug", label: "Daily Pharma concurrency guard merged", detail: "vscode-copilot-cha · PR #6 · reviewed quality check passed", tone: "lime" },
   { time: "15 Aug", label: "Hybrid agent workspace published", detail: "Agent Studio · protected plans · server-side image generation", tone: "lime" },
   { time: "15 Aug", label: "Private delivery CI verified", detail: "github-cockpit · Signal Ledger CI · test and build passed in 39s", tone: "lime" },
@@ -148,7 +148,7 @@ const portfolioAudit = {
   totalRepos: "194",
   directlyOwned: "11",
   observedForks: "183",
-  remediationPr: "04",
+  remediationPr: "07",
   blockers: "02",
 };
 
@@ -354,8 +354,8 @@ export default function Home() {
           <section className="hero-block" aria-labelledby="page-title">
             <div className="hero-copy">
               <p className="eyebrow"><span className="eyebrow-rule" /> PORTFOLIO AUDIT · 15 AUG 2026</p>
-              <h1 id="page-title">Your portfolio is mapped.<br /><i>Four merges, one recovery, and a safer agent desk.</i></h1>
-              <p className="hero-description">A verified register of the accessible GitHub portfolio: 194 repositories audited, 11 directly owned projects triaged, four validated changes merged, a blocked daily workflow recovered, and a reviewable hybrid agent workspace now deployed.</p>
+              <h1 id="page-title">Your portfolio is mapped.<br /><i>Seven verified repairs, one recovery, and a safer agent desk.</i></h1>
+              <p className="hero-description">A verified register of the accessible GitHub portfolio: 194 repositories audited, 11 directly owned projects triaged, seven validated changes merged, a blocked daily workflow recovered, and a reviewable hybrid agent workspace now deployed.</p>
               <div className="hero-actions">
                 <a className="button button-primary" href="https://github.com/balajirajput96/github-mcp-server-/pull/42" target="_blank" rel="noreferrer">Open merged repair <ArrowUpRight size={16} /></a>
                 <button className="text-link" onClick={focusAttention}>Inspect earlier detail sample <ArrowUpRight size={14} /></button>
@@ -369,7 +369,7 @@ export default function Home() {
 
           <section className="metric-strip" aria-label="Repository health summary">
             <div className="metric-cell"><span className="metric-label">Repositories audited</span><strong>{portfolioAudit.totalRepos}</strong><span className="metric-foot"><Github size={13} /> {portfolioAudit.directlyOwned} directly owned</span></div>
-            <div className="metric-cell metric-highlight"><span className="metric-label">Validated repairs</span><strong>{portfolioAudit.remediationPr}</strong><span className="metric-foot"><Check size={13} /> PRs #42, #41, #2, #6 merged</span></div>
+            <div className="metric-cell metric-highlight"><span className="metric-label">Validated repairs</span><strong>{portfolioAudit.remediationPr}</strong><span className="metric-foot"><Check size={13} /> Four earlier repairs + three CI PRs merged</span></div>
             <div className="metric-cell"><span className="metric-label">Observed upstream forks</span><strong>{portfolioAudit.observedForks}</strong><span className="metric-foot"><GitBranch size={13} /> tracked, not auto-modified</span></div>
             <div className="metric-cell"><span className="metric-label">Setup blockers</span><strong>{portfolioAudit.blockers}</strong><span className="metric-foot"><TriangleAlert size={13} /> Azure setup and draft review</span></div>
           </section>
@@ -480,7 +480,7 @@ export default function Home() {
           </section>
 
           <section className="activity-section" id="activity">
-            <div className="section-heading"><div><p className="panel-kicker">Recent ledger entries</p><h2>What changed in the portfolio</h2></div><button className="text-link" onClick={() => toast("The activity feed records verified evidence through the 18 Aug owner-workflow sweep.")}>Audit note <ArrowUpRight size={14} /></button></div>
+            <div className="section-heading"><div><p className="panel-kicker">Recent ledger entries</p><h2>What changed in the portfolio</h2></div><button className="text-link" onClick={() => toast("The activity feed records verified evidence through the 18 Aug post-merge CI review.")}>Audit note <ArrowUpRight size={14} /></button></div>
             <div className="activity-grid">
               <div className="activity-list">
                 {activityItems.map((item) => <div className="activity-row" key={`${item.time}-${item.label}`}><div className={`activity-marker ${item.tone}`}><Check size={13} /></div><div className="activity-detail"><strong>{item.label}</strong><span>{item.detail}</span></div><time>{item.time}</time></div>)}

@@ -11,6 +11,9 @@ describe("automation status presentation", () => {
       "repair-pr-review",
       "normal-event-validation",
       "research-media",
+      "live-provider-credential",
+      "jules-readiness",
+      "antigravity-readiness",
       "dependabot",
       "dependency-security-pr",
       "toolchain-zero-audit",
@@ -29,13 +32,15 @@ describe("automation status presentation", () => {
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "secret-scan-history-fix")?.href).toContain("/pull/51");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "secret-scan-history-fix")?.detail).toContain("supersedes post-merge commit b52cc59");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "workflow-sweep")?.detail).toContain("No workflow was rebased or force-pushed");
-    expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "repair-pr-review")?.href).toContain("ai-automation-platform/pull/1");
-    expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "normal-event-validation")?.detail).toContain("no manual trigger");
+    expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "repair-pr-review")?.title).toContain("merged");
+    expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "normal-event-validation")?.detail).toContain("successful current-main workflow evidence");
+    expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "live-provider-credential")?.detail).toContain("No secret was read, changed, or replaced");
+    expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "jules-readiness")?.title).toContain("no Sentinel session");
   });
 
   it("summarizes current healthy, attention, and blocked automation items", () => {
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "biotech-outreach")?.detail).toContain("No application, resume attachment, or email is sent");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "mcp-lockfile-remediation")?.detail).toContain("does not claim an Actions runtime upgrade");
-    expect(summarizeAutomationStatus()).toEqual({ healthy: 8, attention: 3, blocked: 3 });
+    expect(summarizeAutomationStatus()).toEqual({ healthy: 10, attention: 3, blocked: 4 });
   });
 });

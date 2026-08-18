@@ -109,3 +109,10 @@
 - [x] Evaluate any required rebase only after the target repair branch has passing checks; no rebase is required because all three repair PRs are mergeable with passing branch runs, and no protected/shared branch was force-pushed.
 - [x] Record remaining external/account/secret blockers and checkpoint the verified remediation work; daily-research-reels-automation remains blocked on verified source media, two repositories await normal trusted CI events, and Jules/Antigravity remain account or connector dependent.
 - [x] Refresh the Signal Ledger automation panel with verified 18 August workflow repair evidence and remaining review-only/external boundaries.
+
+## Continued Owner Remediation — 18 August 2026
+- [x] Reconfirm the current state of all three open CI repair PRs and their latest workflow results without merging, rebasing, or force-pushing; all three were merged through GitHub’s normal process and their post-merge main CI passed.
+- [x] Inspect whether normal trusted CI evidence is now available for job-automation-orchestrator and automation-control-center-app; both now show successful current-main workflow evidence.
+- [x] Re-evaluate documented source-media, Jules, and Antigravity boundaries for any safely actionable change without exposing credentials or publishing content; later user-initiated reel runs passed, Jules owner access is connected with no sessions, and Antigravity remains unconfigured.
+- [x] Record newly verified evidence in Signal Ledger, run regression validation, and checkpoint only if the project source changes; post-merge CI, normal-event evidence, live credential boundary, Jules readiness, and Antigravity status are reflected with TypeScript, 32 tests, production build, and preview checks passing.
+- [x] Reconcile the Signal Ledger hero narrative and supporting audit copy with the seven verified merged repairs shown in the updated metric; source-level regression coverage prevents drift back to the prior four-repair wording.
