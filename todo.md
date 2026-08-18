@@ -93,3 +93,11 @@
 - [x] Extract and test Media Workbench lifecycle state selection in a Vite 8-compatible pure helper; idle, pending, error/retry, and stored-result states are covered in the 29-test suite.
 - [x] Inspect the current reviewable GitHub follow-up state without merging, changing settings, or exposing secrets; draft PR #51 checks passed, and the evidence-backed next action remains explicit owner review before any GitHub decision.
 - [x] Validate, checkpoint, and publish this continuation with TypeScript, 29 tests, Vite 8 production build, and a zero-advisory dependency audit.
+
+## Follow-up — 17 August 2026
+- [x] Inspect the exact PR #51 diff and record an evidence-backed review recommendation without changing its draft, merge, or workflow state; it only changes Secret Scanning checkout depth from `1` to `0`, with full-history coverage versus runtime trade-off documented for owner review.
+- [x] Design and implement a local Media Workbench request-status history that records only in-session, non-sensitive lifecycle events; prompts, credentials, and generated URLs are never stored in the history.
+- [x] Add deterministic tests for Media Workbench request-status history and its bounded retry feedback; 30 tests pass.
+- [x] Add deterministic pending-to-error/retry and pending-to-success history-sequence coverage, including the no-prompt/no-URL privacy boundary; 31 tests pass.
+- [x] Re-attempt Jules Sentinel schedule verification in the connected browser and document the target-account result without creating or changing tasks; the session is now signed out and shows no target account, GitHub connection, or durable Sentinel record, so user sign-in remains required for a read-only confirmation.
+- [x] Validate, checkpoint, and publish the follow-up work with TypeScript, 31 tests, Vite 8 production build, and a zero-advisory audit.

@@ -9,6 +9,7 @@ import { AutomationStatusPanel } from "@/components/AutomationStatusPanel";
 import { JulesExecutionTimeline } from "@/components/JulesExecutionTimeline";
 import { startLogin } from "@/const";
 import { getImageLifecycle } from "@/lib/imageLifecycle";
+import { appendImageRequestEvent, type ImageRequestEvent } from "@/lib/imageRequestHistory";
 import { trpc } from "@/lib/trpc";
 import { getPortfolioPresentation } from "@/lib/portfolioPresentation";
 import { useMemo, useState } from "react";
@@ -228,6 +229,7 @@ export default function Home() {
   const [agentIntent, setAgentIntent] = useState<"repository" | "automation" | "media">("repository");
   const [agentPrompt, setAgentPrompt] = useState("Review the currently open pull requests and propose the smallest safe next action for each.");
   const [imagePrompt, setImagePrompt] = useState("An editorial software-agent control room with a calm paper ledger, branching code signals, and lime operational markers.");
+  const [imageHistory, setImageHistory] = useState<ImageRequestEvent[]>([]);
   const portfolioPresentation = getPortfolioPresentation({
     isLoading: portfolioQuery.isLoading,
     isFetching: portfolioQuery.isFetching,
@@ -274,10 +276,30 @@ export default function Home() {
   };
 
   const createImage = async () => {
+    const at = new Intl.DateTimeFormat(undefined, { hour: "2-digit", minute: "2-digit" }).format(new Date());
+    const requestId = `image-${Date.now()}`;
+    setImageHistory((history) => appendImageRequestEvent(history, {
+      at,
+      id: requestId,
+      label: "Request sent to the protected image provider",
+      tone: "pending",
+    }));
     try {
       await imageMaker.mutateAsync({ prompt: imagePrompt });
+      setImageHistory((history) => appendImageRequestEvent(history, {
+        at: new Intl.DateTimeFormat(undefined, { hour: "2-digit", minute: "2-digit" }).format(new Date()),
+        id: `${requestId}-ready`,
+        label: "Image stored and ready to open",
+        tone: "ready",
+      }));
     } catch {
       // The mutation's onError callback and inline alert retain safe feedback.
+      setImageHistory((history) => appendImageRequestEvent(history, {
+        at: new Intl.DateTimeFormat(undefined, { hour: "2-digit", minute: "2-digit" }).format(new Date()),
+        id: `${requestId}-error`,
+        label: "Request did not complete; retry is available",
+        tone: "error",
+      }));
     }
   };
 
@@ -431,6 +453,7 @@ export default function Home() {
                 <div className={`media-request-status ${imageLifecycle.tone}`} role="status" aria-live="polite"><span>{imageLifecycle.label}</span></div>
                 {imageMaker.error ? <div className="live-error" role="alert"><TriangleAlert size={18} /><div><strong>Image generation error</strong><span>{imageMaker.error.message}</span></div></div> : null}
                 {imageMaker.data?.url ? <a className="media-image-result" href={imageMaker.data.url} target="_blank" rel="noreferrer"><img src={imageMaker.data.url} alt="Generated agent workspace visual" /><span>Open generated image <ArrowUpRight size={13} /></span></a> : null}
+                {imageHistory.length > 0 ? <div className="media-request-history" aria-label="Image request history"><span className="signal-label"><span className="signal-dot lime" /> This browser session</span>{imageHistory.map((event) => <div className={`media-history-entry is-${event.tone}`} key={event.id}><time>{event.at}</time><span>{event.label}</span></div>)}</div> : null}
               </div>
               <div className="media-tool-card is-muted"><Video size={19} /><div><strong>Video shot plan</strong><span>Turn a video request into a reviewable production brief before a provider is connected.</span></div><button type="button" className="button button-ghost" onClick={() => { setAgentIntent("media"); setAgentPrompt("Create a production-ready video shot plan for: "); document.getElementById("agent-studio")?.scrollIntoView({ behavior: "smooth", block: "start" }); }}>Prepare video plan <ArrowUpRight size={15} /></button></div>
             </div>
