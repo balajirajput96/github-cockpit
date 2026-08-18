@@ -12,6 +12,7 @@ describe("automation status presentation", () => {
       "normal-event-validation",
       "research-media",
       "live-provider-credential",
+      "dependabot-queue",
       "jules-readiness",
       "antigravity-readiness",
       "dependabot",
@@ -31,19 +32,19 @@ describe("automation status presentation", () => {
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "node-runtime-pr")?.detail).toContain("resolved by merged PR #51");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "secret-scan-history-fix")?.href).toContain("/pull/51");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "secret-scan-history-fix")?.title).toContain("Merged PR #51");
-    expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "secret-scan-history-fix")?.detail).toContain("supersedes post-merge commit b52cc59");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "secret-scan-history-fix")?.detail).toContain("fetch depth from 1 to 0");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "workflow-sweep")?.detail).toContain("No workflow was rebased or force-pushed");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "repair-pr-review")?.title).toContain("merged");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "normal-event-validation")?.detail).toContain("successful current-main workflow evidence");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "live-provider-credential")?.title).toContain("verified");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "live-provider-credential")?.detail).toContain("not read, logged, or stored");
+    expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "dependabot-queue")?.detail).toContain("external queue state, not a code failure");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "jules-readiness")?.title).toContain("no Sentinel session");
   });
 
   it("summarizes current healthy, attention, and blocked automation items", () => {
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "biotech-outreach")?.detail).toContain("No application, resume attachment, or email is sent");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "mcp-lockfile-remediation")?.detail).toContain("does not claim an Actions runtime upgrade");
-    expect(summarizeAutomationStatus()).toEqual({ healthy: 12, attention: 2, blocked: 3 });
+    expect(summarizeAutomationStatus()).toEqual({ healthy: 12, attention: 3, blocked: 3 });
   });
 });

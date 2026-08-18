@@ -78,6 +78,15 @@ export const AUTOMATION_STATUS_ITEMS: AutomationStatusItem[] = [
     hrefLabel: "Open passing validation",
   },
   {
+    id: "dependabot-queue",
+    eyebrow: "Dependency bot queue",
+    title: "3 Dependabot jobs await a runner",
+    detail: "Gmail Resume Mailer, Automation Control Center, and Bulk Resume Sender have queued Dependabot jobs with no product-code step started. This is an external queue state, not a code failure; no cancellation, rebase, or generated dependency change was applied.",
+    tone: "attention",
+    href: "https://github.com/balajirajput96/gmail-resume-mailer/actions/runs/32088163250",
+    hrefLabel: "Inspect queued job",
+  },
+  {
     id: "jules-readiness",
     eyebrow: "Jules readiness",
     title: "Owner account connected · no Sentinel session",

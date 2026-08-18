@@ -128,3 +128,10 @@
 - [x] Recheck connected Jules repository selection and available scheduling/session controls without creating any autonomous task; selected `balajirajput96/.github` has 0/100 daily sessions and no listed sessions.
 - [x] Recheck Antigravity connector/CLI availability and document any viable non-secret setup route; no local executable or configured connector exists.
 - [x] Apply only an explicitly authorized, reviewable GitHub decision; otherwise record evidence and refresh Signal Ledger if the source changes. No new GitHub decision was inferred: PR #51 was already merged normally, its current-main scan passed, and the cockpit was updated from verified evidence.
+
+## Source Export and Complete Workflow Remediation — 18 August 2026
+- [x] Create a downloadable source bundle and concise non-sensitive activity/account audit for the completed workspace work; source, workflow signal exports, PR inventory, and sanitized login audit are prepared under `/home/ubuntu/exports`.
+- [x] Reinventory current recent failed workflows across directly owned repositories, separating new actionable defects from historic, cancelled, queued, or credential-dependent states; current main application workflows pass, while three Dependabot jobs remain externally queued before execution.
+- [x] Create smallest-scope reviewable repair branches for newly actionable failures and validate their corresponding workflow runs; no newly actionable product-code failure was found, so no duplicate repair branch was created.
+- [x] Assess any remaining repair branch for rebase only after passing checks, never force-pushing protected or shared branches; only Health Reels draft PRs #1/#2 conflict, but they alter social automation and health-content policy, so no blind rebase or conflict resolution was performed.
+- [x] Record verified remediation evidence in Signal Ledger, validate, checkpoint, and deliver the updated source/export handover; current application workflows are validated, external Dependabot queues are explicitly separated from code failures, the cockpit passes TypeScript/32 tests/production build, and the credential-free source/audit bundle is ready.
