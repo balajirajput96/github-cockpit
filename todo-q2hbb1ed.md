@@ -65,7 +65,7 @@
 - [x] Inspect `github-mcp-server-` Node runtime warning sources and define the smallest compatible Node 24 workflow update.
 - [x] Create and locally validate a review-only Node runtime update branch and draft PR without merging or changing repository settings; record GitHub-hosted checks as externally queued.
 - [x] Reconcile the new Node runtime draft PR status into the cockpit automation panel with clear review-only language.
-- [ ] Verify the independent 09:30 IST cockpit evidence callback has completed its first successful scheduled run and persist the observed result.
+- [x] Verify the independent 09:30 IST cockpit evidence callback has completed its first successful scheduled run and persist the observed result: `cockpit_evidence` is `recorded` with `last_recorded_at` 2026-08-18 04:09:25 UTC for task `KinvayapY4feQK5bcV7ucP`.
 - [x] Explicitly record that PR #50 is merged—not review-only—while preserving its final check outcomes and separate PR #51 remediation path.
 - [x] Fix PR #50 Secret Scanning shallow-checkout failure with the smallest review-only checkout-depth update, then revalidate the draft PR checks.
 - [x] Reconcile GitHub-confirmed PR #50 merged state in cockpit evidence and distinguish the later unmerged checkout-depth fix commit from the merged PR.
@@ -85,3 +85,7 @@
 - [x] Update cockpit automation status and evidence notes to replace the stale draft PR #51 description with its GitHub-confirmed 17 Aug 2026 merged disposition.
 - [x] Assemble a sanitized downloadable handoff package containing the dashboard source, terminal-created repair/audit scripts, and evidence documents from this task without including credentials, environment files, dependencies, build artifacts, or Git metadata.
 - [x] Verify and report the current browser/chat account-session boundary, naming only confirmed visible account identities and never exposing passwords, session cookies, API keys, OAuth tokens, or unverified “Account Integrity”/“Thug” claims.
+- [x] Refresh the full directly owned-repository Actions inventory and classify every currently failing, queued, or stale run before any rebase decision; the 04:07 UTC evidence is recorded in `owner-workflow-sweep-2026-08-18.md`.
+- [x] Repair each newly reproducible code-level workflow defect one repository at a time with local validation and a reviewable pull request; no newly reproducible source-code failure was found in the 04:07 UTC sweep, so no duplicate change or pull request was created.
+- [x] Monitor the externally queued `job-automation-orchestrator` run 32098063432 to a completion result: its `check-and-test` job completed successfully at 2026-08-18 04:24:17 UTC, so no source repair or rebase was needed.
+- [x] Correlate the 2026-08-18 04:09:25 UTC cockpit-evidence write with an authoritative heartbeat execution record: run `ZzSpNf9cDRBwNKAWhx98Nc` was an automatic, 1.634-second HTTP 200 execution at 04:09:23–04:09:25 UTC returning `{"ok":true,"status":"recorded"}`. No callback auth repair is needed.
