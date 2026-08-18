@@ -133,6 +133,7 @@ const snapshotRepos = [
 ];
 
 const activityItems = [
+  { time: "18 Aug", label: "Full-history Secret Scanning merged", detail: "github-mcp-server- · PR #51 · current-main Gitleaks scans passed", tone: "lime" },
   { time: "18 Aug", label: "Three focused CI repairs merged", detail: "ai-automation-platform, career-monitoring-hub, and gmail-resume-mailer · post-merge main CI passed", tone: "lime" },
   { time: "17 Aug", label: "Daily Pharma concurrency guard merged", detail: "vscode-copilot-cha · PR #6 · reviewed quality check passed", tone: "lime" },
   { time: "15 Aug", label: "Hybrid agent workspace published", detail: "Agent Studio · protected plans · server-side image generation", tone: "lime" },
@@ -148,7 +149,7 @@ const portfolioAudit = {
   totalRepos: "194",
   directlyOwned: "11",
   observedForks: "183",
-  remediationPr: "07",
+  remediationPr: "08",
   blockers: "02",
 };
 
@@ -354,8 +355,8 @@ export default function Home() {
           <section className="hero-block" aria-labelledby="page-title">
             <div className="hero-copy">
               <p className="eyebrow"><span className="eyebrow-rule" /> PORTFOLIO AUDIT · 15 AUG 2026</p>
-              <h1 id="page-title">Your portfolio is mapped.<br /><i>Seven verified repairs, one recovery, and a safer agent desk.</i></h1>
-              <p className="hero-description">A verified register of the accessible GitHub portfolio: 194 repositories audited, 11 directly owned projects triaged, seven validated changes merged, a blocked daily workflow recovered, and a reviewable hybrid agent workspace now deployed.</p>
+              <h1 id="page-title">Your portfolio is mapped.<br /><i>Eight verified repairs, one recovery, and a safer agent desk.</i></h1>
+              <p className="hero-description">A verified register of the accessible GitHub portfolio: 194 repositories audited, 11 directly owned projects triaged, eight validated changes merged, a blocked daily workflow recovered, and a reviewable hybrid agent workspace now deployed.</p>
               <div className="hero-actions">
                 <a className="button button-primary" href="https://github.com/balajirajput96/github-mcp-server-/pull/42" target="_blank" rel="noreferrer">Open merged repair <ArrowUpRight size={16} /></a>
                 <button className="text-link" onClick={focusAttention}>Inspect earlier detail sample <ArrowUpRight size={14} /></button>
@@ -369,7 +370,7 @@ export default function Home() {
 
           <section className="metric-strip" aria-label="Repository health summary">
             <div className="metric-cell"><span className="metric-label">Repositories audited</span><strong>{portfolioAudit.totalRepos}</strong><span className="metric-foot"><Github size={13} /> {portfolioAudit.directlyOwned} directly owned</span></div>
-            <div className="metric-cell metric-highlight"><span className="metric-label">Validated repairs</span><strong>{portfolioAudit.remediationPr}</strong><span className="metric-foot"><Check size={13} /> Four earlier repairs + three CI PRs merged</span></div>
+            <div className="metric-cell metric-highlight"><span className="metric-label">Validated repairs</span><strong>{portfolioAudit.remediationPr}</strong><span className="metric-foot"><Check size={13} /> Four earlier repairs + three CI PRs + scan fix</span></div>
             <div className="metric-cell"><span className="metric-label">Observed upstream forks</span><strong>{portfolioAudit.observedForks}</strong><span className="metric-foot"><GitBranch size={13} /> tracked, not auto-modified</span></div>
             <div className="metric-cell"><span className="metric-label">Setup blockers</span><strong>{portfolioAudit.blockers}</strong><span className="metric-foot"><TriangleAlert size={13} /> Azure setup and draft review</span></div>
           </section>
