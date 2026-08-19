@@ -145,13 +145,13 @@
 ## Full Owner Workflow Remediation and Monitoring — 18 August 2026
 - [x] Reinventory recent current-main workflow runs across all active directly owned repositories and separate reproducible failures from queued, cancelled, historic, and third-party states; fresh sweep separated historical pnpm failures (now superseded by passing main CI), Dependabot platform states, and queues from reproducible current code failures.
 - [x] Inspect every newly reproducible current code or configuration failure and create minimal isolated repair branches only where a safe code fix exists; no new unresolved current product-code failure was found after confirming My AI Assistant, Atlas, Bulk Resume Sender, and AI Agent Hub current-main passes.
-- [ ] Validate repaired branches and current-main reruns; assess rebase only on clean, owner-controlled repair branches with passing checks and never force-push.
+- [x] Validate repaired branches and current-main reruns; assess rebase only on clean, owner-controlled repair branches with passing checks and never force-push. Fresh owner PR audit found no current open owner pull request eligible for rebase, so no branch rewrite was performed.
 - [x] Document safe scheduling options for workflow monitoring, including the existing daily digest and a no-publishing boundary for AI/social connectors; user selected a deterministic no-email/no-publishing dashboard monitor, while the earlier AI/Gmail digest remains paused.
-- [ ] Refresh Signal Ledger and checkpoint only after verified source or evidence changes.
+- [x] Refresh Signal Ledger and checkpoint only after verified source or evidence changes; persisted monitor schema, collector, panel, and scheduled callback were validated and checkpointed.
 
 ## Deterministic Signal Ledger Monitor — 19 August 2026
 - [x] Define a persisted, read-only workflow signal record with repository, run, status, classification, timestamp, and non-sensitive URL fields.
 - [x] Add an authenticated server-side GitHub signal collector that only reads current owner-repository workflow metadata and stores idempotent snapshots.
 - [x] Add a protected scheduled callback for periodic collection with cron-only authentication, idempotent error handling, and no email, social, merge, rebase, rerun, or settings actions.
 - [x] Add a dashboard monitor panel and deterministic unit tests for signal classification and presentation counts.
-- [ ] Validate the monitor, checkpoint the deployed source, and create the project-level periodic job only after the deployed callback is available.
+- [x] Validate the monitor, checkpoint the deployed source, and create the project-level periodic job only after the deployed callback is available; checkpoint `5a317014` deployed the callback, and enabled Heartbeat `BfwGCQnnqfiu8RBqkDtmSo` now runs every six hours with no GitHub write, email, social, merge, rebase, rerun, or settings action.
