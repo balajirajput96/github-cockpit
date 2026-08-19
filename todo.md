@@ -155,3 +155,10 @@
 - [x] Add a protected scheduled callback for periodic collection with cron-only authentication, idempotent error handling, and no email, social, merge, rebase, rerun, or settings actions.
 - [x] Add a dashboard monitor panel and deterministic unit tests for signal classification and presentation counts.
 - [x] Validate the monitor, checkpoint the deployed source, and create the project-level periodic job only after the deployed callback is available; checkpoint `5a317014` deployed the callback, and enabled Heartbeat `BfwGCQnnqfiu8RBqkDtmSo` now runs every six hours with no GitHub write, email, social, merge, rebase, rerun, or settings action.
+
+## Continued Full Run Remediation — 19 August 2026
+- [x] Refresh the recent owner current-main workflow inventory, including queued and dynamic bot runs, with exact run-state classification; succeeded current-main validations were separated from historic failures, external Dependabot queues, and requeued runner work.
+- [x] Inspect every newly failed current-main run for a reproducible application or configuration defect before creating any repair branch; My AI Assistant, Atlas, Bulk Resume Sender, and AI Agent Hub all have later passing current-main runs, while the remaining failure is a GitHub-managed Dependabot updater condition.
+- [x] For each reproducible owner-controlled defect, create a smallest-scope reviewable PR and validate its checks; do not merge automatically. No newly reproducible owner-controlled defect was found, so no duplicate repair branch was created.
+- [x] Rebase only a clean, owner-controlled repair branch when passing checks and an actual behind-base requirement justify it; never force-push. No active directly owned repair PR is both stale and failing, and `mcp` PR #5 is a clean Dependabot proposal in a fork, not a repair branch.
+- [x] Record verified evidence and refresh Signal Ledger only when source or evidence meaningfully changes; the six-hour monitor will retain future snapshots while no unsupported status change is asserted now.
