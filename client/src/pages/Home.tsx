@@ -545,11 +545,11 @@ export default function Home() {
           </section>
 
           <section className="provider-studio" id="settings" aria-labelledby="provider-studio-title">
-            <div><p className="panel-kicker">Provider studio</p><h2 id="provider-studio-title">Connect later, never pretend now.</h2><p>Free-first mode keeps third-party model, image, and video credentials out of this application. The controls below are deliberate readiness states, not inactive promises.</p></div>
+            <div><p className="panel-kicker">Provider studio</p><h2 id="provider-studio-title">Server-side providers, explicit boundaries.</h2><p>Gemini is enabled through the protected server-side connector boundary. This cockpit never accepts, displays, or stores provider API keys in the browser; connector credentials remain managed outside the application.</p></div>
             <div className="provider-grid">
-              <div><Sparkles size={18} /><strong>AI composition</strong><span>Enabled for authenticated, on-demand safe plans using the server-side model boundary.</span></div>
+              <div><Sparkles size={18} /><strong>AI composition</strong><span>Gemini-backed composition is enabled for authenticated, on-demand safe plans through the server-side model boundary.</span></div>
               <div><ServerCog size={18} /><strong>Image & video work</strong><span>Image creation is available on demand; rendered video still needs a separately approved provider.</span></div>
-              <div><ShieldCheck size={18} /><strong>Repository writes</strong><span>Remain GitHub-reviewable until a dedicated owner token and approval policy are added.</span></div>
+              <div><ShieldCheck size={18} /><strong>Repository and CLI boundary</strong><span>GitHub changes stay reviewable. Antigravity has no configured connector or local CLI, so no simulated connection or browser key form is shown.</span></div>
             </div>
           </section>
 

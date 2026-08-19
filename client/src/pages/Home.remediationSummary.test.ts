@@ -10,4 +10,10 @@ describe("home remediation summary", () => {
     expect(homeSource).toContain('remediationPr: "08"');
     expect(homeSource).not.toContain("Seven verified repairs, one recovery");
   });
+
+  it("keeps provider status explicit without accepting browser API keys", () => {
+    expect(homeSource).toContain("Gemini is enabled through the protected server-side connector boundary");
+    expect(homeSource).toContain("never accepts, displays, or stores provider API keys in the browser");
+    expect(homeSource).toContain("Antigravity has no configured connector or local CLI");
+  });
 });
