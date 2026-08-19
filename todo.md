@@ -162,3 +162,10 @@
 - [x] For each reproducible owner-controlled defect, create a smallest-scope reviewable PR and validate its checks; do not merge automatically. No newly reproducible owner-controlled defect was found, so no duplicate repair branch was created.
 - [x] Rebase only a clean, owner-controlled repair branch when passing checks and an actual behind-base requirement justify it; never force-push. No active directly owned repair PR is both stale and failing, and `mcp` PR #5 is a clean Dependabot proposal in a fork, not a repair branch.
 - [x] Record verified evidence and refresh Signal Ledger only when source or evidence meaningfully changes; the six-hour monitor will retain future snapshots while no unsupported status change is asserted now.
+
+## Fresh Rebase and Run Verification — 19 August 2026
+- [x] Recheck current owner workflow states, including queued and bot-managed runs, and isolate only newly failed current-main application checks; fresh signal sweep found external Dependabot queues, one Dependabot updater failure, and historical Atlas failures alongside later successful current-main validations.
+- [x] Diagnose each newly failed owner-controlled application check from its job log before making any source or workflow change; latest Atlas validation `32232706537` passed and the VS Code Copilot failure is a `Dependabot` job, not an application check.
+- [x] Create and validate a minimal reviewable repair branch only for a reproduced owner-controlled defect; never auto-merge. No reproduced current owner-controlled defect exists, so no repair branch was created.
+- [x] Rebase only a clean passing repair branch that GitHub reports behind its base; never rebase forked, bot-managed, draft, conflicting, or non-repair PRs. Direct-owner non-fork PR inventory is empty, so no rebase target exists.
+- [x] Record fresh evidence and update the cockpit only if a real source or evidence transition occurs; no unsupported source-state transition is claimed, while the active six-hour monitor remains responsible for future snapshot evidence.
