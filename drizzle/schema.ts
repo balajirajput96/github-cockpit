@@ -69,5 +69,3 @@ export const workflowSignalSnapshots = mysqlTable("workflow_signal_snapshots", {
 
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
-
-// TODO: Add your tables here

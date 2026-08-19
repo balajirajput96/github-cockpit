@@ -217,5 +217,3 @@ export async function getLatestWorkflowSignals(limit = 24) {
   if (!db) return [];
   return db.select().from(workflowSignalSnapshots).orderBy(desc(workflowSignalSnapshots.observedAt)).limit(limit);
 }
-
-// TODO: add feature queries here as your schema grows.
