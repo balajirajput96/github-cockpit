@@ -1,11 +1,12 @@
 import { COOKIE_NAME } from "@shared/const";
+import { parse as parseCookie } from "cookie";
 import { z } from "zod";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { generateImage } from "./_core/imageGeneration";
 import { invokeLLM } from "./_core/llm";
 import { systemRouter } from "./_core/systemRouter";
 import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_core/trpc";
-import { createDailyEvidenceScheduleRecord, createPr46Review, getDailyEvidence, getLatestPr46Review } from "./db";
+import { collectAndRecordWorkflowSignals, createDailyEvidenceScheduleRecord, createPr46Review, createWorkflowMonitorScheduleRecord, getDailyEvidence, getLatestPr46Review, getLatestWorkflowSignals, getWorkflowMonitorEvidence } from "./db";
 import { createHeartbeatJob } from "./_core/heartbeat";
 import { getPublicPortfolio } from "./githubPublic";
 
@@ -100,6 +101,9 @@ export const appRouter = router({
       .input(z.object({ forceRefresh: z.boolean().optional() }).optional())
       .query(({ input }) => getPublicPortfolio("balajirajput96", input?.forceRefresh ?? false)),
     evidence: protectedProcedure.query(() => getDailyEvidence()),
+    workflowSignals: protectedProcedure.query(() => getLatestWorkflowSignals()),
+    refreshWorkflowSignals: adminProcedure.mutation(() => collectAndRecordWorkflowSignals()),
+    workflowMonitorEvidence: protectedProcedure.query(() => getWorkflowMonitorEvidence()),
     latestReview: protectedProcedure.query(() => getLatestPr46Review()),
     recordPr46Review: adminProcedure.input(z.object({
       decision: z.literal("reviewed-hold-draft"),
@@ -115,6 +119,18 @@ export const appRouter = router({
         description: "Record independent 09:30 IST dashboard evidence freshness only; no GitHub writes or report mutation.",
       }, "");
       return createDailyEvidenceScheduleRecord(job.taskUid);
+    }),
+    registerWorkflowMonitorSchedule: adminProcedure.mutation(async ({ ctx }) => {
+      const existing = await getWorkflowMonitorEvidence();
+      if (existing?.scheduleCronTaskUid) return existing;
+      const sessionToken = parseCookie(ctx.req.headers.cookie ?? "")[COOKIE_NAME] ?? "";
+      const job = await createHeartbeatJob({
+        name: "read-only-workflow-signal-monitor",
+        cron: "0 0 */6 * * *",
+        path: "/api/scheduled/workflow-monitor",
+        description: "Collect public GitHub workflow metadata into Signal Ledger only. Never email, publish, merge, rebase, rerun, or alter GitHub settings.",
+      }, sessionToken);
+      return createWorkflowMonitorScheduleRecord(job.taskUid);
     }),
   }),
   agent: router({

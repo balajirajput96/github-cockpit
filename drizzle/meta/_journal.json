@@ -15,6 +15,13 @@
       "when": 1786965499418,
       "tag": "0001_legal_fat_cobra",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1787124176966,
+      "tag": "0002_happy_colonel_america",
+      "breakpoints": true
     }
   ]
 }

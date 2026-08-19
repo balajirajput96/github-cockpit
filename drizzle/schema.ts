@@ -47,6 +47,26 @@ export const cockpitReviewRecords = mysqlTable("cockpit_review_records", {
   reviewKeyIndex: index("cockpit_review_key_idx").on(table.reviewKey),
 }));
 
+export const workflowSignalSnapshots = mysqlTable("workflow_signal_snapshots", {
+  id: int("id").autoincrement().primaryKey(),
+  signalKey: varchar("signal_key", { length: 160 }).notNull(),
+  repository: varchar("repository", { length: 128 }).notNull(),
+  workflowName: varchar("workflow_name", { length: 160 }).notNull(),
+  runId: varchar("run_id", { length: 32 }).notNull(),
+  event: varchar("event", { length: 48 }).notNull(),
+  status: varchar("status", { length: 32 }).notNull(),
+  conclusion: varchar("conclusion", { length: 32 }),
+  classification: varchar("classification", { length: 32 }).notNull(),
+  runUrl: varchar("run_url", { length: 512 }).notNull(),
+  observedAt: timestamp("observed_at").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({
+  signalKeyUnique: uniqueIndex("workflow_signal_key_unique").on(table.signalKey),
+  observedAtIndex: index("workflow_signal_observed_idx").on(table.observedAt),
+  classificationIndex: index("workflow_signal_classification_idx").on(table.classification),
+}));
+
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 

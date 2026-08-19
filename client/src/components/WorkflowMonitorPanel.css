@@ -1,0 +1,30 @@
+.workflow-monitor-section { margin: 0 0 62px; scroll-margin-top: 100px; }
+.workflow-monitor-heading { align-items: end; }
+.workflow-monitor-actions { display: flex; align-items: center; gap: 12px; color: #858279; font: 10px "IBM Plex Mono", monospace; }
+.workflow-monitor-summary { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.workflow-monitor-summary span { display: inline-flex; align-items: center; gap: 5px; padding: 6px 8px; font: 600 10px "IBM Plex Mono", monospace; }
+.workflow-monitor-summary .is-healthy { color: #536249; background: rgba(199,243,107,.3); }
+.workflow-monitor-summary .is-review { color: #934a31; background: rgba(183,94,59,.12); }
+.workflow-monitor-summary .is-external { color: #627387; background: rgba(117,153,192,.14); }
+.workflow-monitor-summary .is-queued { color: #74644e; background: rgba(194,164,112,.18); }
+.workflow-monitor-boundary { display: flex; align-items: center; gap: 7px; margin: 0 0 12px; color: #68745f; font-size: 11px; }
+.workflow-monitor-boundary svg { color: #65755f; }
+.workflow-monitor-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--ink); border-left: 1px solid var(--border); }
+.workflow-monitor-card { min-height: 176px; display: grid; align-content: start; gap: 10px; padding: 18px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); background: rgba(250,248,243,.7); }
+.workflow-monitor-card.is-failure, .workflow-monitor-card.is-cancelled { background: rgba(183,94,59,.055); }
+.workflow-monitor-card.is-external, .workflow-monitor-card.is-queued { background: rgba(232,226,214,.52); }
+.workflow-monitor-card-top { display: flex; align-items: center; gap: 7px; color: #77766e; font: 600 9px "IBM Plex Mono", monospace; letter-spacing: .1em; text-transform: uppercase; }
+.workflow-monitor-icon { width: 24px; height: 24px; display: grid; place-items: center; color: #566c50; background: rgba(199,243,107,.3); border-radius: 50%; }
+.workflow-monitor-card.is-failure .workflow-monitor-icon, .workflow-monitor-card.is-cancelled .workflow-monitor-icon { color: #944b32; background: #f0ded6; }
+.workflow-monitor-card.is-external .workflow-monitor-icon { color: #566b86; background: #dfe8f0; }
+.workflow-monitor-card.is-queued .workflow-monitor-icon { color: #876e4d; background: #eee2ca; }
+.workflow-monitor-card strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 600 12px "IBM Plex Mono", monospace; }
+.workflow-monitor-card p { min-height: 34px; margin: 0; color: #858279; font: 10px/1.55 "IBM Plex Mono", monospace; }
+.workflow-monitor-card code { color: #65755f; }
+.workflow-monitor-card > div:last-child { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; color: #96938a; font: 10px "IBM Plex Mono", monospace; }
+.workflow-monitor-card a { display: inline-flex; align-items: center; gap: 4px; color: #637157; font-weight: 600; }
+.workflow-monitor-card a:hover { color: var(--ink); }
+.workflow-monitor-empty, .workflow-monitor-error { display: flex; align-items: center; gap: 8px; padding: 18px; color: #76776d; border: 1px solid var(--border); background: rgba(250,248,243,.62); font-size: 12px; }
+.workflow-monitor-error { color: #934a31; background: rgba(183,94,59,.08); }
+@media (max-width: 1000px) { .workflow-monitor-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .workflow-monitor-heading { align-items: flex-start; } .workflow-monitor-actions { align-items: flex-start; flex-direction: column; } .workflow-monitor-grid { grid-template-columns: 1fr; } }

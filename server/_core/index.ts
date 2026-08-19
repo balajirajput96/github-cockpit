@@ -8,6 +8,7 @@ import { registerStorageProxy } from "./storageProxy";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { recordDailyEvidence } from "../scheduledEvidence";
+import { recordWorkflowMonitor } from "../scheduledWorkflowMonitor";
 import { serveStatic, setupVite } from "./vite";
 
 function isPortAvailable(port: number): Promise<boolean> {
@@ -38,6 +39,7 @@ async function startServer() {
   registerStorageProxy(app);
   registerOAuthRoutes(app);
   app.post("/api/scheduled/daily-evidence", recordDailyEvidence);
+  app.post("/api/scheduled/workflow-monitor", recordWorkflowMonitor);
   // tRPC API
   app.use(
     "/api/trpc",

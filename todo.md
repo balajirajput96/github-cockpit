@@ -141,3 +141,17 @@
 - [x] Recheck Health Reels draft PR #1/#2 merge states without rebasing, pushing, or resolving social-automation policy conflicts blindly; both remain open drafts with conflicting/dirty merge state.
 - [x] Create and validate a focused repair only if a newly completed job exposes a reproducible product-code defect; no newly completed failed code job appeared, so no duplicate repair branch was created.
 - [x] Record any changed evidence and publish a cockpit update only when the source state changes; the safe handover audit records the unchanged external boundaries, while no cockpit source update is claimed.
+
+## Full Owner Workflow Remediation and Monitoring — 18 August 2026
+- [x] Reinventory recent current-main workflow runs across all active directly owned repositories and separate reproducible failures from queued, cancelled, historic, and third-party states; fresh sweep separated historical pnpm failures (now superseded by passing main CI), Dependabot platform states, and queues from reproducible current code failures.
+- [x] Inspect every newly reproducible current code or configuration failure and create minimal isolated repair branches only where a safe code fix exists; no new unresolved current product-code failure was found after confirming My AI Assistant, Atlas, Bulk Resume Sender, and AI Agent Hub current-main passes.
+- [ ] Validate repaired branches and current-main reruns; assess rebase only on clean, owner-controlled repair branches with passing checks and never force-push.
+- [x] Document safe scheduling options for workflow monitoring, including the existing daily digest and a no-publishing boundary for AI/social connectors; user selected a deterministic no-email/no-publishing dashboard monitor, while the earlier AI/Gmail digest remains paused.
+- [ ] Refresh Signal Ledger and checkpoint only after verified source or evidence changes.
+
+## Deterministic Signal Ledger Monitor — 19 August 2026
+- [x] Define a persisted, read-only workflow signal record with repository, run, status, classification, timestamp, and non-sensitive URL fields.
+- [x] Add an authenticated server-side GitHub signal collector that only reads current owner-repository workflow metadata and stores idempotent snapshots.
+- [x] Add a protected scheduled callback for periodic collection with cron-only authentication, idempotent error handling, and no email, social, merge, rebase, rerun, or settings actions.
+- [x] Add a dashboard monitor panel and deterministic unit tests for signal classification and presentation counts.
+- [ ] Validate the monitor, checkpoint the deployed source, and create the project-level periodic job only after the deployed callback is available.

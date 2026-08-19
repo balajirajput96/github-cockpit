@@ -1,7 +1,9 @@
 import { drizzle } from "drizzle-orm/mysql2";
 import { desc, eq } from "drizzle-orm";
-import { cockpitEvidence, cockpitReviewRecords, InsertUser, users } from "../drizzle/schema";
+import { cockpitEvidence, cockpitReviewRecords, InsertUser, users, workflowSignalSnapshots } from "../drizzle/schema";
 import { ENV } from './_core/env';
+import { collectWorkflowSignals, type WorkflowSignal } from "./workflowMonitor";
+import { getPublicPortfolio } from "./githubPublic";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
@@ -90,6 +92,7 @@ export async function getUserByOpenId(openId: string) {
 }
 
 export const DAILY_EVIDENCE_KEY = "daily-github-jules-evidence";
+export const WORKFLOW_MONITOR_EVIDENCE_KEY = "workflow-signal-monitor";
 export const PR46_REVIEW_KEY = "github-mcp-server-pr-46";
 
 export async function getDailyEvidence() {
@@ -144,6 +147,75 @@ export async function createPr46Review(ownerOpenId: string, decision: string, no
     ownerOpenId,
   });
   return getLatestPr46Review();
+}
+
+export async function getWorkflowMonitorEvidence() {
+  const db = await getDb();
+  if (!db) return null;
+  const [record] = await db.select().from(cockpitEvidence)
+    .where(eq(cockpitEvidence.evidenceKey, WORKFLOW_MONITOR_EVIDENCE_KEY)).limit(1);
+  return record ?? null;
+}
+
+export async function createWorkflowMonitorScheduleRecord(taskUid: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is unavailable for workflow monitor registration");
+  await db.insert(cockpitEvidence).values({
+    evidenceKey: WORKFLOW_MONITOR_EVIDENCE_KEY,
+    scheduleCronTaskUid: taskUid,
+    status: "scheduled",
+    source: "project-heartbeat-read-only",
+  }).onDuplicateKeyUpdate({
+    set: { scheduleCronTaskUid: taskUid, status: "scheduled", source: "project-heartbeat-read-only" },
+  });
+  return getWorkflowMonitorEvidence();
+}
+
+export async function recordWorkflowMonitorCallback(taskUid: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is unavailable for workflow monitor callback");
+  const [record] = await db.select().from(cockpitEvidence)
+    .where(eq(cockpitEvidence.scheduleCronTaskUid, taskUid)).limit(1);
+  if (!record || record.evidenceKey !== WORKFLOW_MONITOR_EVIDENCE_KEY) return null;
+  await db.update(cockpitEvidence).set({ status: "recorded", lastRecordedAt: new Date() })
+    .where(eq(cockpitEvidence.id, record.id));
+  return getWorkflowMonitorEvidence();
+}
+
+export async function saveWorkflowSignals(signals: WorkflowSignal[]) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is unavailable for workflow signal persistence");
+  for (const signal of signals) {
+    await db.insert(workflowSignalSnapshots).values(signal).onDuplicateKeyUpdate({
+      set: {
+        status: signal.status,
+        conclusion: signal.conclusion,
+        classification: signal.classification,
+        runUrl: signal.runUrl,
+        observedAt: signal.observedAt,
+      },
+    });
+  }
+  return signals.length;
+}
+
+export async function collectAndRecordWorkflowSignals() {
+  const portfolio = await getPublicPortfolio("balajirajput96", true);
+  const sourceRepositories = portfolio.repositories.map(repository => ({
+    full_name: repository.fullName,
+    archived: repository.archived,
+    fork: repository.fork,
+    updated_at: repository.updatedAt,
+  }));
+  const signals = await collectWorkflowSignals(sourceRepositories as never[]);
+  const recorded = await saveWorkflowSignals(signals);
+  return { recorded, signals };
+}
+
+export async function getLatestWorkflowSignals(limit = 24) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(workflowSignalSnapshots).orderBy(desc(workflowSignalSnapshots.observedAt)).limit(limit);
 }
 
 // TODO: add feature queries here as your schema grows.

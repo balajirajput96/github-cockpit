@@ -7,6 +7,7 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { AutomationStatusPanel } from "@/components/AutomationStatusPanel";
 import { JulesExecutionTimeline } from "@/components/JulesExecutionTimeline";
+import { WorkflowMonitorPanel } from "@/components/WorkflowMonitorPanel";
 import { startLogin } from "@/const";
 import { getImageLifecycle } from "@/lib/imageLifecycle";
 import { appendImageRequestEvent, type ImageRequestEvent } from "@/lib/imageRequestHistory";
@@ -222,6 +223,17 @@ export default function Home() {
     retry: false,
     refetchOnWindowFocus: false,
   });
+  const workflowSignalsQuery = trpc.cockpit.workflowSignals.useQuery(undefined, {
+    enabled: isAuthenticated,
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
+  const workflowMonitorEvidenceQuery = trpc.cockpit.workflowMonitorEvidence.useQuery(undefined, {
+    enabled: isAuthenticated,
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
+  const trpcUtils = trpc.useUtils();
 
   const [collapsed, setCollapsed] = useState(false);
   const [query, setQuery] = useState("");
@@ -245,6 +257,16 @@ export default function Home() {
   const imageMaker = trpc.agent.image.useMutation({
     onSuccess: () => toast.success("Original workspace visual created", { description: "The generated asset is stored server-side." }),
     onError: (error) => toast.error("Image could not be created", { description: error.message }),
+  });
+  const workflowCollector = trpc.cockpit.refreshWorkflowSignals.useMutation({
+    onSuccess: async (result) => {
+      await Promise.all([
+        trpcUtils.cockpit.workflowSignals.invalidate(),
+        trpcUtils.cockpit.workflowMonitorEvidence.invalidate(),
+      ]);
+      toast.success("Workflow signals collected", { description: `${result.recorded} public run snapshots stored. No GitHub action was triggered.` });
+    },
+    onError: (error) => toast.error("Workflow signal collection failed", { description: error.message }),
   });
 
   const filteredRepos = useMemo(() => {
@@ -382,6 +404,14 @@ export default function Home() {
 
           <JulesExecutionTimeline />
           <AutomationStatusPanel />
+          <WorkflowMonitorPanel
+            signals={workflowSignalsQuery.data ?? []}
+            isLoading={workflowSignalsQuery.isLoading}
+            isRefreshing={workflowCollector.isPending}
+            errorMessage={workflowSignalsQuery.error?.message}
+            lastRecordedAt={workflowMonitorEvidenceQuery.data?.lastRecordedAt}
+            onRefresh={() => workflowCollector.mutate()}
+          />
 
           <section className="live-register-section" id="live-register" aria-labelledby="live-register-title">
             <div className="section-heading repository-heading">
