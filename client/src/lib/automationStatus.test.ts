@@ -13,6 +13,7 @@ describe("automation status presentation", () => {
       "research-media",
       "live-provider-credential",
       "dependabot-queue",
+      "atlas-dependency-update",
       "jules-readiness",
       "antigravity-readiness",
       "dependabot",
@@ -38,13 +39,16 @@ describe("automation status presentation", () => {
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "normal-event-validation")?.detail).toContain("successful current-main workflow evidence");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "live-provider-credential")?.title).toContain("verified");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "live-provider-credential")?.detail).toContain("not read, logged, or stored");
-    expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "dependabot-queue")?.detail).toContain("external queue state, not a code failure");
+    expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "dependabot-queue")?.title).toContain("No open Dependabot PRs");
+    expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "dependabot-queue")?.detail).toContain("waits rather than rerunning, rebasing, or cancelling");
+    expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "atlas-dependency-update")?.title).toContain("Merged PR #3");
+    expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "atlas-dependency-update")?.detail).toContain("did not merge, rebase, or alter");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "jules-readiness")?.title).toContain("no Sentinel session");
   });
 
   it("summarizes current healthy, attention, and blocked automation items", () => {
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "biotech-outreach")?.detail).toContain("No application, resume attachment, or email is sent");
     expect(AUTOMATION_STATUS_ITEMS.find((item) => item.id === "mcp-lockfile-remediation")?.detail).toContain("does not claim an Actions runtime upgrade");
-    expect(summarizeAutomationStatus()).toEqual({ healthy: 12, attention: 3, blocked: 3 });
+    expect(summarizeAutomationStatus()).toEqual({ healthy: 13, attention: 3, blocked: 3 });
   });
 });
