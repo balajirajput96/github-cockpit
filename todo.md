@@ -227,3 +227,8 @@
 - [x] Inspect the static script contents for payload behavior, privilege escalation, and credential handling.
 - [x] Verify token security implications and report findings to the user before any installation decision.
 - [x] Install OpenClaw CLI and execute Kimi Claw installation successfully with the provided bot token.
+
+## Kimi Claw Follow-up Verification & Shortcuts — 20 August 2026
+- [x] Verify OpenClaw plugin status and configuration (`~/.openclaw/openclaw.json`).
+- [x] Configure practical skill shortcuts / helper routines for the workspace.
+- [x] Establish a safe recurring health-check schedule via Heartbeat / `manus-heartbeat`.
