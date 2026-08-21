@@ -283,6 +283,6 @@
 
 ## Comprehensive Cockpit Enhancement — 21 August 2026
 - [x] Record approved scope for live continuation progress bars, audit records, and milestone alerts.
-- [ ] Render live 2,400-cycle progress and milestone badges in Automation Status.
-- [ ] Add Agent Studio audit tab for historical autonomous execution records.
-- [ ] Run full test suite, build, and private mirror synchronization.
+- [x] Render live 2,400-cycle progress and milestone badges in Automation Status.
+- [x] Add Agent Studio audit tab for historical autonomous execution records.
+- [x] Run full test suite, build, and private mirror synchronization.
