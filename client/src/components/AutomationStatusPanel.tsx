@@ -43,7 +43,7 @@ export function AutomationStatusPanel() {
           </div>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "0.75rem", color: "#94A3B8" }}>
             <span>Status: <strong style={{ color: "#fff", textTransform: "capitalize" }}>{continuationData.status}</strong></span>
-            <span>Last Run: {new Date(continuationData.lastExecutionTimestamp).toLocaleTimeString()}</span>
+            <span>Last Run: {continuationData.lastExecutionTimestamp ? new Date(continuationData.lastExecutionTimestamp).toLocaleTimeString() : "awaiting first cycle"}</span>
           </div>
         </div>
       )}
@@ -70,7 +70,7 @@ export function AutomationStatusPanel() {
             {recordsData.slice(0, 4).map((rec: any, idx: number) => (
               <div key={idx} style={{ background: "#131613", border: "1px solid #262B26", borderRadius: "8px", padding: "0.75rem 1rem", fontSize: "0.75rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.50rem" }}>
-                  <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#10B981" }}></span>
+                  <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: rec.status === "recorded" || rec.status === "completed" ? "#10B981" : "#F59E0B" }}></span>
                   <span style={{ color: "#fff", fontFamily: "monospace" }}>Cycle #{rec.cycleNumber}</span>
                   <span style={{ color: "#94A3B8", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "160px" }}>{rec.actionDescription}</span>
                 </div>

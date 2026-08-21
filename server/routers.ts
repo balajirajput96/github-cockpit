@@ -6,11 +6,9 @@ import { generateImage } from "./_core/imageGeneration";
 import { invokeLLM } from "./_core/llm";
 import { systemRouter } from "./_core/systemRouter";
 import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_core/trpc";
-import { collectAndRecordWorkflowSignals, createDailyEvidenceScheduleRecord, createPr46Review, createWorkflowMonitorScheduleRecord, getDailyEvidence, getLatestPr46Review, getLatestWorkflowSignals, getWorkflowMonitorEvidence } from "./db";
+import { collectAndRecordWorkflowSignals, createDailyEvidenceScheduleRecord, createHourlyContinuationScheduleRecord, createPr46Review, createWorkflowMonitorScheduleRecord, getDailyEvidence, getHourlyContinuationEvidence, getHourlyContinuationState, getLatestHourlyContinuationCycles, getLatestPr46Review, getLatestWorkflowSignals, getWorkflowMonitorEvidence } from "./db";
 import { createHeartbeatJob } from "./_core/heartbeat";
 import { getPublicPortfolio } from "./githubPublic";
-import { loadContinuationState } from "./autonomousContinuation";
-import { getRecentAutonomousRecords } from "./autonomousRecord";
 
 const agentIntentSchema = z.enum(["repository", "automation", "media"]);
 
@@ -106,8 +104,9 @@ export const appRouter = router({
     workflowSignals: protectedProcedure.query(() => getLatestWorkflowSignals()),
     refreshWorkflowSignals: adminProcedure.mutation(() => collectAndRecordWorkflowSignals()),
     workflowMonitorEvidence: protectedProcedure.query(() => getWorkflowMonitorEvidence()),
-    continuationState: protectedProcedure.query(() => loadContinuationState()),
-    autonomousRecords: protectedProcedure.query(() => getRecentAutonomousRecords(25)),
+    continuationState: protectedProcedure.query(() => getHourlyContinuationState()),
+    autonomousRecords: protectedProcedure.query(() => getLatestHourlyContinuationCycles(12)),
+    hourlyContinuationEvidence: protectedProcedure.query(() => getHourlyContinuationEvidence()),
     latestReview: protectedProcedure.query(() => getLatestPr46Review()),
     recordPr46Review: adminProcedure.input(z.object({
       decision: z.literal("reviewed-hold-draft"),
@@ -135,6 +134,18 @@ export const appRouter = router({
         description: "Collect public GitHub workflow metadata into Signal Ledger only. Never email, publish, merge, rebase, rerun, or alter GitHub settings.",
       }, sessionToken);
       return createWorkflowMonitorScheduleRecord(job.taskUid);
+    }),
+    registerHourlyContinuationSchedule: adminProcedure.mutation(async ({ ctx }) => {
+      const existing = await getHourlyContinuationEvidence();
+      if (existing?.scheduleCronTaskUid) return existing;
+      const sessionToken = parseCookie(ctx.req.headers.cookie ?? "")[COOKIE_NAME] ?? "";
+      const job = await createHeartbeatJob({
+        name: "hourly-read-only-continuation",
+        cron: "0 0 * * * *",
+        path: "/api/scheduled/hourly-continuation",
+        description: "Bounded 2,400-cycle hourly GitHub workflow evidence refresh. Read-only: never merge, push, rebase, rerun, email, release, or alter GitHub settings.",
+      }, sessionToken);
+      return createHourlyContinuationScheduleRecord(job.taskUid);
     }),
   }),
   agent: router({

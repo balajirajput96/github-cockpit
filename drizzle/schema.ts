@@ -67,5 +67,23 @@ export const workflowSignalSnapshots = mysqlTable("workflow_signal_snapshots", {
   classificationIndex: index("workflow_signal_classification_idx").on(table.classification),
 }));
 
+export const hourlyContinuationCycles = mysqlTable("hourly_continuation_cycles", {
+  id: int("id").autoincrement().primaryKey(),
+  cycleKey: varchar("cycle_key", { length: 128 }).notNull(),
+  cycleNumber: int("cycle_number").notNull(),
+  maxCycles: int("max_cycles").notNull().default(2400),
+  status: varchar("status", { length: 32 }).notNull(),
+  action: varchar("action", { length: 160 }).notNull(),
+  signalsRecorded: int("signals_recorded").notNull().default(0),
+  recoveryQueue: text("recovery_queue"),
+  startedAt: timestamp("started_at").defaultNow().notNull(),
+  completedAt: timestamp("completed_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+}, (table) => ({
+  cycleKeyUnique: uniqueIndex("hourly_continuation_cycle_key_unique").on(table.cycleKey),
+  cycleNumberIndex: index("hourly_continuation_cycle_number_idx").on(table.cycleNumber),
+  completedAtIndex: index("hourly_continuation_completed_at_idx").on(table.completedAt),
+}));
+
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;

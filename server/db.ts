@@ -1,9 +1,10 @@
 import { drizzle } from "drizzle-orm/mysql2";
-import { desc, eq } from "drizzle-orm";
-import { cockpitEvidence, cockpitReviewRecords, InsertUser, users, workflowSignalSnapshots } from "../drizzle/schema";
+import { count, desc, eq } from "drizzle-orm";
+import { cockpitEvidence, cockpitReviewRecords, hourlyContinuationCycles, InsertUser, users, workflowSignalSnapshots } from "../drizzle/schema";
 import { ENV } from './_core/env';
 import { collectWorkflowSignals, type WorkflowSignal } from "./workflowMonitor";
 import { getPublicPortfolio } from "./githubPublic";
+import { buildHourlyCycleKey, buildRecoveryQueue, continuationStatus, HOURLY_CONTINUATION_MAX_CYCLES } from "./hourlyContinuation";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
@@ -93,6 +94,7 @@ export async function getUserByOpenId(openId: string) {
 
 export const DAILY_EVIDENCE_KEY = "daily-github-jules-evidence";
 export const WORKFLOW_MONITOR_EVIDENCE_KEY = "workflow-signal-monitor";
+export const HOURLY_CONTINUATION_EVIDENCE_KEY = "hourly-read-only-continuation";
 export const PR46_REVIEW_KEY = "github-mcp-server-pr-46";
 
 export async function getDailyEvidence() {
@@ -180,6 +182,100 @@ export async function recordWorkflowMonitorCallback(taskUid: string) {
   await db.update(cockpitEvidence).set({ status: "recorded", lastRecordedAt: new Date() })
     .where(eq(cockpitEvidence.id, record.id));
   return getWorkflowMonitorEvidence();
+}
+
+export async function getHourlyContinuationEvidence() {
+  const db = await getDb();
+  if (!db) return null;
+  const [record] = await db.select().from(cockpitEvidence)
+    .where(eq(cockpitEvidence.evidenceKey, HOURLY_CONTINUATION_EVIDENCE_KEY)).limit(1);
+  return record ?? null;
+}
+
+export async function createHourlyContinuationScheduleRecord(taskUid: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is unavailable for hourly continuation schedule registration");
+  await db.insert(cockpitEvidence).values({
+    evidenceKey: HOURLY_CONTINUATION_EVIDENCE_KEY,
+    scheduleCronTaskUid: taskUid,
+    status: "scheduled",
+    source: "project-heartbeat-read-only-hourly",
+  }).onDuplicateKeyUpdate({
+    set: { scheduleCronTaskUid: taskUid, status: "scheduled", source: "project-heartbeat-read-only-hourly" },
+  });
+  return getHourlyContinuationEvidence();
+}
+
+export async function getHourlyContinuationState() {
+  const db = await getDb();
+  if (!db) return null;
+  const [countResult] = await db.select({ value: count() }).from(hourlyContinuationCycles);
+  const [latest] = await db.select().from(hourlyContinuationCycles)
+    .orderBy(desc(hourlyContinuationCycles.completedAt), desc(hourlyContinuationCycles.id)).limit(1);
+  const currentCycle = Number(countResult?.value ?? 0);
+  return {
+    currentCycle,
+    maxCycles: HOURLY_CONTINUATION_MAX_CYCLES,
+    status: latest?.status ?? "idle",
+    lastExecutionTimestamp: latest?.completedAt?.toISOString() ?? null,
+    lastAction: latest?.action ?? "awaiting-first-hourly-cycle",
+    signalsRecorded: latest?.signalsRecorded ?? 0,
+    recoveryQueue: latest?.recoveryQueue ? JSON.parse(latest.recoveryQueue) : [],
+  };
+}
+
+export async function getLatestHourlyContinuationCycles(limit = 12) {
+  const db = await getDb();
+  if (!db) return [];
+  const records = await db.select().from(hourlyContinuationCycles)
+    .orderBy(desc(hourlyContinuationCycles.completedAt), desc(hourlyContinuationCycles.id)).limit(limit);
+  return records.map((record) => ({
+    cycleNumber: record.cycleNumber,
+    actionDescription: record.action,
+    status: record.status,
+    timestamp: record.completedAt?.toISOString() ?? record.startedAt.toISOString(),
+    signalsRecorded: record.signalsRecorded,
+    recoveryQueue: record.recoveryQueue ? JSON.parse(record.recoveryQueue) : [],
+  }));
+}
+
+export async function recordHourlyContinuationCallback(taskUid: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is unavailable for hourly continuation callback");
+  const [evidence] = await db.select().from(cockpitEvidence)
+    .where(eq(cockpitEvidence.scheduleCronTaskUid, taskUid)).limit(1);
+  if (!evidence || evidence.evidenceKey !== HOURLY_CONTINUATION_EVIDENCE_KEY) return null;
+
+  const cycleKey = buildHourlyCycleKey(taskUid);
+  const [existing] = await db.select().from(hourlyContinuationCycles)
+    .where(eq(hourlyContinuationCycles.cycleKey, cycleKey)).limit(1);
+  if (existing) return { skipped: "idempotent", cycleNumber: existing.cycleNumber, signalsRecorded: existing.signalsRecorded };
+
+  const [countResult] = await db.select({ value: count() }).from(hourlyContinuationCycles);
+  const cycleNumber = Number(countResult?.value ?? 0) + 1;
+  if (cycleNumber > HOURLY_CONTINUATION_MAX_CYCLES) {
+    await db.update(cockpitEvidence).set({ status: "completed", lastRecordedAt: new Date() })
+      .where(eq(cockpitEvidence.id, evidence.id));
+    return { skipped: "cycle-ceiling", cycleNumber: HOURLY_CONTINUATION_MAX_CYCLES, signalsRecorded: 0 };
+  }
+
+  const collection = await collectAndRecordWorkflowSignals();
+  const now = new Date();
+  const recoveryQueue = buildRecoveryQueue(collection.signals);
+  const status = continuationStatus(cycleNumber);
+  await db.insert(hourlyContinuationCycles).values({
+    cycleKey,
+    cycleNumber,
+    maxCycles: HOURLY_CONTINUATION_MAX_CYCLES,
+    status,
+    action: "read-only-github-workflow-evidence-refresh",
+    signalsRecorded: collection.recorded,
+    recoveryQueue: JSON.stringify(recoveryQueue),
+    completedAt: now,
+  });
+  await db.update(cockpitEvidence).set({ status, lastRecordedAt: now })
+    .where(eq(cockpitEvidence.id, evidence.id));
+  return { cycleNumber, signalsRecorded: collection.recorded, recoveryItems: recoveryQueue.length, status };
 }
 
 export async function saveWorkflowSignals(signals: WorkflowSignal[]) {
