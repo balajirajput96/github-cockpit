@@ -244,3 +244,9 @@
 - [x] Audit historical state, active schedules, GitHub CLI, and private mirror synchronization.
 - [x] Implement bounded hourly continuation state (`server/autonomousContinuation.ts` + unit tests).
 - [x] Run full validation (TypeScript, Vitest, build, audit) and verify private mirror delivery.
+
+## Cockpit Continuation Status & Telemetry Extension — 20 August 2026
+- [x] Record requirements for displaying bounded 2400-cycle status and execution telemetry in the Signal Ledger UI.
+- [x] Implement backend API route for continuation state and telemetry.
+- [x] Update frontend Automation Status / Cockpit panel to display live continuation progress.
+- [x] Run full test suite, build, and private mirror synchronization.

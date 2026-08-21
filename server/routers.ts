@@ -9,6 +9,8 @@ import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_
 import { collectAndRecordWorkflowSignals, createDailyEvidenceScheduleRecord, createPr46Review, createWorkflowMonitorScheduleRecord, getDailyEvidence, getLatestPr46Review, getLatestWorkflowSignals, getWorkflowMonitorEvidence } from "./db";
 import { createHeartbeatJob } from "./_core/heartbeat";
 import { getPublicPortfolio } from "./githubPublic";
+import { loadContinuationState } from "./autonomousContinuation";
+import { getRecentAutonomousRecords } from "./autonomousRecord";
 
 const agentIntentSchema = z.enum(["repository", "automation", "media"]);
 
@@ -104,6 +106,8 @@ export const appRouter = router({
     workflowSignals: protectedProcedure.query(() => getLatestWorkflowSignals()),
     refreshWorkflowSignals: adminProcedure.mutation(() => collectAndRecordWorkflowSignals()),
     workflowMonitorEvidence: protectedProcedure.query(() => getWorkflowMonitorEvidence()),
+    continuationState: protectedProcedure.query(() => loadContinuationState()),
+    autonomousRecords: protectedProcedure.query(() => getRecentAutonomousRecords(25)),
     latestReview: protectedProcedure.query(() => getLatestPr46Review()),
     recordPr46Review: adminProcedure.input(z.object({
       decision: z.literal("reviewed-hold-draft"),
