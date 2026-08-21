@@ -45,3 +45,13 @@ No authentication bypass, exposed-token use, connector mutation, secret creation
 The selected project-owned Heartbeat `hourly-read-only-continuation` was registered with task UID `ary8FmeD4XcnFUfwAazZKD`, enabled, and set to `0 0 * * * *` (hourly UTC). Its durable `cockpit_evidence` registration record is present. A temporary one-minute verification cadence was set and then restored to hourly; both update commands returned a client timeout but the platform persisted the requested value, as confirmed by the subsequent job listing.
 
 At the time of this record the platform had not yet produced an execution log for the new task. The deployed route, cron-only authorization behavior, orphan behavior, idempotency helpers, schema, TypeScript validation, 47 Vitest tests, and production build have all been verified. The first actual platform callback remains an operational observation to inspect through Heartbeat logs, not a result to fabricate.
+
+### First observed executions
+
+The first five automatic platform callbacks were later verified through Heartbeat execution logs. All returned HTTP 200 with `status: "recorded"`, cycle numbers 1–5, zero GitHub workflow signals recorded, and zero recovery items. Durable database rows have matching hour-key cycle IDs and completion timestamps. The hourly job remains enabled; these cycles performed no GitHub write, merge, rebase, rerun, release, secret mutation, notification, or agent-session action.
+
+### Fresh signal reconciliation
+
+The post-cycle authenticated owner audit covered 43 repositories and showed seven failed historical/current records, 20 queued records, and two open pull requests. Exact-run review found that the fresh `autonomous-engineering-maintenance` failure is superseded by merged PR #2, and current-main evidence supersedes the reviewed failure records for `pharma-qa-job-tracker`, `vscode-copilot-cha`, `ai-agent-hub`, `open-assistant`, and `my-ai-assistant`. The two reviews remain untouched: `automation-control-center-app` #11 is mergeable but unstable, and `vscode-copilot-cha` #21 is a clean draft.
+
+The hourly callback's zero-signal records are consistent with its explicit public top-20 monitor. Its selected overlapping repositories have only successful latest Actions runs. The owner audit includes older failures and repositories beyond that public selection; broad private owner coverage would require a separately authorized server-side GitHub credential, which was not created or used.
