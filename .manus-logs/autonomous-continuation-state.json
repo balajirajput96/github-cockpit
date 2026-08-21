@@ -5,8 +5,8 @@
   "status": "idle",
   "lastAction": "GitHub CI repair sweep recorded; review branch validation and external blockers handed to next cycle",
   "pendingWorkItems": [
-    "verify-git-mirror",
-    "check-workflow-monitor",
-    "validate-tests"
+    "monitor-draft-pr-4-review",
+    "refresh-owner-ci-inventory",
+    "recheck-external-queues"
   ]
 }
