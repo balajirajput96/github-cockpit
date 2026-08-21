@@ -30,6 +30,7 @@ A focused source-level regression test was added to prevent the panel from rever
 | Production build | **Passed**; only pre-existing analytics/static-asset/chunk-size warnings appeared |
 | `git diff --check` | **Passed** |
 | `pnpm audit --audit-level=high` | **No known vulnerabilities** |
+| Hosted Signal Ledger CI for draft PR #4 | **Run 32461229421 passed** |
 
 ## Blockers and safety boundaries
 
@@ -37,7 +38,7 @@ Required reviews remain required for the eight non-draft owner-controlled PRs. T
 
 ## Next continuation
 
-The next cycle should re-read this report and the attached snapshots, verify that the review branch’s hosted check completes, refresh the current default-branch and owner-PR inventory, and only diagnose a new failure if it is completed, current, reproducible, and attributable to repository code or configuration. If no such failure exists, preserve the review branch for normal owner review and record the external queue/review blockers without mutation.
+The review branch’s hosted Signal Ledger CI completed successfully in run [32461229421](https://github.com/balajirajput96/github-cockpit/actions/runs/32461229421). The next cycle should re-read this report and the attached snapshots, refresh the current default-branch and owner-PR inventory, and only diagnose a new failure if it is completed, current, reproducible, and attributable to repository code or configuration. If no such failure exists, preserve draft PR #4 for normal owner review and record the external queue/review blockers without mutation.
 
 ## References
 
