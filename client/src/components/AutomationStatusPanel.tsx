@@ -48,6 +48,27 @@ export function AutomationStatusPanel() {
         </div>
       )}
 
+      {continuationData && (
+        <div style={{ margin: "-0.5rem 0 1.25rem", border: "1px solid #2D332D", borderRadius: "10px", padding: "1rem", background: "#FCFBF6" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem", marginBottom: "0.65rem" }}>
+            <strong style={{ fontSize: "0.78rem", letterSpacing: "0.04em", textTransform: "uppercase" }}>Read-only recovery queue</strong>
+            <span style={{ color: "#6B7665", fontSize: "0.72rem" }}>evidence only · no automatic retry</span>
+          </div>
+          {continuationData.recoveryQueue.length === 0 ? (
+            <p style={{ margin: 0, color: "#6B7665", fontSize: "0.8rem" }}>No non-healthy workflow signals have been recorded by the hourly cycle yet.</p>
+          ) : (
+            <div style={{ display: "grid", gap: "0.45rem" }}>
+              {continuationData.recoveryQueue.map((item: { repository: string; workflowName: string; classification: string; runUrl: string }) => (
+                <a key={`${item.repository}-${item.workflowName}-${item.runUrl}`} href={item.runUrl} target="_blank" rel="noreferrer" style={{ display: "flex", justifyContent: "space-between", gap: "0.75rem", color: "#1B251B", fontSize: "0.78rem", textDecoration: "none" }}>
+                  <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{item.repository} · {item.workflowName}</span>
+                  <span style={{ color: "#9A5B16", fontFamily: "monospace" }}>{item.classification}</span>
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
       <div className="automation-status-grid">
         {AUTOMATION_STATUS_ITEMS.map((item) => (
           <article className={`automation-status-card is-${item.tone}`} key={item.id}>

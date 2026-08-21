@@ -39,3 +39,9 @@ The cockpit currently exposes a 2,400-cycle continuation panel, but its state an
 ## Preserved operational boundaries
 
 No authentication bypass, exposed-token use, connector mutation, secret creation, application submission, email/outreach, repository merge, rebase, force push, release, or deployment change was performed by this audit.
+
+## Hourly continuation registration
+
+The selected project-owned Heartbeat `hourly-read-only-continuation` was registered with task UID `ary8FmeD4XcnFUfwAazZKD`, enabled, and set to `0 0 * * * *` (hourly UTC). Its durable `cockpit_evidence` registration record is present. A temporary one-minute verification cadence was set and then restored to hourly; both update commands returned a client timeout but the platform persisted the requested value, as confirmed by the subsequent job listing.
+
+At the time of this record the platform had not yet produced an execution log for the new task. The deployed route, cron-only authorization behavior, orphan behavior, idempotency helpers, schema, TypeScript validation, 47 Vitest tests, and production build have all been verified. The first actual platform callback remains an operational observation to inspect through Heartbeat logs, not a result to fabricate.
