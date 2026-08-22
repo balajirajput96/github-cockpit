@@ -307,6 +307,6 @@
 
 ## Hindi Research-Reels Pipeline Enhancement — 22 August 2026
 - [x] Record requirements for bounded batch scheduling, Hindi TTS generation, and Agent Studio media gallery integration.
-- [ ] Implement bounded Batch_001 continuation scheduler and text-to-speech voiceover workflow for Hindi reels.
-- [ ] Add Drive-linked media gallery in Agent Studio / Automation Panel.
-- [ ] Run complete validation (TypeScript, Vitest, build, audit) and synchronize with private GitHub mirror (`github-cockpit`).
+- [x] Implement bounded Batch_001 continuation scheduler and text-to-speech voiceover workflow for Hindi reels.
+- [x] Add Drive-linked media gallery in Agent Studio / Automation Panel.
+- [x] Run complete validation (TypeScript, Vitest, build, audit) and synchronize with private GitHub mirror (`github-cockpit`).
