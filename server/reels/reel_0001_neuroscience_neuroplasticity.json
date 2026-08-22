@@ -1,0 +1,51 @@
+{
+  "reelNumber": "0001",
+  "topic": "Neuroplasticity and Habit Formation",
+  "hindiTitle": "आदत क्यों नहीं छूटती? मस्तिष्क की रीवायरिंग का सच",
+  "durationSeconds": 60,
+  "aspectRatio": "9:16",
+  "research": {
+    "claim": "Neural pathways strengthen with repeated activation (Heian learning / neuroplasticity), making default habit loops physical brain structures.",
+    "sources": [
+      {
+        "title": "Principles of Neural Science",
+        "author": "Eric Kandel (Nobel Laureate)",
+        "type": "Academic Textbook / Neuroscience",
+        "keyFinding": "Synaptic plasticity forms the cellular analog of learning and memory."
+      },
+      {
+        "title": "The Power of Habit",
+        "author": "Charles Duhigg",
+        "type": "Behavioral Science Book",
+        "keyFinding": "Habit loops (cue, routine, reward) carve basal ganglia pathways that persist even when suppressed."
+      }
+    ]
+  },
+  "script": [
+    {
+      "second": "0-5",
+      "visual": "Cinematic close-up of glowing glowing neural synapses firing inside a human brain, 3D render.",
+      "narrationHindi": "क्या आपने कभी सोचा है कि पुरानी आदतें छोड़ना इतना मुश्किल क्यों होता है?"
+    },
+    {
+      "second": "5-15",
+      "visual": "Animated neurons connecting and forming thick glowing highways of light, neuroscience style.",
+      "narrationHindi": "साइंस कहती है कि हर बार जब आप कोई काम दोहराते हैं, तो आपके दिमाग के न्यूरॉन्स के बीच का कनेक्शन और मजबूत हो जाता है।"
+    },
+    {
+      "second": "15-30",
+      "visual": "Split screen comparing a dense overgrown jungle path versus a wide paved superhighway.",
+      "narrationHindi": "नोबेल पुरस्कार विजेता एरिक केंडल के अनुसार, इसे न्यूरोप्लास्टिसिटी कहते हैं। पुराना रास्ता जंगल के कच्चे रास्ते जैसा है, और नई आदत एक नया हाईवे बनाने जैसी है।"
+    },
+    {
+      "second": "30-45",
+      "visual": "Bright neural sparks crossing synapses as conscious effort breaks an old loop and starts a new one.",
+      "narrationHindi": "दिमाग हमेशा ऊर्जा बचाने के लिए पुराने हाईवे पर चलना चाहता है। इसलिए सिर्फ इच्छाशक्ति काफी नहीं है।"
+    },
+    {
+      "second": "45-60",
+      "visual": "Calm, focused human brain glowing in serene blue light with floating Sanskrit/scientific wisdom symbols.",
+      "narrationHindi": "नया रास्ता बनाने के लिए लगातार 21 से 66 दिनों तक छोटे प्रयास चाहिए। आज ही एक छोटा कदम उठाएं। चैनल को सब्सक्राइब करें!"
+    }
+  ]
+}
